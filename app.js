@@ -18,6 +18,10 @@ app.get('/about.html', (req, res) => {
 app.get('/contact.html', (req, res) => {
     res.render('contact');
 })
+app.get('/login', (req, res) => {
+    res.render('vwAccount/login');
+})
+
 
 app.use(function (req, res) {
     res.render('404');
