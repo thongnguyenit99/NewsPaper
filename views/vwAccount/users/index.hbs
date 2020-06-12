@@ -1,0 +1,112 @@
+<!--Content-->
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-xs-10 col-sm-3">
+                <div class="usermanage">
+                    <span style="margin-left: 15%; font-weight: bold;">Xin chào thông nguyễn</span>
+                    <hr class="hr-user">
+                    <ul class="u-m-ul">
+                        <li>
+                            <a class="u-m" href="#">
+                                <i class='fas fa-address-card'></i>
+                                <span>Thông tin tài khoản</span></a>
+                        </li>
+                        <li>
+                            <a class="u-m" href="#">
+                                <i class='fas fa-comment'></i>
+                                <span>Thông báo của tôi</span></a>
+                        </li>
+                        <li>
+                            <a class="u-m" href="#">
+                                <i class='fas fa-user-cog'></i>
+                                <span>Quản lý đơn hàng</span></a>
+                        </li>
+                        <li>
+                            <a class="u-m" href="#">
+                                <i class='far fa-bell'></i>
+                                <span>Lịch sử đơn đặt hàng</span></a>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+            <div class="col-md-9 col-xs-10 col-sm-9">
+                <div class="info-user">
+                    <form>
+                        <h4 id="u-h4">Thông tin tài khoản</h4>
+                        <div class="form-group row">
+                            <label for="uname" class="col-sm-3 col-form-label">Họ tên</label>
+                            <div class="col-sm-6 col-md-6">
+                                <input type="text" class="form-control" id="uname" placeholder="Nguyễn Văn Thông">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="uphone" class="col-sm-3 col-form-label">Số điện thoại</label>
+                            <div class="col-sm-6 col-md-6">
+                                <input type="text" class="form-control" id="uphone" placeholder="090986400 có">
+                            </div>
+                        </div>
+                        <!--Email-->
+                        <div class="form-group row">
+                            <label for="umail" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-6 col-md-6">
+                                <input type="text" class="form-control" id="umail" value="cskh@deploy99.com">
+                            </div>
+                        </div>
+                        <!--Gender-->
+                        <div class="form-group row">
+                            <label for="ugender" class="col-sm-3 col-form-label">Giới tính</label>
+                            <div class="col-sm-6 col-md-6">
+                                <label class="radio-inline" id="unam">
+                                    <input type="radio" name="optradio">Nam
+                                </label>
+                                <label class="radio-inline" id="unu">
+                                    <input type="radio" name="optradio">Nữ
+                                </label>
+                                <label class="radio-inline" id="ukhac">
+                                    <input type="radio" name="optradio">Khác
+                                </label>
+                            </div>
+                        </div>
+                        <!--Ngay sinh-->
+                        <div class="form-group row">
+                            <label for="ungaysinh" class="col-sm-3 col-form-label">Ngày sinh</label>
+                            <div class="col-sm-6 col-md-6">
+                                <input type="date" class="form-control" id="ungaysinh">
+                            </div>
+                        </div>
+                        <!--Mật khẩu-->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" id="checkmatkhau" onclick="check()">Thay đổi mật
+                                        khẩu</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Khi bấm check mật khẩu sẽ có form hiện lên-->
+                        <div class="form-group row">
+                            <div class="col-md-10 col-xs-10 col-sm-9">
+                                <div id="matkhau"></div>
+                            </div>
+                        </div>
+                        <!--btn cập nhật-->
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10 col-md-12" id="Ubtn">
+                                <button type="submit" class="btn btn-success">Cập nhật</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
