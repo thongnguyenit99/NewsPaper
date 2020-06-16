@@ -16,17 +16,94 @@
     <link rel="stylesheet" type="text/css" href="css/style-error.css">
     <link rel="stylesheet" type="text/css" href="css/style-about-us.css">
     <link rel="stylesheet" type="text/css" href="css/style-contact.css">
+    <link rel="stylesheet" type="text/css" href="css/menu.css">
 
 </head>
 
 <body>
     <div id="header">
-        <div class="jumbotron text-center mb-0">
-            <h1 class="display-1">Welcom to deploy99</h1>
-            <p>DEPLOY99 COMPANY</p>
+        {{!-- <div class="jumbotron text-center mb-0 ">
+            <div class="row">
+            <h3>Welcom to deploy99</h3>
+            <div><form class="form-inline search-form ml-auto mr-5" id="search-form" action="#">
+                <div class="row">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="button" class="btn btn-dark" id="search-btn">
+                        <i class="fas fa-search center-right"></i>
+                    </button>
+            
+            </form></div>
+            <div><ul class="navbar-nav ml-5">
+            
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white;" href="/login">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        Login
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white;" href="/register">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                        Register
+                    </a>
+                </li>
+            </ul></div>
+           
+            </div>
+            
+        </div> --}}
+        <div id="quick-contact">
+            <ul>
+                <li class="quick-call"><a href="tel:0345870xxx">0345.870.xxx </a></li>
+                <li class="quick-email"><a href="mailto:cskh@deploy99.vn">cskh@deploy99.vn</a></li>
+                <li class="quick-login"><a href="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Đăng nhập</a></li>
+                <li class="quick-register"><a href="register"><i class="fa fa-user-plus" aria-hidden="true"></i> Đăng ký</a></li>
+        
+            </ul>
+        </div>
+        <div class="header-container">
+            <div class="header-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-4 hidden-xs">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-3 col-xs-12">
+                                        <!-- Header Logo -->
+                                        <div class="logo">
+                                            <a title="e-commerce" href="/"> </a>
+                                            <div class="form-group-row">&nbsp;
+                                                <a href="/" rel="home">
+                                                    <img src="img/logo.png"sizes="32x32" alt="thong-bo-chon-SEO" />
+                                                    Deploy99</a>
+                                            </div>
+                                            &nbsp;
+                                        </div>
+                                        <!-- End Header Logo -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 col-md-4 col-xs-12 mt-4">
+                            <form class="form-inline search-form ml-auto mr-5" id="search-form" action="#">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Từ khóa tìm kiếm..">
+                                </div>
+                                <button type="button" class="btn btn-dark" id="search-btn">
+                                    <i class="fas fa-search center-right"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-4 col-xs-12 mt-4"><p  id="deploy99"></p></div>
+                    </div>
+        
+                </div>
+            </div>
         </div>
     </div>
-    <nav class="navbar navbar-expand-xl navbar-dark " style="background-color: #00558c;">
+    {{!-- <nav class="navbar navbar-expand-xl navbar-dark " style="background-color: #00558c;">
         <div class="container">
             <button class="navbar-toggler d-xl-none" type="button" data-toggle="collapse"
                 data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
@@ -38,13 +115,13 @@
                 <ul class="navbar-nav">
                     <li class="nav-item" id="home">
                         <a class="nav-link" style="color: white;" href="/"><i class="fa fa-home"
-                                aria-hidden="true"></i> Trang chủ<span class="sr-only">(current)</span></a>
+                                aria-hidden="true"></i> TRANG CHỦ<span class="sr-only">(current)</span></a>
                     </li>
 
                     <li class="nav-item dropdown" style="color: white;" id="chungkhoan">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Chứng Khoán
+                            CHỨNG KHOÁN
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item text-primary" href="#">Cổ phiếu top đầu</a>
@@ -54,7 +131,7 @@
                     <li class="nav-item dropdown" style="color: white;" id="doanhnghiep">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Doanh Nghiệp
+                            DOANH NGHIỆP
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item text-primary" href="#">Bất động sản</a>
@@ -65,7 +142,7 @@
                     <li class="nav-item dropdown" style="color: white;" id="taichinh">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Tài Chính
+                           TÀI CHÍNH
                         </a>
                         <div class="dropdown-menu " aria-labelledby="dropdownId">
                             <a class="dropdown-item text-primary" href="#">Ngân hàng hiện đại</a>
@@ -159,10 +236,43 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> --}}
+    <div id="menu">
+        <ul>
+            <li><a href="/" id="home"><i class="fa fa-home" aria-hidden="true"></i><span class="sr-only">(current)</span> TRANG CHỦ</a>
+            </li>
+            <li><a href="#" id="chungkhoan">CHỨNG KHOÁN</a>
+                <ul class="sub-menu">
+                    <li><a href="#">Cổ phiếu top đầu</a></li>
+                    <li><a href="#">Xu hướng nhận định</a></li>
+                </ul>
+            </li>
+            <li><a href="#" id="doanhnghiep">DOANH NGHIỆP</a>
+                <ul class="sub-menu">
+                    <li><a href="#">Bất động sản</a></li>
+                    <li><a href="#">Doanh nghiệp niêm yết</a></li>
+                </ul>
+            </li>
+            <li><a href="#" id="taichinh">TÀI CHÍNH</a>
+                <ul class="sub-menu">
+                    <li><a href="#">Ngân hàng hiện đại</a></li>
+                    <li><a href="#">Thương mại điện tử</a></li>
+                </ul>
+            </li>
+            <li><a href="about.html" id="about">GIỚI THIỆU</a>
+            </li>
+            <li><a href="contact.html" id="contact">LIÊN LẠC</a>
+            </li>
+         
+ 
+        </ul>
+
+    </div>
     {{{body}}}
     <div class="jumbotron text-center mb-0" id="footer">
         © Copyright 2020, All rights reserved. Design by The deploy99
+        <a id="back-to-top" style="float: right;" href="#" class="btn btn-info btn-md back-to-top" role="button"><i
+                class="fa fa-eject"></i></a>
     </div>
 
     <!-- Optional JavaScript -->
@@ -174,7 +284,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
         </script>
+    <script>
+        var today = new Date();
+        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ',Cập nhật lúc ' + time+' GMT+7';
+
+        document.getElementById("deploy99").innerHTML = dateTime;
+    </script>
     <script src="./scripts/lazysizes.min.js" async=""></script>
+    
 </body>
 
 </html>
