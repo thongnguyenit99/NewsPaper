@@ -3,7 +3,9 @@
     height: 250px;
     border-radius: 2%;
 }
-
+.about-page{
+    margin: 2%;
+}
 .info-avatar h5{
     text-align: center;
     color: green;
@@ -28,7 +30,8 @@
     margin-top: 5%;
 }
  li{
-   list-style-type: none;}
+   list-style-type: none;
+}
 
 .col-xs-12.col-sm-6.col-md-6 a{
     margin-left: 1%;

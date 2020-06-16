@@ -82,3 +82,60 @@
         display: block;
     }
 }
+#quick-contact ul {
+            background: #f4f5f7;
+            list-style-type: none;
+            text-align: left;
+            margin-left: 0px;
+           
+        }
+        
+#quick-contact li {
+            display: inline;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            margin-left: 5px;
+            
+        }
+        
+ .quick-call a {
+            color: #6c757d;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 17px;
+            font-family:  sans-serif;
+            float: left;
+            white-space: nowrap;
+        }
+        
+.quick-email a {
+            margin-left: 5%;
+            color: #6c757d;
+            float: left;
+            text-decoration: none;
+            font-size: 17px;
+            font-family:  sans-serif;
+        }
+.quick-login ,.quick-register {
+    float: right;
+   
+}
+.quick-login ,.quick-register {
+    float: right;
+   
+}
+.quick-login a,.quick-register a{
+    text-decoration: none;
+    color: #6c757d;
+    font-size: 17px;
+    font-family:  sans-serif;
+}
+.quick-login a:hover,.quick-register a:hover,.quick-call a:hover,.quick-email a:hover{
+    text-decoration: none;
+    color: blue;
+    
+}
+.content{
+    z-index: initial;
+}
