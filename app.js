@@ -15,9 +15,8 @@ app.set('view engine', 'hbs');
 
 app.use(express.static('./public/'));
 app.use('/', require('./routes/Home.route'));
-app.use('/', require('./routes/Sign.route'));
-//app.use('/', require('./routes/Admin.route'));
-app.use('/', require('./routes/Reg.route'));
+app.use('/', require('./routes/_account.route'));
+
 
 app.use(function (req, res) {
     res.render('404');

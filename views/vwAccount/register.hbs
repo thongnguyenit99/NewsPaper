@@ -46,7 +46,7 @@
 
 <script>
     $('#txtDOB').datetimepicker({
-        format: 'd/m/Y',
+        format: 'm/d/Y',
         timepicker: false,
         mask: true,
     });
@@ -59,20 +59,79 @@ $('#frmRegister').on('submit', function (e) {
     validate();
   })
 
-// validation function
+    function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+function scorePassword(pass) {
+    var score = 0;
+    if (!pass)
+        return score;
+
+    // award every unique letter until 5 repetitions
+    var letters = new Object();
+    for (var i=0; i<pass.length; i++) {
+        letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+        score += 5.0 / letters[pass[i]];
+    }
+
+    // bonus points for mixing it up
+    var variations = {
+        digits: /\d/.test(pass),
+        lower: /[a-z]/.test(pass),
+        upper: /[A-Z]/.test(pass),
+        nonWords: /\W/.test(pass),
+    }
+
+    variationCount = 0;
+    for (var check in variations) {
+        variationCount += (variations[check] == true) ? 1 : 0;
+    }
+    score += (variationCount - 1) * 10;
+
+    return parseInt(score);
+}
 
   function validate() {
     // ... các lệnh validate khác
     const user = $('#username').val();
-        if( user== ""){
-        alert('null')
+    const email = $('#email').val();
+    const password = $('#password').val();
+    const password_cf = $('#password_cf').val();
+    /*if(user== ""){
+        alert('Tên đăng nhập không được rỗng.')
+            return false;
+    }
+    if(user.length < 8 ){
+        alert('Tên đăng nhập phải từ 8 ký tự.')
         return false;
     }
+    if(!validateEmail(email)){
+        alert('Email không hợp lệ.')
+        return false;
+    }
+    if(password == ""){
+         alert('Mật khẩu không được rỗng.');
+        return false;
+    }
+    if(scorePassword(password) <=30){
+        alert('Mật khẩu yếu.');
+        return false;
+    }
+    if(password_cf == ""){
+        alert("Xác nhận mật khẩu rỗng");
+        return false;
+    }
+    if(password_cf != password){
+        alert("Xác nhận mật khẩu khác với mật khẩu ở trên.");
+        return false;
+    }*/
     $.getJSON(`/is-available?user=${user}`, function (data) {
       if (data === false) {
         $('#frmRegister').off('submit').submit();
       } else {
-        alert('not available');
+        alert('Tên đăng nhập đã tồn tại.');
       }
     })
   }
@@ -98,21 +157,21 @@ $('#frmRegister').on('submit', function (e) {
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
             </div>
-            <input name="" class="form-control" placeholder="Tên đăng nhập" id="username" type="text">
+            <input name="username" class="form-control" placeholder="Tên đăng nhập" id="username" type="text">
             <div id="name_error"></div>
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
             </div>
-            <input name="" class="form-control" placeholder="Địa chỉ email" name="Email" type="email">
+            <input class="form-control" placeholder="Địa chỉ email" id="email" name="email">
             <div id="mail_error"></div>
         </div> <!-- form-group// -->
 
         <div class="form-group input-group">
             <div class="input-group-prepend w-100">
                 <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
-                <input placeholder="__/__/____" type="text" class="form-control" id="txtDOB" name="dob">
+                <input required placeholder="__/__/____" type="text" class="form-control" id="txtDOB" name="dob">
             </div>
            
         </div> <!-- form-group end.// -->
@@ -120,14 +179,14 @@ $('#frmRegister').on('submit', function (e) {
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
-            <input class="form-control" placeholder="Mật khẩu" name="password" type="password">
+            <input class="form-control" placeholder="Mật khẩu" id="password" name="password" type="password">
             <div id="password_error"></div>
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
-            <input class="form-control" placeholder="Xác nhận lại mật khẩu" type="password">
+            <input class="form-control" id="password_cf" placeholder="Xác nhận lại mật khẩu" type="password">
             <div id="password_cf_error"></div>
         </div> <!-- form-group// -->                                      
         <div class="form-group">
