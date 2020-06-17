@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3308
--- Thời gian đã tạo: Th6 17, 2020 lúc 06:11 AM
+-- Thời gian đã tạo: Th6 17, 2020 lúc 03:36 PM
 -- Phiên bản máy phục vụ: 8.0.18
 -- Phiên bản PHP: 7.2.25
 
@@ -32,12 +32,14 @@ DROP TABLE IF EXISTS `account`;
 CREATE TABLE IF NOT EXISTS `account` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `tc_ID` int(11) DEFAULT NULL,
-  `Email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `a_Name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `cre_Date` date DEFAULT NULL,
   `r_ID` int(11) DEFAULT NULL,
+  `premium` int(11) NOT NULL,
+  `date_create_premium` date NOT NULL,
+  `time_premium` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -45,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `account` (
 -- Đang đổ dữ liệu cho bảng `account`
 --
 
-INSERT INTO `account` (`ID`, `tc_ID`, `Email`, `username`, `password`, `a_Name`, `cre_Date`, `r_ID`) VALUES
-(1, 3, '', 'thongnguyen', '$2y$10$ib/i1jHiZ5lTHYXTsWwhXOi5E.fpCPcY7KvREYsG6hmCijOWcbw7K', 'Nguyễn Văn Thông', '2020-06-10', 2);
+INSERT INTO `account` (`ID`, `tc_ID`, `Email`, `username`, `password`, `cre_Date`, `r_ID`, `premium`, `date_create_premium`, `time_premium`) VALUES
+(1, 3, '', 'thongnguyen', '$2y$10$ib/i1jHiZ5lTHYXTsWwhXOi5E.fpCPcY7KvREYsG6hmCijOWcbw7K', '2020-06-10', 2, 0, '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
