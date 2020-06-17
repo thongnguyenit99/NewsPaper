@@ -99,7 +99,7 @@ function scorePassword(pass) {
     const email = $('#email').val();
     const password = $('#password').val();
     const password_cf = $('#password_cf').val();
-    /*if(user== ""){
+    if(user== ""){
         alert('Tên đăng nhập không được rỗng.')
             return false;
     }
@@ -126,7 +126,7 @@ function scorePassword(pass) {
     if(password_cf != password){
         alert("Xác nhận mật khẩu khác với mật khẩu ở trên.");
         return false;
-    }*/
+    }
     $.getJSON(`/is-available?user=${user}`, function (data) {
       if (data === false) {
         $('#frmRegister').off('submit').submit();
