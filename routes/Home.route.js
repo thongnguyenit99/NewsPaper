@@ -1,9 +1,6 @@
 const express = require('express');
 
 const router = express.Router();
-router.use(express.urlencoded())
-
-
 router.get('/about.html',(req,res) => {
   res.render('about');
 })

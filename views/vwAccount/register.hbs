@@ -1,155 +1,111 @@
-{{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
-        type="text/javascript"></script>
-    <!--CSS CHO đăng ký và js tự code-->
-
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/style-register.css">
-    <script src="js/style-register.js" type="text/javascript"></script>
-    <script src="js/style.js"></script> --}}
-
 {{#section 'css'}}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/style-register.css">
-{{/section}}
+ <style>
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divider-text span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;   
+    z-index: 2;
+}
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+}
 
+.btn-facebook {
+    background-color: #405D9D;
+    color: #fff;
+}
+.btn-twitter {
+    background-color: #42AEEC;
+    color: #fff;
+}
+.btn-google{
+    background-color: #42e6ec;
+    color: #fff;
+}
+</style>
+ <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+{{/section}}
 {{#section 'js'}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
-<script src="js/style-register.js" type="text/javascript"></script>
-<script src="js/style.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script>
+</script>
+<script>
+    $('#txtDOB').datetimepicker({
+        format: 'd/m/Y',
+        timepicker: false,
+        mask: true,
+    });
+
+</script>
+
 {{/section}}
 
-<div class="ct col-5 mt-5 justify-content-between mt-5 mb-5">
-    <div id="content">
-        <div class="container">
-            <form class="well form-horizontal" action=" " method="post" id="contact_form">
-                <fieldset>
 
-                    <!-- Form Name -->
-                    <legend>
-                        <center>
-                            <h2><b>Thông tin đăng ký tài khoản</b></h2>
-                        </center>
-                    </legend><br>
+<div class="container" style="margin-top: 50px; margin-bottom:50px">
+    <div class="card bg-light">
+    <article class="card-body mx-auto" style="width: 50%;">
+        <h4 class="card-title mt-3 text-center">Đăng ký</h4>
+        <p>
+            <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>  Đăng nhập bằng twitter</a>
+            <a href="" class="btn btn-block btn-google"> <i class="fab fa-google"></i>  Đăng nhập bằng google</a>
+            <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>  Đăng nhập bằng facebook</a>
+        </p>
+        <p class="divider-text">
+            <span class="bg-light">hoặc</span>
+        </p>
+        <form>
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            </div>
+            <input name="" class="form-control" placeholder="Tên đăng nhập" id="username" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+            </div>
+            <input name="" class="form-control" placeholder="Địa chỉ email" name="Email" type="email">
+        </div> <!-- form-group// -->
 
-                    <!-- Text input-->
-                    <div class="col-md-12 infomation-title">
-                        <h5>Thông tin cá nhân</h5>
-                    </div>
-                    <!-- Text input-->
+        <div class="form-group input-group">
+            <div class="input-group-prepend w-100">
+                <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
+                <input type="text" class="form-control" id="txtDOB" name="dob">
+            </div>
+           
+        </div> <!-- form-group end.// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input class="form-control" placeholder="Mật khẩu" name="password" type="password">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input class="form-control" placeholder="Xác nhận lại mật khẩu" type="password">
+        </div> <!-- form-group// -->                                      
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block"> Tạo tài khoản  </button>
+        </div> <!-- form-group// -->      
+        <p class="text-center">Đã có tài khoản? <a style="font-weight: 700;  text-decoration: none;" href="/login">Đăng nhập</a> </p>                                                                 
+    </form>
+    </article>
+    </div> <!-- card.// -->
 
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Họ tên của bạn</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input name="name" placeholder="Nhập họ tên" class="form-control" type="text">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 infomation-title">
-                        <h5>Thông tin tài khoản</h5>
-                    </div>
-                    <!-- Text input-->
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Tên đăng nhập</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
-                                <input name="user_name" placeholder="Nhập tên đăng nhập" class="form-control"
-                                    type="text">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Mật khẩu</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock" style="width: 15px;"></i></span>
-                                <input name="user_password" placeholder="Nhập mật khẩu" class="form-control"
-                                    type="password">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Xác nhận mật khẩu</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock" style="width: 15px;"></i></span>
-                                <input name="confirm_password" placeholder="Nhập xác nhận mật khẩu" class="form-control"
-                                    type="password">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">E-Mail</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input name="email" placeholder="Nhập E-Mail" class="form-control" type="text">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Text input-->
-                    <div class="col-md-12 infomation-title">
-                        <h5>Mã kiểm tra</h5>
-                        <img src="https://www.tsohost.com/assets/uploads/blog/capcha.jpeg">
-
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Nhập mã kiểm tra</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <div class="input-group">
-                                <input name="reCaptcha" placeholder="Nhập mã kiểm tra" class="form-control"
-                                    type="password">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Success message -->
-                    <div class="alert alert-success" role="alert" id="success_message">Success <i
-                            class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>
-
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label"></label>
-                        <div class="col-md-6"><br>
-                            <button type="submit" class="btn btn-warning" id="btn-res">&nbsp&nbsp&nbsp&nbspĐăng ký <span
-                                    class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp</button>
-                            <button class="btn btn-danger" id="return-res"
-                                onclick="window.location.href='register.html'">Huỷ đăng ký</button>
-                            <button class="btn btn-primary" id="return-log"
-                                onclick="window.location.href='login.html'">Đăng
-                                nhập</button>
-                        </div>
-                    </div>
-
-                </fieldset>
-            </form>
-        </div>
-    </div>
-</div>
+</div> 
