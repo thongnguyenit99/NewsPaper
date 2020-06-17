@@ -43,6 +43,7 @@
   src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 <script>
 </script>
+
 <script>
     $('#txtDOB').datetimepicker({
         format: 'd/m/Y',
@@ -50,6 +51,31 @@
         mask: true,
     });
 
+$('#frmRegister').on('submit', function (e) {
+    //alert('submit called');
+    e.preventDefault();
+    // if (validate())
+    //   $('#frmRegister').off('submit').submit();
+    validate();
+  })
+
+// validation function
+
+  function validate() {
+    // ... các lệnh validate khác
+    const user = $('#username').val();
+        if( user== ""){
+        alert('null')
+        return false;
+    }
+    $.getJSON(`/is-available?user=${user}`, function (data) {
+      if (data === false) {
+        $('#frmRegister').off('submit').submit();
+      } else {
+        alert('not available');
+      }
+    })
+  }
 </script>
 
 {{/section}}
@@ -67,24 +93,26 @@
         <p class="divider-text">
             <span class="bg-light">hoặc</span>
         </p>
-        <form>
+        <form method="POST"action=""  id="frmRegister"  >
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
             </div>
             <input name="" class="form-control" placeholder="Tên đăng nhập" id="username" type="text">
+            <div id="name_error"></div>
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
             </div>
             <input name="" class="form-control" placeholder="Địa chỉ email" name="Email" type="email">
+            <div id="mail_error"></div>
         </div> <!-- form-group// -->
 
         <div class="form-group input-group">
             <div class="input-group-prepend w-100">
                 <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
-                <input type="text" class="form-control" id="txtDOB" name="dob">
+                <input placeholder="__/__/____" type="text" class="form-control" id="txtDOB" name="dob">
             </div>
            
         </div> <!-- form-group end.// -->
@@ -93,12 +121,14 @@
                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
             <input class="form-control" placeholder="Mật khẩu" name="password" type="password">
+            <div id="password_error"></div>
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
             <input class="form-control" placeholder="Xác nhận lại mật khẩu" type="password">
+            <div id="password_cf_error"></div>
         </div> <!-- form-group// -->                                      
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block"> Tạo tài khoản  </button>
