@@ -15,9 +15,13 @@ router.get('/contact.html',(req,res) => {
 
 router.get('/', async function (req, res) {
   const newlist = await articleModel.newest();
+  const bestlist = await articleModel.bestnew();
+  const viewestlist = await articleModel.viewest();
   //const bestlist = await articleModel.BestSeller();
   res.render('home', {
     newlist,
+    bestlist,
+    viewestlist,
     helpers: {
       format_DOB: function (date) {
         return dob_date('dd-MM-yyyy', date)
