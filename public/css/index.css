@@ -139,3 +139,9 @@
 .content{
     z-index: initial;
 }
+a.link_viewest ,a.link_newest{
+    text-decoration: none;
+}
+a.link_newest h5:hover,a.link_viewest h5:hover  {
+    color: #00a651;
+}
