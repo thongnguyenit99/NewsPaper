@@ -13,10 +13,9 @@ router.get('/contact.html',(req,res) => {
 
 router.get('/', async function (req, res) {
   const newlist = await articleModel.newest();
-  //console.log(1);
-  //console.log(req.session.authUser);
-  //const bestlist = await articleModel.BestSeller();
-  //Đã đăng nhập
+  const bestlist = await articleModel.bestnew();
+  const viewestlist = await articleModel.viewest();
+
   if(req.session.authUser){
     res.render('home', {
       newlist,
@@ -31,12 +30,14 @@ router.get('/', async function (req, res) {
   }else{
     res.render('home', {
       newlist,
+      bestlist,
+      viewestlist,
       helpers: {
         format_DOB: function (date) {
           return dob_date('dd-MM-yyyy', date)
         }
       }
-    }); 
+    })
   }
 })
 module.exports = router;

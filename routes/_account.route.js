@@ -20,7 +20,7 @@ router.post('/register', async function (req, res) {
     cre_Date: datetime.toISOString().slice(0,10)
   }
   await accountModles.addNewAccount(data);
-  res.render('Home' , {account:1});
+  res.render('Home' , {account:1, username:req.session.authUser[0].username,});
 })
 router.get('/is-available', async function (req, res) {
   const user = await accountModles.singleByUserName(req.query.user);
