@@ -9,10 +9,9 @@
                         <ol class="carousel-indicators">
                             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
                             <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                         </ol>
                         <div class="carousel-inner">
-                            <div class="carousel-item active" data-interval="3000">
+                            {{!-- <div class="carousel-item active" data-interval="3000">
                                 <img src="https://dummyimage.com/970x600/ff9626/fff" class="d-block w-100 lazyload"
                                     alt="...">
                                 <div class="carousel-caption d-md-block">
@@ -24,33 +23,35 @@
                                         <h3>VIB lên kế hoạch năm 2020 sẽ niêm yết cổ phiếu trên sàn HOSE</h3>
                                     </a>
                                 </div>
-                            </div>
-                            <div class="carousel-item" data-interval="3000">
-                                <img src="https://dummyimage.com/970x600/568/fff" class="d-block w-100 lazyload"
-                                    alt="...">
+                            </div> --}}
+                            {{#each bestlist1 }}
+                            <div class="carousel-item active" data-interval="3000">
+                                <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
+                                    class="d-block w-100 lazyload" alt="..." style="width: 600px;height:600px">
                                 <div class="carousel-caption d-md-block">
                                     <h6 class="text-light font-weight-light">
-                                        <a href="./chung-khoan.html" class="badge badge-primary mr-3">Chứng Khoán</a>
-                                        11/06/2020
+                                        <a href="./chung-khoan.html" class="badge badge-warning mr-3">{{c_Large}}</a>
+                                        {{public_date}}
                                     </h6>
-                                    <a href="#" class="text-light">
-                                        <h3>Lãi suất VietABank mới nhất tháng 6/2020</h3>
+                                    <a href="#" class="text-light link_trend">
+                                        <h3>{{title}}</h3>
                                     </a>
                                 </div>
                             </div>
-                            <div class="carousel-item" data-interval="3000">
-                                <img src="https://dummyimage.com/970x600/07ffac/fff" class="d-block w-100 lazyload"
-                                    alt="...">
+                            <div class="carousel-item " data-interval="3000">
+                                <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
+                                    class="d-block w-100 lazyload" alt="..." style="width: 600px;height:600px">
                                 <div class="carousel-caption d-md-block">
                                     <h6 class="text-light font-weight-light">
-                                        <a href="./chung-khoan.html" class="badge badge-success mr-3">Doanh Nghiệp</a>
-                                        11/06/2020
+                                        <a href="./chung-khoan.html" class="badge badge-warning mr-3">{{c_Large}}</a>
+                                        {{public_date}}
                                     </h6>
-                                    <a href="#" class="text-light">
-                                        <h3>MWG "bơm" thêm 3.800 tỉ đồng vốn cho Bách Hóa Xanh và Thế Giới Di Động</h3>
+                                    <a href="#" class="text-light link_trend">
+                                        <h3>{{title}}</h3>
                                     </a>
                                 </div>
                             </div>
+                            {{/each}}
                         </div>
                     </div>
                 </div>
@@ -58,36 +59,46 @@
             <div class="col-lg-4 pl-1 d-flex flex-column justify-content-between align-content-stretch">
 
                 <div class="trending-item">
-                    <img src="https://dummyimage.com/300x185/123456/fff" class="lazyload w-100" alt="">
-                    <div class="trending-caption">
-                        <h6 class="text-light font-weight-light">
-                            <a href="#" class="badge badge-primary mr-3">Chứng Khoán</a>
-                            11/06/2020
-                        </h6>
-                        <a href="#" class="text-light">
-                            <h5>Dự báo giá cao su ngày 12/6: Tăng nhẹ</h5>
-                        </a>
-                    </div>
+                    {{#each bestlist2}}
+                    <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}" class="d-block w-100 lazyload"
+                        alt="..." style="width: 300px;height:300px">
+                        <div class="trending-caption">
+                            <h6 class="text-light font-weight-light">
+                                <a href="#" class="badge badge-success mr-3">{{c_Large}}</a>
+                                {{format_DOB public_date}}
+                            </h6>
+                            <a href="#" class="text-light link_trend">
+                                <h5>{{title}}</h5>
+                            </a>
+                            <p class="text-light font-weight-light">Tác giả: {{author}}</p>
+                        </div>
+                    {{/each}}
+                   
                 </div>
 
                 <div class="trending-item">
-                    <img src="https://dummyimage.com/300x185/123456/fff" class="lazyload w-100" alt="">
+                    {{#each bestlist3}}
+                    <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
+                        class="d-block w-100 lazyload" style="width: 300px;height:300px" alt="...">
                     <div class="trending-caption">
-                        <h6 class="text-light font-weight-light">
-                            <a href="#" class="badge badge-success mr-3">Doanh Nghiệp</a>
-                            12/06/2020
+                        <h6 class="text-light font-weight-light ">
+                            <a href="#" class="badge badge-primary mr-3">{{c_Large}}</a>
+                            {{format_DOB public_date}}
                         </h6>
-                        <a href="#" class="text-light">
-                            <h5>Nhựa An Phát Xanh dự chi hàng chục tỷ đồng để sở hữu 10% vốn tại Nhựa - Bao bì Vinh</h5>
+                        <a href="#" class="text-light link_trend">
+                            <h5>{{title}}</h5>
                         </a>
+                        <p class="text-light font-weight-light">Tác giả: {{author}}</p>
                     </div>
+                    {{/each}}
+                
                 </div>
             </div>
         </div>
     </div>
     <div class="row my-5">
 
-        <div class="col-lg-4">
+        <div class="col-lg-7">
             <!-- MỚI NHẤT -->
             <div id="newest">
                 <div class="h3">MỚI NHẤT</div>
@@ -95,7 +106,7 @@
                     {{#each this.newlist }}
                     <li class="list-group-item">
                         <div class="media">
-                            <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{ID}}-{{title}}"
+                            <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
                                 class="align-self-center mr-3 lazyload" alt="...">
                             <div class="media-body align-self-center">
                                 <a href="#" class="text-dark link_newest">
@@ -105,10 +116,10 @@
                                 <h6 class="card-subtitle mt-2 text-muted">
                                     <a href="./tai-chinh.html"
                                         class="badge badge-warning mr-3 sub-newest">{{c_Name}}-{{c_Large}}</a>
-                                    <p class="mt-1" style="font-size: 14px;"><i class="fa fa-calendar-o"
-                                            aria-hidden="true"></i>{{format_DOB public_date}}</p>
+                                    <p class="mt-1" style="font-size: 14px;"><i class="fa fa-clock-o" aria-hidden="true"></i>Ngày đăng: {{format_DOB public_date}}</p>
 
                                 </h6>
+                                <p>{{abstract}}</p>
                                 <h6 class="card-subtitle mt-2 mr-1 text-muted">
                                     Tác giả: {{author}}
                                 </h6>
@@ -141,32 +152,36 @@
             </div>
         </div>
 
-        <div class="col-lg-8">
+        <div class="col-lg-5">
             <!-- XEM NHIỀU -->
             <div id="most-viewed">
                 <div class="h3">XEM NHIỀU</div>
                 <div class="card mb-3">
                     {{#each viewestlist}}
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-md-4 mb-2">
+                    <div class="row no-gutters align-items-center ">
+                        <div class="col-md-4 mb-2 ">
                             <div class="img-cont">
-                                <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{ID}}-{{title}}" class="card-img lazyload" alt="...">
+                                <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}" class="card-img lazyload" alt="...">
                             </div>
                         </div>
                         <div class="col-md-8 mt-2">
                             <div class="card-body">
-                                <h6 class="card-subtitle mb-2 text-muted">
-                                    <a href="./chung-khoan.html" class="badge badge-primary mr-3 ">{{c_Name}}-{{c_Large}}</a>
-                                {{format_DOB public_date}}
-                                </h6>
                                 <a href="#" class="text-dark link_viewest">
                                     <h5 class="card-title">{{title}}</h5>
                                 </a>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <a href="./chung-khoan.html" class="badge badge-primary mr-3 ">{{c_Name}}-{{c_Large}}</a>
+                                </h6>
+                                <p>{{abstract}}</p>
                                 <h6 class="card-subtitle mt-2 mr-1 text-muted">
-                                    Tác giả: {{author}} | Lược xem:{{views}}
+                                    Tác giả: {{author}}  
+                                 <p class="mt-2">Lược xem:{{views}}</p>
+                                 <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
+
                                 </h6>
                             </div>
                         </div>
+                        
                     </div>
                     {{/each}}
                 </div>
