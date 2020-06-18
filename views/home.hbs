@@ -98,8 +98,8 @@
                             <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{ID}}-{{title}}"
                                 class="align-self-center mr-3 lazyload" alt="...">
                             <div class="media-body align-self-center">
-                                <a href="#" class="text-dark">
-                                    <h6>{{title}}</h6>
+                                <a href="#" class="text-dark link_newest">
+                                    <h5>{{title}}</h5>
                                 </a>
 
                                 <h6 class="card-subtitle mt-2 text-muted">
@@ -146,7 +146,7 @@
             <div id="most-viewed">
                 <div class="h3">XEM NHIỀU</div>
                 <div class="card mb-3">
-                    {{#each bestlist}}
+                    {{#each viewestlist}}
                     <div class="row no-gutters align-items-center">
                         <div class="col-md-4 mb-2">
                             <div class="img-cont">
@@ -156,14 +156,14 @@
                         <div class="col-md-8 mt-2">
                             <div class="card-body">
                                 <h6 class="card-subtitle mb-2 text-muted">
-                                    <a href="./chung-khoan.html" class="badge badge-primary mr-3">{{c_Name}}-{{c_Large}}</a>
+                                    <a href="./chung-khoan.html" class="badge badge-primary mr-3 ">{{c_Name}}-{{c_Large}}</a>
                                 {{format_DOB public_date}}
                                 </h6>
-                                <a href="#" class="text-dark">
+                                <a href="#" class="text-dark link_viewest">
                                     <h5 class="card-title">{{title}}</h5>
                                 </a>
                                 <h6 class="card-subtitle mt-2 mr-1 text-muted">
-                                    Tác giả: {{author}}
+                                    Tác giả: {{author}} | Lược xem:{{views}}
                                 </h6>
                             </div>
                         </div>
