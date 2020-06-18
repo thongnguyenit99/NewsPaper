@@ -16,28 +16,16 @@ router.get('/', async function (req, res) {
   const bestlist = await articleModel.bestnew();
   const viewestlist = await articleModel.viewest();
 
-  if(req.session.authUser){
-    res.render('home', {
-      newlist,
-      account: 1,
-      username:req.session.authUser[0].username,
-      helpers: {
-        format_DOB: function (date) {
-          return dob_date('dd-MM-yyyy', date)
-        }
+  res.render('home', {
+    newlist,
+    bestlist,
+    viewestlist,
+    helpers: {
+      format_DOB: function (date) {
+        return dob_date('dd-MM-yyyy', date)
       }
-    }); 
-  }else{
-    res.render('home', {
-      newlist,
-      bestlist,
-      viewestlist,
-      helpers: {
-        format_DOB: function (date) {
-          return dob_date('dd-MM-yyyy', date)
-        }
-      }
-    })
-  }
+    }
+  })
+
 })
 module.exports = router;

@@ -5,6 +5,7 @@ const router = express.Router();
 const saltRounds = 12;
 const someOtherPlaintextPassword = 'not_bacon';
 
+const restrict = require("../middlewares/auth.mdw");
 //sign up
 router.get('/register', function (req, res) {
   res.render('vwAccount/register');
@@ -20,7 +21,10 @@ router.post('/register', async function (req, res) {
     cre_Date: datetime.toISOString().slice(0,10)
   }
   await accountModles.addNewAccount(data);
-  res.render('Home' , {account:1, username:req.session.authUser[0].username,});
+  const user = await accountModles.singleByUserName(req.body.username);
+  req.session.isAuthenticated = true;
+  req.session.authUser = user[0];
+  res.redirect('/');
 })
 router.get('/is-available', async function (req, res) {
   const user = await accountModles.singleByUserName(req.query.user);
@@ -39,7 +43,7 @@ router.get('/login', function (req, res) {
     res.render('vwAccount/login', {username:"", password:""});
   }
 })
-router.get('/profile', async function (req, res) {
+router.get('/profile', restrict, async function (req, res) {
   res.render('vwAccount/profile');
 })
 
@@ -52,7 +56,7 @@ router.post('/login',async function (req, res) {
   var user = await accountModles.singleByUserName(req.body.username);
   if(user.length > 0){
     req.session.isAuthenticated = true;
-    req.session.authUser = user;
+    req.session.authUser = user[0];
   }
   res.redirect('/');
 })
@@ -69,6 +73,13 @@ router.get('/is-available_login', async function (req, res) {
     }
   }
   res.json(false);
+})
+
+
+router.get('/logout', restrict, async function (req, res) {
+  req.session.isAuthenticated = false;
+  req.session.authUser = null;
+  res.redirect('/');
 })
 
 module.exports = router;
