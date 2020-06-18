@@ -95,7 +95,7 @@
             width: 120px;
             height: 40px;
             line-height: 40px;
-            margin-left: 5px;
+            margin-right: 5px;
             
         }
         
@@ -122,6 +122,10 @@
    
 }
 .quick-login ,.quick-register {
+    float: right;
+   
+}
+.quick-account {
     float: right;
    
 }

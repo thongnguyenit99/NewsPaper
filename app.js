@@ -2,7 +2,19 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const exphbs = require('express-handlebars');
-var express_handlebars_sections = require('express-handlebars-sections');
+const express_handlebars_sections = require('express-handlebars-sections');
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+app.set('trust proxy', 1) // trust first proxy
+app.use(cookieParser())
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+      //secure: true 
+    }
+}))
 
 app.use(express.urlencoded({ extended: true }));
 app.engine('hbs', exphbs({

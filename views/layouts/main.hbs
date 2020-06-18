@@ -59,11 +59,43 @@
             <ul>
                 <li class="quick-call"><a href="tel:0345870xxx">0345.870.xxx </a></li>
                 <li class="quick-email"><a href="mailto:cskh@deploy99.vn">cskh@deploy99.vn</a></li>
-                <li class="quick-login"><a href="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Đăng nhập</a></li>
-                <li class="quick-register"><a href="register"><i class="fa fa-user-plus" aria-hidden="true"></i> Đăng ký</a></li>
-        
+                {{#if account}}
+                    <li style="float: right;  width: auto;margin-right:25px">
+                        <!-- Example single danger button -->
+                        <div class="btn-group">
+                        <button type="button" style="height: 40px;margin-top:-1px" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            Xin chào bạn {{username}}
+                        </button>
+                        <div class="dropdown-menu">
+                                
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                     Proflie
+                                </a>
+                            <a class="dropdown-item" href="#">
+                                 <i class="fa fa-table" aria-hidden="true"></i>
+                                 Chức năng nâng cao
+                            </a>
+                            <div class="dropdown-divider"></div>
+                           
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-sign-out-alt"></i>
+                                 Đăng xuất
+                            </a>
+                        </div>
+                        </div>
+                    </li>
+                {{else}}
+                    <li class="quick-login"><a href="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Đăng nhập</a></li>
+                    <li class="quick-register"><a href="register"><i class="fa fa-user-plus" aria-hidden="true"></i> Đăng ký</a></li>
+                {{/if}}
+                
+                
             </ul>
         </div>
+
+
         <div class="header-container">
             <div class="header-top">
                 <div class="container">
@@ -92,7 +124,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Từ khóa tìm kiếm..">
                                 </div>
-                                <button type="button" class="btn btn-dark" id="search-btn">
+                                <button type="button" class="btn btn-dark ml-2" id="search-btn">
                                     <i class="fas fa-search center-right"></i>
                                 </button>
                             </form>
