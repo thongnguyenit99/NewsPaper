@@ -6,11 +6,9 @@ const router = express.Router();
 router.get('/about.html',(req,res) => {
   res.render('about');
 })
-
 router.get('/contact.html',(req,res) => {
     res.render('contact');
   })
-
 router.get('/', async function (req, res) {
   const newlist = await articleModel.newest();
   const bestlist1 = await articleModel.bestnew1();
