@@ -1,5 +1,5 @@
 const express = require('express');
-const accountModles = require('../models/_account.modle.js');
+const accountModles = require('../models/_account.model.js');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const saltRounds = 12;
