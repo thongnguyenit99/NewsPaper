@@ -30,6 +30,26 @@ module.exports = {
     // 10 the viewest  article
     viewest: function () {
         return db.load(`select * from ${TBL_article} a join categories c on a.c_ID=c.ID where isActive=1 order by views DESC limit 10`)
-    }
+    },
+    //top 10 categories
+    top10_chungkhoan: function () {
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID
+            WHERE a.c_ID=1 and a.isActive=1 ORDER BY rand() LIMIT 1) UNION
+             (SELECT * FROM article a join categories c on a.c_ID=c.ID
+                 WHERE a.c_ID=2 and a.isActive=1 ORDER BY  rand() ,a.public_date DESC LIMIT 1)`);
+    },
+    top10_doanhnghiep: function () {
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID
+            WHERE a.c_ID=3 and a.isActive=1 ORDER BY rand() LIMIT 1) UNION
+             (SELECT * FROM article a join categories c on a.c_ID=c.ID
+                 WHERE a.c_ID=4 and a.isActive=1 ORDER BY  rand() ,a.public_date DESC LIMIT 1)`);
+    },
+    top10_taichinh: function () {
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID
+            WHERE a.c_ID=5 and a.isActive=1 ORDER BY rand() LIMIT 1) UNION
+             (SELECT * FROM article a join categories c on a.c_ID=c.ID
+                 WHERE a.c_ID=6 and a.isActive=1 ORDER BY  rand() ,a.public_date DESC LIMIT 1)`);
+    },
+
 
 }
