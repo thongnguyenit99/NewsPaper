@@ -11,8 +11,9 @@ require('./middlewares/session.mdw')(app);
 require('./middlewares/locals.mdw')(app);
 
 
-app.use('/', require('./routes/Home.route'));
+app.use('/', require('./routes/home.route'));
 app.use('/account', require('./routes/_account.route'));
+app.use('/article', require('./routes/article.route'));
 
 
 app.use(function (req, res) {
