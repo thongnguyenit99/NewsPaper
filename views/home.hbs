@@ -118,7 +118,7 @@
                                 </a>
 
                                 <h6 class="card-subtitle mt-2 text-muted">
-                                    <a href="./tai-chinh.html"
+                                    <a href="/article/categories/{{tc_ID}}"
                                         class="badge badge-warning mr-3 sub-newest">{{c_Name}}-{{c_Large}}</a>
                                     <p class="mt-1" style="font-size: 14px;"><i class="fa fa-clock-o" aria-hidden="true"></i>Ngày đăng: {{format_DOB public_date}}</p>
 
@@ -174,7 +174,7 @@
                                     <h5 class="card-title" title="{{title}}">{{title}}</h5>
                                 </a>
                                 <h6 class="card-subtitle mb-2 text-muted">
-                                    <a href="./chung-khoan.html" class="badge badge-primary mr-3 ">{{c_Name}}-{{c_Large}}</a>
+                                    <a href="/article/categories/{{tc_ID}}" class="badge badge-primary mr-3 ">{{c_Name}}-{{c_Large}}</a>
                                 </h6>
                                 <p>{{abstract}}</p>
                                 <h6 class="card-subtitle mt-2 mr-1 text-muted">
@@ -203,11 +203,11 @@
             <div class="card ">
                 <h5 class="mb-5 text-danger">CHỨNG KHOÁN</h5>
                 {{#each this.top10_chungkhoan}}
-                <a href="#" class="text-dark link_top10">
+                <a href="/article/details/{{id}}" class="text-dark link_top10">
                     <h5 style="height:70px;" title="{{title}}" class="card-title">{{title}}</h5>
                 </a>
                 <h6 class="card-subtitle mb-2 text-muted">
-                    <a href="#" class="badge badge-warning mr-3">{{c_Large}}</a>
+                    <a href="/article/categories/{{tc_ID}}" class="badge badge-warning mr-3">{{c_Large}}</a>
                 </h6>
                 <div class="img-cont">
                     <img src="article/{{images}}" title="{{c_Name}}: {{id}}-{{title}}" style="width:300px ;height:250px" class="card-img-top lazyload" alt="...">
@@ -222,11 +222,11 @@
             <div class="card ">
                 <h5 class="mb-5 text-danger">DOANH NGHIỆP</h5>
                 {{#each this.top10_doanhnghiep}}
-                <a href="#" class="text-dark link_top10">
+                <a href="/article/details/{{id}}" class="text-dark link_top10">
                     <h5 style="height:70px;" title="{{title}}" class="card-title ">{{title}}</h5>
                 </a>
                 <h6 class="card-subtitle mb-2 text-muted">
-                    <a href="#"  class="badge badge-success mr-3">{{c_Large}}</a>
+                    <a href="/article/categories/{{tc_ID}}"  class="badge badge-success mr-3">{{c_Large}}</a>
                 </h6>
                 <div class="img-cont">
                     <img src="article/{{images}}"title="{{c_Name}}: {{id}}-{{title}}" style="width:300px ;height:250px" class="card-img-top lazyload" alt="...">
@@ -240,11 +240,11 @@
             <div class="card ">
                 <h5 class="mb-5 text-danger">TÀI CHÍNH</h5>
                 {{#each this.top10_taichinh}}
-                <a href="#" class="text-dark link_top10">
+                <a href="/article/details/{{id}}" class="text-dark link_top10">
                     <h5 style="height:70px;" title="{{title}}" class="card-title ">{{title}}</h5>
                 </a>
                 <h6 class="card-subtitle mb-2 text-muted">
-                    <a href="#" class="badge badge-primary mr-3">{{c_Large}}</a>
+                    <a href="/article/categories/{{tc_ID}}" class="badge badge-primary mr-3">{{c_Large}}</a>
                 </h6>
                 <div class="img-cont">
                     <img src="article/{{images}}"title="{{c_Name}}: {{id}}-{{title}}" style="width:300px ;height:250px" class="card-img-top lazyload" alt="...">
