@@ -4,21 +4,51 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const saltRounds = 12;
 const someOtherPlaintextPassword = 'not_bacon';
-
 const restrict = require("../middlewares/auth.mdw");
+var isAuthenticated = false;
+var authUser={}
+var datetime = new Date();
+//passport
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+passport.serializeUser(function(user, done) {done(null, user);});
+passport.deserializeUser(function(user, done) { done(null, user);});
+
+passport.use(new GoogleStrategy({
+    clientID: "907057907553-nev6pa2mema1gimknv2j2u51g9d4j5oq.apps.googleusercontent.com",
+    clientSecret: "l9yeOI3_sCF-AMoN1NBMX_dc",
+    callbackURL: "http://localhost:3000/auth/google/callback"
+  },
+  async function(accessToken, refreshToken, profile, done) {
+    var row = await accountModles.singleByEmail(profile._json.email);
+      if(row.length > 0){// da co trong db
+        isAuthenticated = true;
+        authUser = row[0];
+      }else{// chua co trong db
+        var data={
+          email: profile._json.email, username: profile._json.name, r_ID: 1,
+          premium: 0, cre_Date: datetime.toISOString().slice(0,10),
+          Image: profile._json.picture
+        }
+        isAuthenticated = true;
+        authUser = data;
+        await accountModles.addNewAccount(data);
+      }
+      return done(null, profile);
+  }
+));
+router.use(passport.initialize());
+
 //sign up
 router.get('/register', function (req, res) {
   res.render('vwAccount/register');
 })
 router.post('/register', async function (req, res) {
-  var datetime = new Date();
   var data={
-    email: req.body.email,
-    username: req.body.username,
-    password: bcrypt.hashSync(req.body.password, saltRounds),
-    r_ID: 1,
-    premium: 0,
-    cre_Date: datetime.toISOString().slice(0,10)
+    email: req.body.email, username: req.body.username,
+    password: bcrypt.hashSync(req.body.password, saltRounds), r_ID: 1,
+    premium: 0, cre_Date: datetime.toISOString().slice(0,10)
   }
   await accountModles.addNewAccount(data);
   const user = await accountModles.singleByUserName(req.body.username);
@@ -34,6 +64,29 @@ router.get('/is-available', async function (req, res) {
 
   res.json(false);
 })
+router.get('/is-available-email', async function (req, res) {
+  const user = await accountModles.singleByEmail(req.query.email);
+  if (typeof user != "undefined" && user != null && user.length != null && user.length > 0) {
+    return res.json(true);
+  }
+
+  res.json(false);
+})
+//đăng nhập sử dụng passport
+//google
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    req.session.isAuthenticated = isAuthenticated;
+    req.session.authUser = authUser;
+    res.redirect('/');
+  }
+);
+
+
+
 
 // sign in
 router.get('/login', function (req, res) {

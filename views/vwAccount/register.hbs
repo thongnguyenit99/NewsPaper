@@ -137,9 +137,21 @@
                 alert("Xác nhận mật khẩu khác với mật khẩu ở trên.");
                 return false;
             }
+            var temp=""
+            $.getJSON(`/is-available-email?email=${email}`, function (data) {
+                temp=data;
+                if (data) {
+                    alert('Email đăng ký đã tồn tại.');
+                    return false;
+                }
+            })
             $.getJSON(`/is-available?user=${user}`, function (data) {
                 if (data === false) {
-                    $('#frmRegister').off('submit').submit();
+                    if(temp === false){
+                        $('#frmRegister').off('submit').submit();
+                    }
+                    return false;
+
                 } else {
                     alert('Tên đăng nhập đã tồn tại.');
                 }
@@ -156,7 +168,7 @@
         <h4 class="card-title mt-3 text-center">Đăng ký</h4>
         <p>
             <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>  Đăng nhập bằng twitter</a>
-            <a href="" class="btn btn-block btn-google"> <i class="fab fa-google"></i>  Đăng nhập bằng google</a>
+            <a href="/auth/google" class="btn btn-block btn-google"> <i class="fab fa-google"></i>  Đăng nhập bằng google</a>
             <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>  Đăng nhập bằng facebook</a>
         </p>
         <p class="divider-text">

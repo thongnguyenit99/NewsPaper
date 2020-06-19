@@ -21,7 +21,7 @@ app.use(function (req, res) {
 
 app.use(function (err, req, res, next) {
     console.error(err.stack);
-    res.status(500).render('500', { layout: false });
+    res.status(500).render('500');
   })
 
 app.listen(port, () => {
