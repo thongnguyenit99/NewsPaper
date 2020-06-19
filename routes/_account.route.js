@@ -58,7 +58,8 @@ router.post('/login',async function (req, res) {
     req.session.isAuthenticated = true;
     req.session.authUser = user[0];
   }
-  res.redirect('/');
+  const url = req.query.retUrl || '/'
+  res.redirect(url);
 })
 
 router.get('/is-available_login', async function (req, res) {
@@ -76,10 +77,10 @@ router.get('/is-available_login', async function (req, res) {
 })
 
 
-router.get('/logout', restrict, async function (req, res) {
+router.post('/logout', restrict, async function (req, res) {
   req.session.isAuthenticated = false;
   req.session.authUser = null;
-  res.redirect('/');
+  res.redirect(req.headers.referer);
 })
 
 module.exports = router;
