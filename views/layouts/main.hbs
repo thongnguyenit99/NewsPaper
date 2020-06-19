@@ -45,14 +45,23 @@
         overflow: hidden;
     }
     .img-cont:hover img {
-        -webkit-transform: scale(1.4);
-        transform: scale(1.4);
+        -webkit-transform: scale(1.3);
+        transform: scale(1.3);
     }
     .img-cont img {
         -webkit-transition: all 0.8s ease;
         transition: all 0.8s ease;
         -webkit-transform: scale(1.2);
         transform: scale(1.2);
+    }
+    .img-cont1:hover img {
+        -webkit-transform: scale(0.5);
+        transform: scale(1.035);
+    }
+    .img-cont1 img {
+        -webkit-transition: all 0.8s ease;
+        transition: all 0.8s ease;
+        
     }
     .card-group .card {
         flex: 0 1 auto;
@@ -141,10 +150,10 @@
     .content{
         z-index: initial;
     }
-    a.link_top10,a.link_viewest ,a.link_newest,a.link_trend{
+   a.link_bycat, a.link_top10,a.link_viewest ,a.link_newest,a.link_trend{
         text-decoration: none;
     }
-    a.link_top10 h5:hover,a.link_newest h5:hover,a.link_viewest h5:hover  {
+    a.link_bycat h5:hover ,a.link_top10 h5:hover,a.link_newest h5:hover,a.link_viewest h5:hover  {
         color: #00a651;
     }
     /*==Style cơ bản cho website==*/
@@ -448,13 +457,13 @@ a.button-back:hover {
                         <div class="col-lg-4 col-sm-4 hidden-xs">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-sm-3 col-md-3 col-xs-12">
+                                    <div class="col-sm-4 col-md-4 col-xs-12">
                                         <!-- Header Logo -->
                                         <div class="logo">
                                             <a title="e-commerce" href="/"> </a>
                                             <div class="form-group-row">&nbsp;
                                                 <a href="/" rel="home">
-                                                    <img src="https://i.imgur.com/7ZvyaYX.png"sizes="32x32" alt="thong-bo-chon-SEO" />
+                                                    <img src="/img/logo.png"sizes="32x32" alt="thong-bo-chon-SEO" />
                                                     Deploy99</a>
                                             </div>
                                             &nbsp;
@@ -469,7 +478,7 @@ a.button-back:hover {
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Từ khóa tìm kiếm..">
                                 </div>
-                                <button type="button" class="btn btn-dark ml-2" id="search-btn">
+                                <button type="button" class="btn btn-dark " id="search-btn">
                                     <i class="fa fa-search center-right"></i>
                                 </button>
                             </form>
@@ -613,25 +622,26 @@ a.button-back:hover {
                     <li><a href="/" id="home"><i class="fa fa-home" aria-hidden="true"></i><span
                                 class="sr-only">(current)</span> TRANG CHỦ</a>
                     </li>
-                    <li><a href="#" id="chungkhoan">CHỨNG KHOÁN</a>
+                    
+                    <li><a href="/article/categories/1" id="chungkhoan">CHỨNG KHOÁN</a>
                         <ul class="sub-menu">
                             <li><a href="#">Cổ phiếu top đầu</a></li>
                             <li><a href="#">Xu hướng nhận định</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" id="doanhnghiep">DOANH NGHIỆP</a>
+                    <li><a href="/article/categories/2" id="doanhnghiep">DOANH NGHIỆP</a>
                         <ul class="sub-menu">
                             <li><a href="#">Bất động sản</a></li>
                             <li><a href="#">Doanh nghiệp niêm yết</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" id="taichinh">TÀI CHÍNH</a>
+                    <li><a href="/article/categories/3" id="taichinh">TÀI CHÍNH</a>
                         <ul class="sub-menu">
                             <li><a href="#">Ngân hàng hiện đại</a></li>
                             <li><a href="#">Thương mại điện tử</a></li>
                         </ul>
                     </li>
-                    <li><a href="about.html" id="about">LIÊN HỆ</a>
+                    <li><a href="/about.html" id="about">LIÊN HỆ</a>
                     </li>
                     {{!-- <li><a href="contact.html" id="contact">LIÊN LẠC</a>
                 </li> --}}

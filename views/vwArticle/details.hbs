@@ -1,0 +1,82 @@
+<div class="container mt-3">
+    {{#each list }}
+        
+    
+    <a href="#">
+        <h3>Tên chuyên mục</h3>
+    </a>
+    <h2 class="display-4 font-weight-bold">{{title}}</h2>
+    <div class="row">
+        <div class="col">
+            <div class="text-muted mb-3">Ngày đăng: {{format_DOB public_date}}</div>
+
+            <!-- Nội dung chi tiết bài viết -->
+            <div id="article-detail" class="my-3">
+                <img src="/article/{{images}}" style="width:900px;height:400px" class="img-fluid">
+                <div class="container-fuild">
+                 {{{content}}}
+                </div>
+            </div>
+{{/each}}
+            <!-- Danh sách các thẻ được gắn -->
+            <h6 class="mt-3">
+                <i class="fas fa-tags mr-2"></i>
+                <a href="#" class="badge badge-dark">tag1</a>
+                <a href="#" class="badge badge-dark">tag2</a>
+                <a href="#" class="badge badge-dark">tag3</a>
+                <a href="#" class="badge badge-dark">tag4</a>
+                <a href="#" class="badge badge-dark">tag5</a>
+            </h6>
+
+            <!-- Khu vực bình luận -->
+            <div class="comment-section bg-light w-100 p-3 my-3">
+                <input type="text" class="form-control mb-3" style="width: initial;" id="txtName"
+                    placeholder="Tên của bạn">
+                <textarea class="form-control mb-3" rows="2" id="txtComment"
+                    placeholder="Bạn nghĩ gì về tin này?"></textarea>
+                <button type="button" class="btn btn-primary" id="comment-btn">Gửi bình luận</button>
+            </div>
+
+            <div class="comment-list">
+                <h6>Ý kiến bạn đọc</h6>
+                <ul class="list-group list-group-flush" id="comment-ul">
+                    <li class="list-group-item">
+                        <div class="font-weight-bold">Tên độc giả</div>
+                        <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero fuga quo, non
+                            voluptates voluptas voluptatem id adipisci vero cupiditate, qui omnis molestias ducimus
+                            cumque repudiandae error sit, culpa fugiat dolore!</div>
+                        <div class="float-right text-muted">
+                            21/04/2019
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Bài viết cùng chuyên mục -->
+            <div id="same-category">
+                <h3>BÀI VIẾT CÙNG CHUYÊN MỤC</h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="">
+                            <img data-src="https://dummyimage.com/300x300/000/fff" class="float-left mr-2 lazyload"
+                                alt="...">
+                            <p class="">
+                                <a href="#" class="text-dark">
+                                    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, ab?</h4>
+                                </a>
+                            <h6 class="card-subtitle my-2 text-muted">
+                                17/04/2019
+                            </h6>
+                            <div class="card-text d-none d-lg-block">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere repudiandae
+                                ipsam
+                                porro nihil dolorum aspernatur tempora hic cupiditate praesentium doloribus.
+                            </div>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div> <!-- col-8-->
+    </div>
+</div>
