@@ -126,8 +126,7 @@
                 alert('Mật khẩu phải bé hơn 25 ký tự.');
                 return false;
             }
-
-            $.getJSON(`/is-available_login?user=${user}&password=${passrd}`, function (data) {
+            $.getJSON(`/account/login/is-available_login?user=${user}&password=${passrd}`, function (data) {
                 if (data) {
                     $('#frmlogin').off('submit').submit();
                 } else {
@@ -147,22 +146,22 @@
                     <h3>Đăng nhập</h3>
                     <div class="d-flex justify-content-end social_icon">
                         <span><i class="fab fa-facebook-square"></i></span>
-                        <span><a style="color: #ffc312;" href="/auth/google"><i class="fab fa-google-plus-square"></i></a></span>
+                        <span><a style="color: #ffc312;" href="/account/auth/google"><i class="fab fa-google-plus-square"></i></a></span>
                         <span><i class="fab fa-twitter-square"></i></span>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="" id="frmlogin">
+                    <form method="POST" id="frmlogin">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
                             </div>
                             <input type="text" class="form-control" value="{{username}}" placeholder="Tên đăng nhập" id="username" name="username">
                             
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
                             </div>
                             <input type="password" value="{{password}}" class="form-control" name="password" id="password" placeholder="Mật khẩu">
                         </div>
@@ -177,7 +176,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                        Chưa có tài khoản<a href="/register">Đăng ký</a>
+                        Chưa có tài khoản<a href="/account/register">Đăng ký</a>
                     </div>
                     <div class="d-flex justify-content-center">
                         <a href="#">Quên mật khẩu?</a>

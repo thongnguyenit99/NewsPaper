@@ -1,6 +1,6 @@
 const express = require('express');
 const articleModel = require('../models/article.model');
-const dob_date = require('date-format')
+const moment = require('moment');
 
 const router = express.Router();
 router.get('/about.html',(req,res) => {
@@ -32,7 +32,7 @@ router.get('/', async function (req, res) {
     top10_taichinh,
     helpers: {
       format_DOB: function (date) {
-        return dob_date('dd-MM-yyyy', date)
+        return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
       }
     }
   })

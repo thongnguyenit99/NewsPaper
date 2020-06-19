@@ -12,7 +12,7 @@ require('./middlewares/locals.mdw')(app);
 
 
 app.use('/', require('./routes/Home.route'));
-app.use('/', require('./routes/_account.route'));
+app.use('/account', require('./routes/_account.route'));
 
 
 app.use(function (req, res) {

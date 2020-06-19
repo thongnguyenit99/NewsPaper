@@ -18,7 +18,7 @@ passport.deserializeUser(function(user, done) { done(null, user);});
 passport.use(new GoogleStrategy({
     clientID: "907057907553-nev6pa2mema1gimknv2j2u51g9d4j5oq.apps.googleusercontent.com",
     clientSecret: "l9yeOI3_sCF-AMoN1NBMX_dc",
-    callbackURL: "http://localhost:3000/auth/google/callback"
+    callbackURL: "http://localhost:3000/account/auth/google/callback"
   },
   async function(accessToken, refreshToken, profile, done) {
     var row = await accountModles.singleByEmail(profile._json.email);
@@ -56,7 +56,7 @@ router.post('/register', async function (req, res) {
   req.session.authUser = user[0];
   res.redirect('/');
 })
-router.get('/is-available', async function (req, res) {
+router.get('/register/is-available', async function (req, res) {
   const user = await accountModles.singleByUserName(req.query.user);
   if (typeof user != "undefined" && user != null && user.length != null && user.length > 0) {
     return res.json(true);
@@ -64,7 +64,7 @@ router.get('/is-available', async function (req, res) {
 
   res.json(false);
 })
-router.get('/is-available-email', async function (req, res) {
+router.get('/register/is-available-email', async function (req, res) {
   const user = await accountModles.singleByEmail(req.query.email);
   if (typeof user != "undefined" && user != null && user.length != null && user.length > 0) {
     return res.json(true);
@@ -115,7 +115,7 @@ router.post('/login',async function (req, res) {
   res.redirect(url);
 })
 
-router.get('/is-available_login', async function (req, res) {
+router.get('/login/is-available_login', async function (req, res) {
   var user = await accountModles.singleByUserName(req.query.user);
   if (typeof user != "undefined" && user != null && user.length != null && user.length > 0) {
     if(bcrypt.compareSync(req.query.password, user[0].password)){

@@ -138,14 +138,14 @@
                 return false;
             }
             var temp=""
-            $.getJSON(`/is-available-email?email=${email}`, function (data) {
+            $.getJSON(`/account/register/is-available-email?email=${email}`, function (data) {
                 temp=data;
                 if (data) {
                     alert('Email đăng ký đã tồn tại.');
                     return false;
                 }
             })
-            $.getJSON(`/is-available?user=${user}`, function (data) {
+            $.getJSON(`/account/register/is-available?user=${user}`, function (data) {
                 if (data === false) {
                     if(temp === false){
                         $('#frmRegister').off('submit').submit();
@@ -168,13 +168,13 @@
         <h4 class="card-title mt-3 text-center">Đăng ký</h4>
         <p>
             <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>  Đăng nhập bằng twitter</a>
-            <a href="/auth/google" class="btn btn-block btn-google"> <i class="fab fa-google"></i>  Đăng nhập bằng google</a>
+            <a href="/account/auth/google" class="btn btn-block btn-google"> <i class="fab fa-google"></i>  Đăng nhập bằng google</a>
             <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>  Đăng nhập bằng facebook</a>
         </p>
         <p class="divider-text">
             <span class="bg-light">hoặc</span>
         </p>
-        <form method="POST"action=""  id="frmRegister"  >
+        <form method="POST"  id="frmRegister"  >
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
@@ -214,7 +214,7 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block"> Tạo tài khoản  </button>
         </div> <!-- form-group// -->      
-        <p class="text-center">Đã có tài khoản? <a style="font-weight: 700;  text-decoration: none;" href="/login">Đăng nhập</a> </p>                                                                 
+        <p class="text-center">Đã có tài khoản? <a style="font-weight: 700;  text-decoration: none;" href="/account/login">Đăng nhập</a> </p>                                                                 
     </form>
     </article>
     </div> <!-- card.// -->
