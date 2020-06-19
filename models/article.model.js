@@ -2,8 +2,9 @@ const db = require('../utils/db');
 
 const TBL_article = 'article'
 module.exports = {
+    // get all article
     all: function () {
-        return db.load(`select * from ${TBL_article}`);
+        return db.load(`select * from ${TBL_article} a join categories c where a.c_ID=c.ID`);
     },
     // 10 newest article
     newest: function () {
@@ -49,6 +50,9 @@ module.exports = {
             WHERE a.c_ID=5 and a.isActive=1 ORDER BY rand() LIMIT 1) UNION
              (SELECT * FROM article a join categories c on a.c_ID=c.ID
                  WHERE a.c_ID=6 and a.isActive=1 ORDER BY  rand() ,a.public_date DESC LIMIT 1)`);
+    },
+    detailById: function (Id) {
+        return db.load(`select * from ${TBL_article} where id = ${Id}`);
     },
 
 
