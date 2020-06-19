@@ -17,6 +17,9 @@ router.get('/', async function (req, res) {
   const bestlist2 = await articleModel.bestnew2();
   const bestlist3 = await articleModel.bestnew3();
   const viewestlist = await articleModel.viewest();
+  const top10_chungkhoan = await articleModel.top10_chungkhoan();
+  const top10_doanhnghiep = await articleModel.top10_doanhnghiep();
+  const top10_taichinh = await articleModel.top10_taichinh();
 
   res.render('home', {
     newlist,
@@ -24,6 +27,9 @@ router.get('/', async function (req, res) {
     bestlist2,
     bestlist3,
     viewestlist,
+    top10_chungkhoan,
+    top10_doanhnghiep,
+    top10_taichinh,
     helpers: {
       format_DOB: function (date) {
         return dob_date('dd-MM-yyyy', date)
