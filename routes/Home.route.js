@@ -13,12 +13,16 @@ router.get('/contact.html',(req,res) => {
 
 router.get('/', async function (req, res) {
   const newlist = await articleModel.newest();
-  const bestlist = await articleModel.bestnew();
+  const bestlist1 = await articleModel.bestnew1();
+  const bestlist2 = await articleModel.bestnew2();
+  const bestlist3 = await articleModel.bestnew3();
   const viewestlist = await articleModel.viewest();
 
   res.render('home', {
     newlist,
-    bestlist,
+    bestlist1,
+    bestlist2,
+    bestlist3,
     viewestlist,
     helpers: {
       format_DOB: function (date) {
