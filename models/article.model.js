@@ -54,6 +54,10 @@ module.exports = {
     detailById: function (Id) {
         return db.load(`select * from ${TBL_article} where id = ${Id}`);
     },
+    // get 5 articles same categories
+    ArtSameCat: function (id) {
+        return db.load(`select * from ${TBL_article} a join categories c on a.c_ID=c.ID where isActive=1 order by views DESC limit 10`)
+    },
     allSearch: function(key)
     {
         return db.load(`SELECT * FROM ${TBL_article} WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
