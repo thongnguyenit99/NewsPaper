@@ -14,6 +14,7 @@ require('./middlewares/locals.mdw')(app);
 app.use('/', require('./routes/home.route'));
 app.use('/account', require('./routes/_account.route'));
 app.use('/article', require('./routes/article.route'));
+app.use('/categories', require('./routes/categories.route'));
 
 
 app.use(function (req, res) {

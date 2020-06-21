@@ -16,29 +16,25 @@ router.get('/list', async (req, res) => {
         }
     });
 })
-//5 bài viết ngẫu nhiên cùng chuyên mục
-router.get('', (req, res) => {
-
-});
-
-// // get article byCat
-// router.get('/categories/:Id', async function (req, res) {
-
-//     const listArticle = await catModel.single(req.params.Id);
-//     res.render('vwArticle/byCat', {
-//         listArticle,
+// //5 bài viết ngẫu nhiên cùng chuyên mục
+// router.get('/:id',async (req, res) => {
+//     const list5Art_same = await articleModel.ArtSameCat(req.params.id);
+//     res.render('vwArticle/details', {
+//         list5Art_same,
 //         helpers: {
 //             format_DOB: function (date) {
 //                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
 //             }
 //         }
 //     });
-// })
+// });
 
-router.get('/details/:Id', async function (req, res) {
+router.get('/details/:id/:Id', async function (req, res) {
     const list = await articleModel.detailById(req.params.Id);
+    const list5Art_same = await articleModel.ArtSameCat(req.params.id);
     res.render('vwArticle/details', {
         list,
+        list5Art_same,
         helpers: {
             format_DOB: function (date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');

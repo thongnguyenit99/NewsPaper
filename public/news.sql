@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2020 at 09:39 AM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.1.33
+-- Generation Time: Jun 21, 2020 at 02:56 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,25 +31,28 @@ SET time_zone = "+00:00";
 CREATE TABLE `account` (
   `ID` int(11) NOT NULL,
   `tc_ID` int(11) DEFAULT NULL,
-  `Email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Token_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `username` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cre_Date` date DEFAULT NULL,
   `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `r_ID` int(11) DEFAULT NULL,
-  `premium` int(11) NOT NULL,
-  `date_create_premium` date NOT NULL,
-  `time_premium` int(11) NOT NULL
+  `premium` int(11) DEFAULT NULL,
+  `date_create_premium` date DEFAULT NULL,
+  `time_premium` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`ID`, `tc_ID`, `Email`, `username`, `password`, `cre_Date`, `Image`, `r_ID`, `premium`, `date_create_premium`, `time_premium`) VALUES
-(1, 3, 'nvt@gmail.co', 'thongnguyen', '$2y$10$ib/i1jHiZ5lTHYXTsWwhXOi5E.fpCPcY7KvREYsG6hmCijOWcbw7K', '2020-06-10', NULL, 2, 0, '0000-00-00', 0),
-(2, NULL, 'nvt@gmail.co', 'thongdev', '$2b$12$Howsm.BS/z6xjEJMt/gmje92nPqjUS5Z6IiAv9wX4ilSVy.7t1ugS', '2020-06-18', NULL, 1, 0, '0000-00-00', 0),
-(3, NULL, 'nvt@gmail.co', 'quynhyen', '$2b$12$LP/zseRdlUB0wBs05nPfm.aUUJYRHZMNQiNyP1aChGNFW8V5NCULK', '2020-06-18', NULL, 1, 0, '0000-00-00', 0);
+INSERT INTO `account` (`ID`, `tc_ID`, `Token_id`, `Email`, `username`, `password`, `cre_Date`, `Image`, `r_ID`, `premium`, `date_create_premium`, `time_premium`) VALUES
+(1, 3, NULL, 'nvt@gmail.co', 'thongnguyen', '$2y$10$ib/i1jHiZ5lTHYXTsWwhXOi5E.fpCPcY7KvREYsG6hmCijOWcbw7K', '2020-06-10', NULL, 2, 0, '0000-00-00', 0),
+(2, NULL, NULL, 'nvt@gmail.co', 'thongdev', '$2b$12$Howsm.BS/z6xjEJMt/gmje92nPqjUS5Z6IiAv9wX4ilSVy.7t1ugS', '2020-06-18', NULL, 1, 0, '0000-00-00', 0),
+(3, NULL, NULL, 'nvt@gmail.co', 'quynhyen', '$2b$12$LP/zseRdlUB0wBs05nPfm.aUUJYRHZMNQiNyP1aChGNFW8V5NCULK', '2020-06-18', NULL, 1, 0, '0000-00-00', 0),
+(4, NULL, NULL, 'thongbochon@gmail.com', 'mcjs99 Official', NULL, '2020-06-19', 'https://lh3.googleusercontent.com/a-/AOh14GifhD1xGdrvkokNama8oIMhFLRxyKSv0Fy61Mqp3g', 1, 0, '0000-00-00', 0),
+(8, NULL, NULL, 'thongnguyen0103@gmail.com', 'ThongNguyen', NULL, '2020-06-21', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1345201189013705&height=200&width=200&ext=1595308795&hash=AeT29Y8PWTd2NAq6', 1, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -60,10 +63,10 @@ INSERT INTO `account` (`ID`, `tc_ID`, `Email`, `username`, `password`, `cre_Date
 CREATE TABLE `article` (
   `id` int(3) NOT NULL,
   `c_ID` int(11) DEFAULT NULL,
-  `tag` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tag` text COLLATE utf8_unicode_ci,
   `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `abstract` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `content` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `abstract` text COLLATE utf8_unicode_ci,
+  `content` text COLLATE utf8_unicode_ci,
   `author` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `public_date` timestamp NULL DEFAULT NULL,
   `images` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -125,20 +128,22 @@ CREATE TABLE `categories` (
   `ID` int(3) NOT NULL,
   `tc_ID` int(11) DEFAULT NULL,
   `c_Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `c_Large` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+  `c_alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `c_Large` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tc_alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`ID`, `tc_ID`, `c_Name`, `c_Large`) VALUES
-(1, 1, 'Cổ Phiếu Top Đầu', 'Chứng Khoán'),
-(2, 1, 'Xu Hướng Nhận Định', 'Chứng Khoán'),
-(3, 2, 'Bất Động Sản', 'Doanh Nghiệp'),
-(4, 2, 'Doanh Nghiệp Niêm Yết', 'Doanh Nghiệp'),
-(5, 3, 'Ngân Hàng Điện Tử', 'Tài Chính'),
-(6, 3, 'Thương Mại Điện Tử', 'Tài Chính');
+INSERT INTO `categories` (`ID`, `tc_ID`, `c_Name`, `c_alias`, `c_Large`, `tc_alias`) VALUES
+(1, 1, 'Cổ Phiếu Top Đầu', 'co-phieu-top-dau', 'Chứng Khoán', 'chung-khoan'),
+(2, 1, 'Xu Hướng Nhận Định', 'xu-huong-nhan-dinh', 'Chứng Khoán', 'chung-khoan'),
+(3, 2, 'Bất Động Sản', 'bat-dong-san', 'Doanh Nghiệp', 'doanh-nghiep'),
+(4, 2, 'Doanh Nghiệp Niêm Yết', 'doanh-nghiep-niem-yet', 'Doanh Nghiệp', 'doanh-nghiep'),
+(5, 3, 'Ngân Hàng Điện Tử', 'ngan-hang-dien-tu', 'Tài Chính', 'tai-chinh'),
+(6, 3, 'Thương Mại Điện Tử', 'thuong-mai-dien-tu', 'Tài Chính', 'tai-chinh');
 
 -- --------------------------------------------------------
 
@@ -207,17 +212,18 @@ CREATE TABLE `tag` (
 
 CREATE TABLE `type_catelgories` (
   `ID` int(3) NOT NULL,
-  `tc_Name` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL
+  `tc_Name` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `type_catelgories`
 --
 
-INSERT INTO `type_catelgories` (`ID`, `tc_Name`) VALUES
-(1, 'Chứng Khoán'),
-(2, 'Doanh Nghiệp'),
-(3, 'Tài Chính');
+INSERT INTO `type_catelgories` (`ID`, `tc_Name`, `alias`) VALUES
+(1, 'Chứng Khoán', 'chung-khoan'),
+(2, 'Doanh Nghiệp', 'doanh-nghiep'),
+(3, 'Tài Chính', 'tai-chinh');
 
 --
 -- Indexes for dumped tables
@@ -280,7 +286,7 @@ ALTER TABLE `type_catelgories`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `article`

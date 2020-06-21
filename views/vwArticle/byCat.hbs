@@ -1,8 +1,11 @@
 <div class="container" id="content">
 
 
-    
-
+    {{#if this.empty}}
+    <div class="card-body">
+        <p class="card-text">Không có dữ liệu.</p>
+    </div>
+{{else}}
     <div class="row mt-5">
         <div class="col-12" id="byCat-article">
          {{#each listArticle}}
@@ -17,11 +20,11 @@
                     </div>
                     <div class="col-8">
                         <div class="">
-                            <a href="/article/details/{{id}}" class="text-dark link_bycat">
+                            <a href="/article/details/{{c_ID}}/{{id}}" class="text-dark link_bycat">
                                 <h5 class="card-title" title="{{title}}">{{title}}</h5>
                             </a>
                             <h6 class="card-subtitle mb-2 text-muted d-none d-sm-block">
-                                <a href="./the-gioi.html"
+                                <a href="/categories/{{tc_alias}}/{{c_alias}}"
                                     class="article-category badge badge-primary mr-3">{{c_Name}}</a>
                                 <span class="article-date">
                                     <i class="far fa-calendar-alt mr-1"></i>
@@ -43,27 +46,39 @@
            </div>
         {{/each}}
 
-
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center mt-3">
-                    <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                    </li>
-                    <li class="page-item active">
-                        <span class="page-link">
-                            1
-                        </span>
-                    </li>
-                    <li class="page-item"><a href="#" class="page-link">2</a>
-
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
+    </div>
+    <div class="col-12 d-flex justify-content-center mt-5">
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
+                    <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {{#each this.page_items}}
+                {{#if isActive}}
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">
+                        {{value}}
+                        <span class="sr-only">(current)</span>
+                    </span>
+                </li>
+                {{else}}
+                <li class="page-item {{#if isDisabled}}disabled{{/if}}">
+                    <a class="page-link" href="?page={{value}}">{{value}}</a>
+                </li>
+                {{/if}}
+                {{/each}}
+                <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
+                    <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
         </div>
     </div>
+    {{/if}}
 </div>
