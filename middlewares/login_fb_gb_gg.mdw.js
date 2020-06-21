@@ -42,7 +42,7 @@ passport.use(new FacebookStrategy({
   clientID: '767039100769642',
   clientSecret: '92c28d1d5ef0b7143984acce903c0f81',
   callbackURL: "http://localhost:3000/account/auth/facebook/callback",
-  profileFields: ['id', 'emails', 'name']
+  profileFields: ['id', 'emails', 'name', 'picture.type(large)']
 },
   async function (accessToken, refreshToken, profile, done) {
     //console.log(profile._json.last_name);
@@ -57,6 +57,7 @@ passport.use(new FacebookStrategy({
         var data = {
           username: profile._json.last_name + profile._json.first_name, r_ID: 1,
           Email: profile._json.email,
+          Image: profile.photos[0].value,
           premium: 0, cre_Date: datetime.toISOString().slice(0, 10),
         }
         await accountModles.addNewAccount(data);
