@@ -13,11 +13,5 @@ module.exports = function (app) {
         }
         next();
     });
-    app.use(async function (req, res, next) {
-        const rows = await categoryModel.all();
-        res.locals.lcCategories = rows;
-        next();
-    })
-    
   }
   

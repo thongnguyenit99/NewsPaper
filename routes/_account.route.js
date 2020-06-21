@@ -5,66 +5,8 @@ const router = express.Router();
 const saltRounds = 12;
 const someOtherPlaintextPassword = 'not_bacon';
 const restrict = require("../middlewares/auth.mdw");
-var isAuthenticated = false;
-var authUser={}
 var datetime = new Date();
-//passport
-const passport = require('passport');
-const FacebookStrategy = require('passport-facebook').Strategy;
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
-passport.serializeUser(function(user, done) {done(null, user);});
-passport.deserializeUser(function(user, done) { done(null, user);});
-
-passport.use(new GoogleStrategy({
-    clientID: "907057907553-nev6pa2mema1gimknv2j2u51g9d4j5oq.apps.googleusercontent.com",
-    clientSecret: "l9yeOI3_sCF-AMoN1NBMX_dc",
-    callbackURL: "http://localhost:3000/account/auth/google/callback"
-  },
-  async function(accessToken, refreshToken, profile, done) {
-    var row = await accountModles.singleByEmail(profile._json.email);
-      if(row.length > 0){// da co trong db
-        isAuthenticated = true;
-        authUser = row[0];
-      }else{// chua co trong db
-        var data={
-          email: profile._json.email, username: profile._json.name, r_ID: 1,
-          premium: 0, cre_Date: datetime.toISOString().slice(0,10),
-          Image: profile._json.picture
-        }
-        isAuthenticated = true;
-        authUser = data;
-        await accountModles.addNewAccount(data);
-      }
-      return done(null, profile);
-  }
-));
-passport.use(new FacebookStrategy({
-  clientID: '300045814361766',
-  clientSecret: 'ca459b0863b81c23dd6eb7c626934ee1',
-  callbackURL: "http://localhost:3000/account/auth/facebook/callback"
-},
-  async function (accessToken, refreshToken, profile, done) {
-    var row = await accountModles.singleByUserName(profile._json.name + profile._json.id);
-    if (row.length == 0) {// chưa có trong db
-      var data = {
-        username: profile._json.name + profile._json.id, r_ID: 1,
-        premium: 0, cre_Date: datetime.toISOString().slice(0, 10),
-        Token_id: profile._json.id
-      }
-      isAuthenticated = true;
-      authUser = data;
-      await accountModles.addNewAccount(data);
-    } else {
-      isAuthenticated = true;
-      authUser = row[0];
-    }
-
-    done(null, profile);
-  },
-));
-
-router.use(passport.initialize());
+require('../middlewares/login_fb_gb_gg.mdw')(router);
 
 //sign up
 router.get('/register', function (req, res) {
@@ -98,33 +40,6 @@ router.get('/register/is-available-email', async function (req, res) {
 
   res.json(false);
 })
-//đăng nhập sử dụng passport
-//google
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    req.session.isAuthenticated = isAuthenticated;
-    req.session.authUser = authUser;
-    res.redirect('/');
-  }
-);
-//facebook
-router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
-
-
-router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/account/login' }),
-  function (req, res) {
-    //Successful authentication, redirect home.
-    req.session.isAuthenticated = isAuthenticated;
-    req.session.authUser = authUser;
-    res.redirect('/');
-  }
-);
-
-
 
 // sign in
 router.get('/login', function (req, res) {

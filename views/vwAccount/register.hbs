@@ -167,12 +167,15 @@
     <article class="card-body mx-auto" style="width: 50%;">
         <h4 class="card-title mt-3 text-center">Đăng ký</h4>
         <p>
-            <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>  Đăng nhập bằng twitter</a>
-            <a href="/account/auth/google" class="btn btn-block btn-google"> <i class="fab fa-google"></i>  Đăng nhập bằng google</a>
+            <a href="/account/auth/github" style="background-color: #444444;" class="btn btn-block btn-twitter"> <i class="fab fa-github"></i>  Đăng nhập bằng github</a>
+            <a href="/account/auth/google" style="background-color: #dd4b39;" class="btn btn-block btn-google"> <i class="fab fa-google"></i>  Đăng nhập bằng google</a>
         <a href="/account/auth/facebook" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i> Đăng nhập bằng
             facebook</a>
         </p>
         <p class="divider-text">
+            {{#if islogin}}
+                <div style="color: red;">Đăng nhập thất bại. Vui lòng thêm trường email vô thông tin cá nhân. Rồi thủ lại</div>
+            {{/if}}
             <span class="bg-light">hoặc</span>
         </p>
         <form method="POST"  id="frmRegister"  >
