@@ -150,12 +150,16 @@
     .content{
         z-index: initial;
     }
-   a.link_bycat, a.link_top10,a.link_viewest ,a.link_newest,a.link_trend{
+  a.link_same, a.link_bycat, a.link_top10,a.link_viewest ,a.link_newest,a.link_trend{
         text-decoration: none;
     }
-    a.link_bycat h5:hover ,a.link_top10 h5:hover,a.link_newest h5:hover,a.link_viewest h5:hover  {
+     a.link_bycat h5:hover ,a.link_top10 h5:hover,a.link_newest h5:hover,a.link_viewest h5:hover  {
         color: #00a651;
     }
+    a.link_same h5:hover{
+         color: #00a651;
+    }
+
     /*==Style cơ bản cho website==*/
 body {
   font-family: sans-serif;
@@ -454,36 +458,32 @@ a.button-back:hover {
             <div class="header-top">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4 col-sm-4 hidden-xs">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-4 col-md-4 col-xs-12">
+                        <div class="col-sm-4 col-md-3 col-xs-12">
                                         <!-- Header Logo -->
                                         <div class="logo">
                                             <a title="e-commerce" href="/"> </a>
-                                            <div class="form-group-row">&nbsp;
+                                            <div class="form-group-row ">&nbsp;
                                                 <a href="/" rel="home">
                                                     <img src="/img/logo.png"sizes="32x32" alt="thong-bo-chon-SEO" />
-                                                    Deploy99</a>
+                                                </a>
                                             </div>
                                             &nbsp;
                                         </div>
                                         <!-- End Header Logo -->
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="col-sm-5 col-md-4 col-xs-12 mt-4">
-                            <form class="form-inline search-form ml-auto mr-5" id="search-form" action="#">
+
+                        <div class="col-sm-4 col-md-5 col-xs-12 mt-4">
+                            <form class="form-inline search-form ml-auto mr-5" method="POST" id="search-form" action="/article/search">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Từ khóa tìm kiếm..">
+                                    <input type="text" class="form-control" name="key" placeholder="Từ khóa tìm kiếm..">
                                 </div>
-                                <button type="button" class="btn btn-dark " id="search-btn">
+                                <button type="submit" class="btn btn-dark ml-2" id="search-btn">
                                     <i class="fa fa-search center-right"></i>
                                 </button>
                             </form>
                         </div>
-                        <div class="col-4 col-xs-12 mt-4"><p  id="deploy99"></p></div>
+                        <div class="col-md-4 col-xs-12 mt-4"><p  id="deploy99"></p>
+                        </div>
                     </div>
         
                 </div>
@@ -623,22 +623,22 @@ a.button-back:hover {
                                 class="sr-only">(current)</span> TRANG CHỦ</a>
                     </li>
                     
-                    <li><a href="/article/categories/1" id="chungkhoan">CHỨNG KHOÁN</a>
+                    <li><a href="/categories/chung-khoan" id="chungkhoan">CHỨNG KHOÁN</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Cổ phiếu top đầu</a></li>
-                            <li><a href="#">Xu hướng nhận định</a></li>
+                            <li><a href="/categories/chung-khoan/co-phieu-top-dau">Cổ phiếu top đầu</a></li>
+                            <li><a href="/categories/chung-khoan/xu-huong-nhan-dinh">Xu hướng nhận định</a></li>
                         </ul>
                     </li>
-                    <li><a href="/article/categories/2" id="doanhnghiep">DOANH NGHIỆP</a>
+                    <li><a href="/categories/doanh-nghiep" id="doanhnghiep">DOANH NGHIỆP</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Bất động sản</a></li>
-                            <li><a href="#">Doanh nghiệp niêm yết</a></li>
+                            <li><a href="/categories/doanh-nghiep/bat-dong-san">Bất động sản</a></li>
+                            <li><a href="/categories/doanh-nghiep/doanh-nghiep-niem-yet">Doanh nghiệp niêm yết</a></li>
                         </ul>
                     </li>
-                    <li><a href="/article/categories/3" id="taichinh">TÀI CHÍNH</a>
+                    <li><a href="/categories/tai-chinh" id="taichinh">TÀI CHÍNH</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Ngân hàng hiện đại</a></li>
-                            <li><a href="#">Thương mại điện tử</a></li>
+                            <li><a href="/categories/tai-chinh/ngan-hang-dien-tu">Ngân hàng điện tử</a></li>
+                            <li><a href="/categories/tai-chinh/thuong-mai-dien-tu">Thương mại điện tử</a></li>
                         </ul>
                     </li>
                     <li><a href="/about.html" id="about">LIÊN HỆ</a>

@@ -47,8 +47,6 @@ module.exports = function (router) {
             console.log('Message sent: ' +  info.response);
         }
     });
-
-    console.log(otp);
     res.redirect('/account/login/forgotpassword/otp');
     })
     router.get('/login/forgotpassword/otp', async function (req, res) {

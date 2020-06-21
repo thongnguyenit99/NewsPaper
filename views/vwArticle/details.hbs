@@ -54,27 +54,35 @@
 
             <!-- Bài viết cùng chuyên mục -->
             <div id="same-category">
-                <h3>BÀI VIẾT CÙNG CHUYÊN MỤC</h3>
+                <h3> BÀI VIẾT CÙNG CHUYÊN MỤC</h3>
                 <ul class="list-group list-group-flush">
+                    {{#each list5Art_same }}
                     <li class="list-group-item">
-                        <div class="">
-                            <img data-src="https://dummyimage.com/300x300/000/fff" class="float-left mr-2 lazyload"
+                      
+                    <div class="row">
+                        <div class="col-12">
+                          <div class="img-cont1 mr-3 col-md-4">
+                            <img src="/article/{{images}}" title="{{c_Name}}: {{id}}-{{title}}" 
+                                style="width:350px;height:300px" class="float-left mr-2 lazyload"
                                 alt="...">
-                            <p class="">
-                                <a href="#" class="text-dark">
-                                    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, ab?</h4>
+                        </div>
+                        
+                            <div class="ml-5 col-md-12">
+                                <a href="/article/details/{{c_ID}}/{{id}}" class="text-dark link_same">
+                                    <h5 class="card-title " title="{{title}}">{{title}}</h5>
                                 </a>
                             <h6 class="card-subtitle my-2 text-muted">
-                                17/04/2019
+                                Ngày đăng: {{format_DOB public_date}}
                             </h6>
                             <div class="card-text d-none d-lg-block">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere repudiandae
-                                ipsam
-                                porro nihil dolorum aspernatur tempora hic cupiditate praesentium doloribus.
+                                {{abstract}}
                             </div>
-                            </p>
+                            </div>
                         </div>
+                    </div>
+                        
                     </li>
+                    {{/each}}
                 </ul>
             </div>
         </div> <!-- col-8-->
