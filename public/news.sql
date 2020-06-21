@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2020 at 09:14 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Generation Time: Jun 21, 2020 at 09:39 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -46,10 +46,10 @@ CREATE TABLE `account` (
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`ID`, `tc_ID`, `Email`, `username`, `password`, `cre_Date`, `r_ID`, `premium`, `date_create_premium`, `time_premium`) VALUES
-(1, 3, 'nvt@gmail.co', 'thongnguyen', '$2y$10$ib/i1jHiZ5lTHYXTsWwhXOi5E.fpCPcY7KvREYsG6hmCijOWcbw7K', '2020-06-10', 2, 0, '0000-00-00', 0),
-(2, NULL, 'nvt@gmail.co', 'thongdev', '$2b$12$Howsm.BS/z6xjEJMt/gmje92nPqjUS5Z6IiAv9wX4ilSVy.7t1ugS', '2020-06-18', 1, 0, '0000-00-00', 0),
-(3, NULL, 'nvt@gmail.co', 'quynhyen', '$2b$12$LP/zseRdlUB0wBs05nPfm.aUUJYRHZMNQiNyP1aChGNFW8V5NCULK', '2020-06-18', 1, 0, '0000-00-00', 0);
+INSERT INTO `account` (`ID`, `tc_ID`, `Email`, `username`, `password`, `cre_Date`, `Image`, `r_ID`, `premium`, `date_create_premium`, `time_premium`) VALUES
+(1, 3, 'nvt@gmail.co', 'thongnguyen', '$2y$10$ib/i1jHiZ5lTHYXTsWwhXOi5E.fpCPcY7KvREYsG6hmCijOWcbw7K', '2020-06-10', NULL, 2, 0, '0000-00-00', 0),
+(2, NULL, 'nvt@gmail.co', 'thongdev', '$2b$12$Howsm.BS/z6xjEJMt/gmje92nPqjUS5Z6IiAv9wX4ilSVy.7t1ugS', '2020-06-18', NULL, 1, 0, '0000-00-00', 0),
+(3, NULL, 'nvt@gmail.co', 'quynhyen', '$2b$12$LP/zseRdlUB0wBs05nPfm.aUUJYRHZMNQiNyP1aChGNFW8V5NCULK', '2020-06-18', NULL, 1, 0, '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -60,10 +60,10 @@ INSERT INTO `account` (`ID`, `tc_ID`, `Email`, `username`, `password`, `cre_Date
 CREATE TABLE `article` (
   `id` int(3) NOT NULL,
   `c_ID` int(11) DEFAULT NULL,
-  `tag` text COLLATE utf8_unicode_ci,
+  `tag` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `abstract` text COLLATE utf8_unicode_ci,
-  `content` text COLLATE utf8_unicode_ci,
+  `abstract` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `author` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `public_date` timestamp NULL DEFAULT NULL,
   `images` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -234,6 +234,7 @@ ALTER TABLE `account`
 --
 ALTER TABLE `article`
   ADD PRIMARY KEY (`id`);
+ALTER TABLE `article` ADD FULLTEXT KEY `title` (`title`,`abstract`,`content`,`tag`,`author`);
 
 --
 -- Indexes for table `categories`
