@@ -1,5 +1,7 @@
 const express = require('express');
 const accountModles = require('../models/_account.model');
+const configAuth = require('../config/auth');
+
 const someOtherPlaintextPassword = 'not_bacon';
 var isAuthenticated = false;
 var authUser={}
@@ -15,9 +17,9 @@ passport.serializeUser(function(user, done) {done(null, user);});
 passport.deserializeUser(function(user, done) { done(null, user);});
 //google
 passport.use(new GoogleStrategy({
-    clientID: "907057907553-nev6pa2mema1gimknv2j2u51g9d4j5oq.apps.googleusercontent.com",
-    clientSecret: "l9yeOI3_sCF-AMoN1NBMX_dc",
-    callbackURL: "http://localhost:3000/account/auth/google/callback"
+  clientID: configAuth.googleAuth.clientID,
+  clientSecret: configAuth.googleAuth.clientSecret,
+  callbackURL: configAuth.googleAuth.callbackURL
   },
   async function(accessToken, refreshToken, profile, done) {
     var row = await accountModles.singleByEmail(profile._json.email);
@@ -37,11 +39,11 @@ passport.use(new GoogleStrategy({
       return done(null, profile);
   }
 ));
-// face book
+// facebook
 passport.use(new FacebookStrategy({
-  clientID: '767039100769642',
-  clientSecret: '92c28d1d5ef0b7143984acce903c0f81',
-  callbackURL: "http://localhost:3000/account/auth/facebook/callback",
+  clientID: configAuth.facebookAuth.clientID,
+  clientSecret: configAuth.facebookAuth.clientSecret,
+  callbackURL: configAuth.facebookAuth.callbackURL,
   profileFields: ['id', 'emails', 'name', 'picture.type(large)']
 },
   async function (accessToken, refreshToken, profile, done) {
@@ -76,10 +78,10 @@ passport.use(new FacebookStrategy({
 ));
 //github
 passport.use(new GitHubStrategy({
-  clientID: 'Iv1.59689c4f566135bc',
-  clientSecret: 'd5966fdbf57bdd4fcd59e1520c2e76c97a0ace16',
-  scope: 'user:email',
-  callbackURL: "http://localhost:3000/account/auth/github/callback",
+  clientID: configAuth.githubAuth.clientID,
+  clientSecret: configAuth.githubAuth.clientSecret,
+  callbackURL: configAuth.githubAuth.callbackURL,
+  scope: 'user:email'
 },
 async function(accessToken, refreshToken, profile, cb, done) {
   // tai khoản đang nhập được nhưng không có email
