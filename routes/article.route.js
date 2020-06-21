@@ -17,19 +17,19 @@ router.get('/list', async (req, res) => {
     });
 })
 
-// get article byCat
-router.get('/categories/:Id', async function (req, res) {
+// // get article byCat
+// router.get('/categories/:Id', async function (req, res) {
 
-    const listArticle = await catModel.single(req.params.Id);
-    res.render('vwArticle/byCat', {
-        listArticle,
-        helpers: {
-            format_DOB: function (date) {
-                return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
-            }
-        }
-    });
-})
+//     const listArticle = await catModel.single(req.params.Id);
+//     res.render('vwArticle/byCat', {
+//         listArticle,
+//         helpers: {
+//             format_DOB: function (date) {
+//                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
+//             }
+//         }
+//     });
+// })
 
 router.get('/details/:Id', async function (req, res) {
     const list = await articleModel.detailById(req.params.Id);
