@@ -54,6 +54,9 @@ module.exports = {
     detailById: function (Id) {
         return db.load(`select * from ${TBL_article} where id = ${Id}`);
     },
-
+    allSearch: function(key)
+    {
+        return db.load(`SELECT * FROM ${TBL_article} WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
+    }
 
 }

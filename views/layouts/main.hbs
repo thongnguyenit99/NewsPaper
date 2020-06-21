@@ -474,11 +474,11 @@ a.button-back:hover {
                             </div>
                         </div>
                         <div class="col-sm-5 col-md-4 col-xs-12 mt-4">
-                            <form class="form-inline search-form ml-auto mr-5" id="search-form" action="#">
+                            <form class="form-inline search-form ml-auto mr-5" method="POST" id="search-form" action="/article/search">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Từ khóa tìm kiếm..">
+                                    <input type="text" class="form-control" name="key" placeholder="Từ khóa tìm kiếm..">
                                 </div>
-                                <button type="button" class="btn btn-dark " id="search-btn">
+                                <button type="submit" class="btn btn-dark " id="search-btn">
                                     <i class="fa fa-search center-right"></i>
                                 </button>
                             </form>

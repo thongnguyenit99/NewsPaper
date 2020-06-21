@@ -36,4 +36,17 @@ router.get('/', async function (req, res) {
   })
 
 })
+
+router.post('/article/search', async function (req, res) {
+  const key=req.body.key;
+  const listSearch = await articleModel.allSearch(key)
+  res.render('vwArticle/search',{
+    listSearch,
+    helpers: {
+      format_DOB: function (date) {
+          return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
+      }
+  }
+  });
+})
 module.exports = router;
