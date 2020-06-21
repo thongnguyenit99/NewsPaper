@@ -5,9 +5,9 @@ const moment = require('moment');
 const router = express.Router();
 
 // get article byCat
-router.get('/:Id', async function (req, res) {
+router.get('/:alias', async function (req, res) {
 
-    const listArticle = await catModel.single(req.params.Id);
+    const listArticle = await catModel.loadByCat(req.params.alias);
     res.render('vwArticle/byCat', {
         listArticle,
         helpers: {
@@ -18,9 +18,9 @@ router.get('/:Id', async function (req, res) {
     });
 })
 // get byChildCat
-router.get('/:tc_id/:Id', async function (req, res) {
+router.get('/:alias/:c_alias', async function (req, res) {
 
-    const listArticle = await catModel.loadByChild(req.params.tc_id, req.params.Id);
+    const listArticle = await catModel.loadByChild(req.params.alias, req.params.c_alias);
     res.render('vwArticle/byChild', {
         listArticle,
         helpers: {

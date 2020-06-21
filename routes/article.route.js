@@ -16,6 +16,10 @@ router.get('/list', async (req, res) => {
         }
     });
 })
+//5 bài viết ngẫu nhiên cùng chuyên mục
+router.get('', (req, res) => {
+
+});
 
 // // get article byCat
 // router.get('/categories/:Id', async function (req, res) {
