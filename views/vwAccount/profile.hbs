@@ -1,177 +1,233 @@
 {{#section 'css'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
+<!-- some CSS styling changes and overrides -->
+    <style>
+    .kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+    }
+    .kv-avatar {
+        display: inline-block;
+    }
+    .kv-avatar .file-input {
+        display: table-cell;
+        width: 213px;
+    }
+    .kv-reqd {
+        color: red;
+        font-family: monospace;
+        font-weight: normal;
+    }
+    </style>
  
 {{/section}}
-<div class="container">
-<div class="row flex-lg-nowrap">
-  <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-    <div class="card p-3">
-      <div class="e-navlist e-navlist--active-bg">
-        <ul class="nav">
-          <li class="nav-item"><a class="nav-link px-2 active" href="./overview.html"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-          <li class="nav-item"><a class="nav-link px-2" href="./users.html"><i class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
-          <li class="nav-item"><a class="nav-link px-2" href="./settings.html"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
 
-  <div class="col">
-    <div class="row">
-      <div class="col mb-3">
-        <div class="card">
-          <div class="card-body">
-            <div class="e-profile">
-              <div class="row">
-                <div class="col-12 col-sm-auto mb-3">
-                  <div class="mx-auto" style="width: 140px;">
-                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                      <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-                  <div class="text-center text-sm-left mb-2 mb-sm-0">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">John Smith</h4>
-                    <p class="mb-0">@johnny.s</p>
-                    <div class="text-muted"><small>Last seen 2 hours ago</small></div>
-                    <div class="mt-2">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fa fa-fw fa-camera"></i>
-                        <span>Change Photo</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="text-center text-sm-right">
-                    <span class="badge badge-secondary">administrator</span>
-                    <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
-                  </div>
-                </div>
-              </div>
-              <ul class="nav nav-tabs">
-                <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
-              </ul>
-              <div class="tab-content pt-3">
-                <div class="tab-pane active">
-                  <form class="form" novalidate="">
-                    <div class="row">
-                      <div class="col">
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Full Name</label>
-                              <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith">
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Username</label>
-                              <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Email</label>
-                              <input class="form-control" type="text" placeholder="user@example.com">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col mb-3">
-                            <div class="form-group">
-                              <label>About</label>
-                              <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12 col-sm-6 mb-3">
-                        <div class="mb-2"><b>Change Password</b></div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Current Password</label>
-                              <input class="form-control" type="password" placeholder="••••••">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>New Password</label>
-                              <input class="form-control" type="password" placeholder="••••••">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                              <input class="form-control" type="password" placeholder="••••••"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                        <div class="mb-2"><b>Keeping in Touch</b></div>
-                        <div class="row">
-                          <div class="col">
-                            <label>Email Notifications</label>
-                            <div class="custom-controls-stacked px-2">
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                              </div>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                              </div>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit">Save Changes</button>
-                      </div>
-                    </div>
-                  </form>
+{{#section 'js'}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
+  <!-- the fileinput plugin initialization -->
+    <script>
+    /*var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' + 
+        'onclick="alert(\'Call your custom code here.\')">' +
+        '<i class="fas fa-image"></i>' +
+        '</button>';*/ 
+    if({{{url}}}){
+        $("#avatar-2").fileinput({
+          overwriteInitial: true,
+          showClose: false,
+          showCaption: false,
+          showBrowse: false,
+          browseOnZoneClick: true,
+          removeLabel: '',
+          removeIcon: '<i class="fas fa-times"></i>',
+          removeTitle: 'Cancel or reset changes',
+          elErrorContainer: '#kv-avatar-errors-2',
+          msgErrorClass: 'alert alert-block alert-danger',
+          defaultPreviewContent: '<img src="{{{Image}}}" name="Image" width="200" alt="Your Avatar"><h6 class="text-muted">Ấn vô để thay đổi</h6>',
+          layoutTemplates: {main2: '{preview} {remove} {browse}'},
+          allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+    }else{
+        $("#avatar-2").fileinput({
+          overwriteInitial: true,
+          showClose: false,
+          showCaption: false,
+          showBrowse: false,
+          browseOnZoneClick: true,
+          removeLabel: '',
+          language: 'vi',
+          removeIcon: '<i class="fas fa-times"></i>',
+          removeTitle: 'Cancel or reset changes',
+          elErrorContainer: '#kv-avatar-errors-2',
+          msgErrorClass: 'alert alert-block alert-danger',
+          defaultPreviewContent: '<img src="/img/profile/{{{Image}}}" width="200"name="Image" alt="Your Avatar"><h6 class="text-muted">Ấn vô để thay đổi</h6>',
+          layoutTemplates: {main2: '{preview} {remove} {browse}'},
+          allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+    }
+   
+    </script>
 
+    <script>
+        $('#frmprofile').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+
+        function validateEmail(email) {
+            const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
+        }
+        function scorePassword(pass) {
+            var score = 0;
+            if (!pass)
+                return score;
+
+            // award every unique letter until 5 repetitions
+            var letters = new Object();
+            for (var i=0; i<pass.length; i++) {
+                letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+                score += 5.0 / letters[pass[i]];
+            }
+
+            // bonus points for mixing it up
+            var variations = {
+                digits: /\d/.test(pass),
+                lower: /[a-z]/.test(pass),
+                upper: /[A-Z]/.test(pass),
+                nonWords: /\W/.test(pass),
+            }
+
+            variationCount = 0;
+            for (var check in variations) {
+                variationCount += (variations[check] == true) ? 1 : 0;
+            }
+            score += (variationCount - 1) * 10;
+
+            return parseInt(score);
+        }
+
+        function validate(){
+            const user = $('#username').val();
+            const passrd = $('#password').val();
+            const Email = $('#Email').val();
+            if(user== ""){
+                alert('Tên đăng nhập không được rỗng.')
+                    return false;
+            }
+            if(user.length < 8 ){
+                alert('Tên đăng nhập phải từ 8 ký tự.')
+                return false;
+            }
+            if(user.length > 25 ){
+                alert('Tên đăng nhập tối đa 25 ký tự.')
+                return false;
+            }
+            if(passrd.length != ""){ 
+                if(passrd.length < 6 ){
+                alert('Mật khẩu phải lơn hơn 5 ký tự');
+                return false;
+                }
+                if(passrd.length > 24 ){
+                    alert('Mật khẩu phải bé hơn 25 ký tự.');
+                    return false;
+                }
+                if(scorePassword(passrd) <=30){
+                    alert('Mật khẩu yếu.');
+                    return false;
+                }
+            }
+
+            if(!validateEmail(Email)){
+                alert('Email không hợp lệ.')
+                return false;
+            }
+            $.getJSON(`/account/profile/is-available?user=${user}`, function (data) {
+                if (!data) {
+                    $('#frmprofile').off('submit').submit();
+                } else {
+                    alert('Tên đăng nhập đã tồn tại.');
+                }
+            })
+        }
+    </script>
+
+{{/section}}
+
+
+<!-- markup -->
+<!-- note: your server code `/site/avatar_upload/2` will receive `$_FILES['avatar-2']` on form submission -->
+<!-- the avatar markup -->
+<div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+<div class="container-fluid" style="background-image: url(https://png.pngtree.com/thumb_back/fh260/back_our/20190619/ourmid/pngtree-company-profile-corporate-culture-exhibition-board-display-poster-material-image_131622.jpg); background-size: cover;background-repeat;  margin-top:50px; margin-bottom: 50px">
+  <div class="container" style="padding: 50px;">
+        <form class="form form-vertical" id="frmprofile" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-3 text-center">
+                <div class="kv-avatar">
+                    <div class="file-loading">
+                        <input id="avatar-2" name="Image" type="file">
+                    </div>
                 </div>
-              </div>
+                <div class="kv-avatar-hint">
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-3 mb-3">
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="px-xl-3">
-              <button class="btn btn-block btn-secondary">
-                <i class="fa fa-sign-out"></i>
-                <span>Logout</span>
-              </button>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="email">Địa chỉ email<span class="kv-reqd">*</span></label>
+                            <input name="Email" id="Email" value="{{Email}}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="pwd">Mật khẩu Mới</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="fname">Tên đăng nhập<span class="kv-reqd">*</span></label>
+                            <input type="text" class="form-control" name="username" id="username" value="{{username}}" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="lname">Loại tài khoản</span></label>
+                            <input readonly type="text" class="form-control" id="typeaccount" value="{{typeaccount}}" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <hr>
+                    <div class="row">
+                        <div>
+                            <button type="submit" style="text-align: left; margin-left:15px" class="btn btn-outline-primary">
+                              <i class="fa fa-marker"></i>
+                              <span style="color: aliceblue; font-weight:bold; font-size:18px">Cập nhật</span>
+                            </button>
+                        </div>
+                        {{#if vip}}
+                            <div>
+                                <a href="/account/profile/vip" style="text-align: right; margin-left:15px; background-color:#FFD700" class="btn btn-primary">
+                                <i class="fa fa-crown"></i>
+                                <span style="color: white; font-weight:bold; font-size:18px">Nạp vip</span>
+                                </a>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="card">
-          <div class="card-body">
-            <h6 class="card-title font-weight-bold">Support</h6>
-            <p class="card-text">Get fast, free help from our friendly assistants.</p>
-            <button type="button" class="btn btn-primary">Contact Us</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    </form>
   </div>
 </div>
-</div>
+
+ 

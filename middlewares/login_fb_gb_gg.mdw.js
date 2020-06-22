@@ -131,14 +131,14 @@ module.exports = function (router) {
     passport.authenticate('facebook', { failureRedirect: '/account/login' }),
     function (req, res) {
         if(isfalse == true){// login thành công nhưng ko có email thì lỗi
-        res.locals.islogin=true;
-        res.redirect('/account/register');
-        res.locals.islogin=false;
-        isfalse = false;
+          res.locals.islogin=true;
+          res.redirect('/account/register');
+          res.locals.islogin=false;
+          isfalse = false;
         }else{
-        req.session.isAuthenticated = isAuthenticated;
-        req.session.authUser = authUser;
-        res.redirect('/');
+          req.session.isAuthenticated = isAuthenticated;
+          req.session.authUser = authUser;
+          res.redirect('/');
         }
     }
     );
@@ -151,16 +151,15 @@ module.exports = function (router) {
     function(req, res) {
         // Successful authentication, redirect home.
         if(isfalse == true){//
-        res.locals.islogin=true;
-        res.redirect('/account/register');
-        res.locals.islogin=false;
-        isfalse = false;
+          res.locals.islogin=true;
+          res.redirect('/account/register');
+          res.locals.islogin=false;
+          isfalse = false;
         }else{
-        req.session.isAuthenticated = isAuthenticated;
-        req.session.authUser = authUser;
-        res.redirect('/');
+          req.session.isAuthenticated = isAuthenticated;
+          req.session.authUser = authUser;
+          res.redirect('/');
         }
-    
     });
 }
 

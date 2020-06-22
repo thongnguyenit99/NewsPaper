@@ -404,7 +404,7 @@ a.button-back:hover {
         <form id="frmLogout" action="/account/logout" method="POST"></form>
         <div id="quick-contact">
         <ul class="col-sm-12 col-md-12 col-xs-12">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-5 col-md-6 col-xs-12 ">
                         <li class="quick-call"><a href="tel:0345870xxx">0345.870.xxx </a></li>
@@ -412,7 +412,7 @@ a.button-back:hover {
                     </div>
                     <div class="col-sm-5 col-md-6 col-xs-12 ">
                         {{#if lcIsAuthenticated}}
-                        <li style="float: right;  width: auto;margin-right:25px">
+                        <li style="float: right;  width: auto;">
                             <!-- Nếu mà có session tài khoản đã đk thì hiện lên mục này.Còn không thì ẩn (tức logout ồi hay chưa đăng nhập) -->
                             <div class="btn-group">
                                 <button type="button" style="height: 40px;margin-top:-1px" class="btn btn-primary dropdown-toggle"
@@ -422,7 +422,7 @@ a.button-back:hover {
                                 </button>
                                 <div class="dropdown-menu">
                         
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/account/profile">
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                         Proflie
                                     </a>
@@ -454,9 +454,9 @@ a.button-back:hover {
         </div>
 
 
-        <div class="header-container">
+        <div class="header-container-fluid">
             <div class="header-top">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-4 col-md-3 col-xs-12">
                                         <!-- Header Logo -->
@@ -617,7 +617,7 @@ a.button-back:hover {
     </nav> --}}
     <div id="menu">
         <ul class="col-sm-12 col-md-12 col-xs-12">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="col-sm-4 col-md-12 col-xs-8">
                     <li><a href="/" id="home"><i class="fa fa-home" aria-hidden="true"></i><span
                                 class="sr-only">(current)</span> TRANG CHỦ</a>

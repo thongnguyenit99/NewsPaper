@@ -31,7 +31,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `account` (
   `ID` int(11) NOT NULL,
   `tc_ID` int(11) DEFAULT NULL,
-  `Token_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `username` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -39,7 +38,7 @@ CREATE TABLE `account` (
   `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `r_ID` int(11) DEFAULT NULL,
   `premium` int(11) DEFAULT NULL,
-  `date_create_premium` date DEFAULT NULL,
+  `date_create_premium` datetime DEFAULT NULL,
   `time_premium` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
