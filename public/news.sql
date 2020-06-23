@@ -34,6 +34,8 @@ CREATE TABLE `account` (
   `Email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `username` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pseudonym` varchar(255) DEFAULT NULL,
+  `DOB` date DEFAULT NULL,
   `cre_Date` date DEFAULT NULL,
   `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `r_ID` int(11) DEFAULT NULL,

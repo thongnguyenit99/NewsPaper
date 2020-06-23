@@ -2,6 +2,7 @@ const express = require('express');
 const accountModles = require('../models/_account.model.js');
 const bcrypt = require('bcrypt');
 const router = express.Router();
+const moment = require('moment');
 const saltRounds = 12;
 const restrict = require("../middlewares/auth.mdw");
 const _accountModel = require('../models/_account.model.js');
@@ -20,6 +21,7 @@ router.get('/register', function (req, res) {
 router.post('/register', async function (req, res) {
   var data={
     email: req.body.email, username: req.body.username,
+    DOB: moment(req.body.dob, 'DD-MM-YYYY').format('YYYY/MM/DD'),
     password: bcrypt.hashSync(req.body.password, saltRounds), r_ID: 1,
     premium: 0, cre_Date: datetime.toISOString().slice(0,10)
   }

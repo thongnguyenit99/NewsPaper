@@ -1,5 +1,6 @@
 {{#section 'css'}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 <!-- some CSS styling changes and overrides -->
     <style>
     .kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
@@ -29,12 +30,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script>
+         
+         $('#dob').datetimepicker({
+            format: 'd/m/Y',
+            timepicker: false,
+            mask: true,
+            value: "{{{dob}}}"
+        });
+    </script>
   <!-- the fileinput plugin initialization -->
     <script>
-    /*var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' + 
-        'onclick="alert(\'Call your custom code here.\')">' +
-        '<i class="fas fa-image"></i>' +
-        '</button>';*/ 
     if({{{url}}}){
         $("#avatar-2").fileinput({
           overwriteInitial: true,
@@ -115,6 +122,7 @@
             const user = $('#username').val();
             const passrd = $('#password').val();
             const Email = $('#Email').val();
+            const dob = $('#dob').val();
             if(user== ""){
                 alert('Tên đăng nhập không được rỗng.')
                     return false;
@@ -144,6 +152,10 @@
 
             if(!validateEmail(Email)){
                 alert('Email không hợp lệ.')
+                return false;
+            }
+            if(dob == "__/__/____" || dob ==""){
+                alert("Ngày sinh không được rỗng.");
                 return false;
             }
             $.getJSON(`/account/profile/is-available?user=${user}`, function (data) {
@@ -202,6 +214,25 @@
                         <div class="form-group">
                             <label for="lname">Loại tài khoản</span></label>
                             <input readonly type="text" class="form-control" id="typeaccount" value="{{typeaccount}}" required>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="fname">Ngày Sinh<span class="kv-reqd">*</span></label>
+                            <input type="text" class="form-control" name="dob" id="dob">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="lname">Bút Danh</span></label>
+                            {{#if writer}}
+                                <input type="text" class="form-control" name="pseudonym" id="pseudonym" value="{{pseudonym}}" required>
+                            {{else}}    
+                                <input readonly type="text" class="form-control" name="pseudonym" id="pseudonym" value="{{pseudonym}}">
+                            {{/if}}
                         </div>
                     </div>
                 </div>

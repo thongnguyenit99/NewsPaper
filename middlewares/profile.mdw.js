@@ -8,9 +8,11 @@ const saltRounds = 12;
 const restrict = require("../middlewares/auth.mdw");
 const fs = require('fs');
 const multer  = require('multer');
-var path_img="";
+const moment = require('moment');
 var datetime = new Date();
-var n = 60;
+
+var n = 7*24*60*60;
+var path_img="";
 const storage = multer.diskStorage({
   destination: './Public/img/profile/',
   filename: function (req, file, cb) {
@@ -43,30 +45,35 @@ module.exports = function (router) {
              //lay du lieu
              var row = await accountModles.singleByUserName(req.session.authUser.username);
              row.forEach(function(value){
-             if(value.premium == 0){
-                value.vip = true;
-                 value.typeaccount = "Tài khoản thường.";
-             }
-             else{
-                value.vip = false;
-                 value.typeaccount = "Tài khoản vip. Còn " + Math.ceil((row[0].time_premium- diffTime)/60) + " Phút.";
-             }
-             if(value.Image == "" || value.Image == null){
-                 value.Image = "default-avatar-male.png";
-             }
-             if (validUrl.isUri(value.Image)){
-                 value.url = true;
-             } 
-             else {
-                 path_img = value.Image;
-                 value.url = false;
-             }
+                if(value.premium == 0){
+                    value.vip = true;
+                    value.typeaccount = "Tài khoản thường.";
+                }
+                else{
+                    value.vip = false;
+                    value.typeaccount = "Tài khoản vip. Còn " + Math.ceil((row[0].time_premium- diffTime)/60) + " Phút.";
+                }
+                if(value.Image == "" || value.Image == null){
+                    value.Image = "default-avatar-male.png";
+                }
+                if (validUrl.isUri(value.Image)){
+                    value.url = true;
+                } 
+                else {
+                    path_img = value.Image;
+                    value.url = false;
+                }
+                if(value.r_ID == 2){
+                    value.writer = true;
+                }
+                else{
+                    value.writer = false;
+                }
              });
-       
              if(row.length > 0){
              res.render('vwAccount/profile', {
-                 Email: row[0].Email, username: row[0].username, typeaccount: row[0].typeaccount,
-                 Image: row[0].Image, url: row[0].url, vip: row[0].vip });
+                 Email: row[0].Email, username: row[0].username, typeaccount: row[0].typeaccount, dob: moment(row[0].DOB, 'YYYY/MM/DD').format('DD-MM-YYYY'),
+                  writer: row[0].writer, pseudonym: row[0].pseudonym, Image: row[0].Image, url: row[0].url, vip: row[0].vip });
              }else{
              res.render('500');
              }
@@ -77,6 +84,7 @@ module.exports = function (router) {
     })
     
     router.post('/profile', restrict, upload, async function(req, res){
+        req.body.dob = moment(req.body.dob, 'DD-MM-YYYY').format('YYYY/MM/DD');
         if(req.body.password == "" || req.body.password == null){
             delete req.body.password;
         }else{

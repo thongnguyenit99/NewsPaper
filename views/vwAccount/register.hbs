@@ -38,9 +38,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 {{/section}}
 {{#section 'js'}}
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-    <script></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
     <script>
         $('#txtDOB').datetimepicker({
@@ -97,6 +95,7 @@
             const email = $('#email').val();
             const password = $('#password').val();
             const password_cf = $('#password_cf').val();
+            const dob = $('#txtDOB').val();
             if(user== ""){
                 alert('Tên đăng nhập không được rỗng.')
                     return false;
@@ -135,6 +134,10 @@
             }
             if(password_cf != password){
                 alert("Xác nhận mật khẩu khác với mật khẩu ở trên.");
+                return false;
+            }
+            if(dob == "__/__/____" || dob ==""){
+                alert("Ngày sinh không được rỗng.");
                 return false;
             }
             var temp=""
@@ -197,7 +200,7 @@
         <div class="form-group input-group">
             <div class="input-group-prepend w-100">
                 <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
-                <input required placeholder="__/__/____" type="text" class="form-control" id="txtDOB" name="dob">
+                <input placeholder="__/__/____" type="text" class="form-control" id="txtDOB" name="dob" required>
             </div>
            
         </div> <!-- form-group end.// -->
