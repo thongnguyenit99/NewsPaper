@@ -18,7 +18,7 @@
                             </a>
                             <h6 class="card-subtitle mb-2 text-muted d-none d-sm-block">
                                 <a href="/categories/{{tc_alias}}/{{c_alias}}"
-                                    class="article-category badge badge-primary mr-3">{{c_Name}}</a>
+                                    class="article-category badge badge-success mr-3">{{c_Name}}</a>
                                 <span class="article-date">
                                     <i class="far fa-calendar-alt mr-1"></i>
                                     {{format_DOB public_date}}
@@ -26,8 +26,9 @@
                             </h6>
                             <h6 class="article-tags d-none d-sm-block">
                                 <i class="fas fa-tags mr-2"></i>
-                                <a href="#" class="badge badge-warning">{{tag}}</a>
-
+                                <a href="#" class="badge badge-secondary">{{splitTitle tag }}&nbsp; x</a>
+                                <a href="#" class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;x</a>
+                                <a href="#" class="badge badge-secondary">{{splitTitle2 tag }} &nbsp;x</a>
                             </h6>
                             <div class="card-text d-none d-md-block">
                                 {{abstract}}
