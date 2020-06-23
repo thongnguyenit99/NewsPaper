@@ -36,6 +36,25 @@ router.get('/:alias', async function (req, res) {
         helpers: {
             format_DOB: function (date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
+            },
+            splitTitle: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    //console.log(t + '\n');
+                    return t[0];
+                }
+            },
+            splitTitle1: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[1];
+                }
+            },
+            splitTitle2: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[2];
+                }
             }
         }
     });
@@ -73,23 +92,29 @@ router.get('/:alias/:c_alias', async function (req, res) {
         helpers: {
             format_DOB: function (date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
+            },
+            splitTitle: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    //console.log(t + '\n');
+                    return t[0];
+                }
+            },
+            splitTitle1: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[1];
+                }
+            },
+            splitTitle2: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[2];
+                }
             }
         }
     });
 })
 
-// // get article byCat
-// router.get('/categories/:Id', async function (req, res) {
-
-//     const listArticle = await catModel.single(req.params.Id);
-//     res.render('vwArticle/byCat', {
-//         listArticle,
-//         helpers: {
-//             format_DOB: function (date) {
-//                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
-//             }
-//         }
-//     });
-// })
 
 module.exports = router;

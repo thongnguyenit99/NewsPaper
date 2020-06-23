@@ -45,6 +45,25 @@ router.post('/article/search', async function (req, res) {
     helpers: {
       format_DOB: function (date) {
           return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
+      },
+      splitTitle: function (tag) {
+        for (var i = 0; i < tag.length; i++) {
+          var t = tag.split(';');
+
+          return t[0];
+        }
+      },
+      splitTitle1: function (tag) {
+        for (var i = 0; i < tag.length; i++) {
+          var t = tag.split(';');
+          return t[1];
+        }
+      },
+      splitTitle2: function (tag) {
+        for (var i = 0; i < tag.length; i++) {
+          var t = tag.split(';');
+          return t[2];
+        }
       }
   }
   });
