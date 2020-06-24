@@ -5,14 +5,16 @@ const router = express.Router();
 const moment = require('moment');
 const saltRounds = 12;
 const restrict = require("../middlewares/auth.mdw");
-const _accountModel = require('../models/_account.model.js');
 var datetime = new Date();
+
 //login fb,gg, gh
 require('../middlewares/login_fb_gb_gg.mdw')(router);
 //regot password
 require('../middlewares/forgotpass.mdw')(router);
 //profile, account_vip
 require('../middlewares/profile.mdw')(router);
+//writer
+require('../middlewares/advantage/writer/writer.mdw')(router);
 
 //sign up
 router.get('/register', function (req, res) {
@@ -97,25 +99,5 @@ router.post('/logout', restrict, async function (req, res) {
   res.redirect(req.headers.referer);
 })
 
-//advantage
-router.get('/advantage', restrict, async function(req, res){
-  if(req.session.authUser.r_ID == 2){
-    return res.redirect('/account/advantage/2');
-  }
-  res.redirect('/');
-});
-
-router.get('/advantage/2', restrict, async function(req, res){
-    if(req.session.authUser.r_ID == 2){
-       res.render('vwAccount/vwAdvantage/writer/home', {layout: false});
-    }else{
-      res.redirect('/');
-    }
-});
-
-router.get('/advantage/2/write', restrict, async function(req, res){
-  var id = req.query.type;
-  res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: false});
-});
 
 module.exports = router;

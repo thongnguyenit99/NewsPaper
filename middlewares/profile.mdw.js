@@ -91,15 +91,15 @@ module.exports = function (router) {
         req.body.password = bcrypt.hashSync(req.body.password, saltRounds);
         }
         if(req.file){
-        const data = {...req.body, Image: req.file.filename};
-        await accountModles.patch_account(data, {Email: req.session.authUser.Email});
-        //cập nhật ảnh mói thì xóa ảnh cũ, "" là link ảnh online ko quan tâm
-        if(path_img !=""){
-            if(path_img != "default-avatar-male.png"){// ko xóa ảnh mạc định
-            fs.unlinkSync('Public/img/profile/'+ path_img);
-            path_img=req.file.filename;
+            const data = {...req.body, Image: req.file.filename};
+            await accountModles.patch_account(data, {Email: req.session.authUser.Email});
+            //cập nhật ảnh mói thì xóa ảnh cũ, "" là link ảnh online ko quan tâm
+            if(path_img !=""){
+                if(path_img != "default-avatar-male.png"){// ko xóa ảnh mạc định
+                fs.unlinkSync('Public/img/profile/'+ path_img);
+                path_img=req.file.filename;
+                }
             }
-        }
         }
         else{
         await accountModles.patch_account(req.body, {Email: req.session.authUser.Email});

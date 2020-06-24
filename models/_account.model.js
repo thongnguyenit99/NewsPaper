@@ -13,5 +13,11 @@ module.exports = {
     },
     patch_account: function (entity, condition) {
         return db.update(TABLE_account, entity, condition);
-      },
+    },
+    getCategorybyID: function(id){
+        return db.load(`SELECT * FROM categories WHERE tc_ID = ${id}`);
+    },
+    addNewArticle: function (entity) {
+        return db.insert('article', entity);
+    },
 }
