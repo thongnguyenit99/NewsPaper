@@ -97,4 +97,25 @@ router.post('/logout', restrict, async function (req, res) {
   res.redirect(req.headers.referer);
 })
 
+//advantage
+router.get('/advantage', restrict, async function(req, res){
+  if(req.session.authUser.r_ID == 2){
+    return res.redirect('/account/advantage/2');
+  }
+  res.redirect('/');
+});
+
+router.get('/advantage/2', restrict, async function(req, res){
+    if(req.session.authUser.r_ID == 2){
+       res.render('vwAccount/vwAdvantage/writer/home', {layout: false});
+    }else{
+      res.redirect('/');
+    }
+});
+
+router.get('/advantage/2/write', restrict, async function(req, res){
+  var id = req.query.type;
+  res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: false});
+});
+
 module.exports = router;

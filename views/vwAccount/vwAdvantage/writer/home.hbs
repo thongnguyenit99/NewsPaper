@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <style>
+      .cards-list {
+        z-index: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        margin: 30px auto;
+        width: 300px;
+        height: 300px;
+        border-radius: 40px;
+        box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+        cursor: pointer;
+        transition: 0.4s;
+    }
+
+    .card .card_image {
+        width: inherit;
+        height: inherit;
+        border-radius: 40px;
+    }
+
+    .card .card_image img {
+        width: inherit;
+        height: inherit;
+        border-radius: 40px;
+        object-fit: cover;
+    }
+
+    .card .card_title {
+        text-align: center;
+        border-radius: 0px 0px 40px 40px;
+        font-family: sans-serif;
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: -80px;
+        height: 40px;
+    }
+
+    .card:hover {
+        transform: scale(0.9, 0.9);
+        box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25), 
+            -5px -5px 30px 15px rgba(0,0,0,0.22);
+    }
+
+    .title-white {
+        color: white;
+    }
+
+    .title-black {
+        color: black;
+    }
+
+    @media all and (max-width: 500px) {
+        .card-list {
+            /* On small screens, we are no longer using row direction but column */
+            flex-direction: column;
+        }
+    }
+
+
+/*
+.card {
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 40px;
+  background-image: url('https://i.redd.it/b3esnz5ra34y.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
+box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+  transition: 0.4s;
+}
+*/
+  </style>
+</head>
+<body>
+
+<nav style="padding: 5px;" class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="/">
+      <img src="https://i.imgur.com/wP6JjEV.png" alt="Logo" style="width:50px;">
+  </a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Đăng bài</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Bài viết</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Tình trạng</a>
+    </li>
+  </ul>
+</nav>
+<br>
+  
+ <div class="container-fluid" style="margin-top: 5%;">
+    <div class="cards-list">
+        <div class="card 1">
+            <div class="card_image"> <img src="https://thumbs.gfycat.com/MediocreElegantFattaileddunnart-size_restricted.gif" /> </div>
+                    <div class="card_title">
+                        <a href="/account/advantage/2/write?type=1" style="text-decoration: none; color:white" ><p>Chứng khoán</p></a>     
+                    </div>
+        </div>
+
+        <div class="card 2">
+            <div class="card_image">
+                <img src="https://media2.giphy.com/media/l0HlDDyxBfSaPpU88/giphy.gif" />
+                </div>
+            <div class="card_title title-white">
+                <a href="/account/advantage/2/write?type=2" style="text-decoration: none; color:cyan" ><p>Doanh Nghiệp</p></a>     
+            </div>
+        </div>
+
+        <div class="card 3">
+            <div class="card_image">
+                <img src="https://images.squarespace-cdn.com/content/v1/554414c2e4b0120074fa3fcd/1511832596772-EG625S81TSJVZJGPS1AP/ke17ZwdGBToddI8pDm48kITwL9b7pJatqUqQlb2Ug4lZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxOACcOsfjuVBLSqRXR0W7eo0fROaGBg6JRyzvEzKlK873rH15SV-SH4vZJU_caNPs/Savings_X4_Nov3.gif" />
+            </div>
+            <div class="card_title">
+               <a href="/account/advantage/2/write?type=3" style="text-decoration: none; color:red" ><p>Tài Chính</p></a>     
+            </div>
+        </div>
+        
+        <div class="card 4">
+            <div class="card_image">
+                <img src="https://media.giphy.com/media/LwIyvaNcnzsD6/giphy.gif" />
+                </div>
+            <div class="card_title title-black">
+                <p>Card Title</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

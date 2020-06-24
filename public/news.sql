@@ -48,7 +48,7 @@ CREATE TABLE `account` (
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`ID`, `tc_ID`, `Token_id`, `Email`, `username`, `password`, `cre_Date`, `Image`, `r_ID`, `premium`, `date_create_premium`, `time_premium`) VALUES
+INSERT INTO `account` (`ID`, `tc_ID`, `Email`, `username`, `password`, `cre_Date`, `Image`, `r_ID`, `premium`, `date_create_premium`, `time_premium`) VALUES
 (1, 3, NULL, 'nvt@gmail.co', 'thongnguyen', '$2y$10$ib/i1jHiZ5lTHYXTsWwhXOi5E.fpCPcY7KvREYsG6hmCijOWcbw7K', '2020-06-10', NULL, 2, 0, '0000-00-00', 0),
 (2, NULL, NULL, 'nvt@gmail.co', 'thongdev', '$2b$12$Howsm.BS/z6xjEJMt/gmje92nPqjUS5Z6IiAv9wX4ilSVy.7t1ugS', '2020-06-18', NULL, 1, 0, '0000-00-00', 0),
 (3, NULL, NULL, 'nvt@gmail.co', 'quynhyen', '$2b$12$LP/zseRdlUB0wBs05nPfm.aUUJYRHZMNQiNyP1aChGNFW8V5NCULK', '2020-06-18', NULL, 1, 0, '0000-00-00', 0),
