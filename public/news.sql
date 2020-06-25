@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 25, 2020 at 11:16 AM
+-- Generation Time: Jun 25, 2020 at 05:56 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -194,21 +194,21 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`ID`, `ID_Account`, `ID_Article`, `readerName`, `Content`, `created_at`) VALUES
-(1, 3, 30, 'Quỳnh Yến', 'Bài viết này hay!', '2020-06-23 17:00:00'),
-(2, 9, 1, 'Mai Lan', 'bài viết cho mình thêm nhiều kiến thức', '2020-06-21 17:00:00'),
-(3, 9, 1, 'Mai Lan', 'ffgfgg', '2020-06-24 17:00:00'),
-(4, 2, 11, 'thong', 'tkgnknfkfvfvf,v fvklf vflv efv v dn dn vve', '2020-06-23 17:00:00'),
-(6, 3, 1, 'Quỳnh Yến', 'hayyyyyyyyy', '2020-06-24 17:00:00'),
-(8, 2, 1, 'thông nguyễn', 'tin không hấp dẫn', '2020-06-24 17:00:00'),
-(10, 2, 1, 'thông nguyễn', 'test', '2020-06-24 17:00:00'),
-(11, 2, 1, 'thông nguyễn', 'hello', '2020-06-24 17:00:00'),
-(13, 2, 8, 'thông nguyễn', 'hayy', '2020-06-24 17:00:00'),
-(14, 2, 4, 'thông nguyễn', 'kiến thức bổ ích', '2020-06-24 17:00:00'),
-(30, 2, 30, 'thông nguyễn', 'hayy', '2020-06-24 17:00:00'),
-(31, 3, 17, 'Quỳnh Yến', 'bài viết dài quá,hix', '2020-06-24 17:00:00'),
-(32, 3, 18, 'Quỳnh Yến', 'Đúng rồi,phải chế tài và siết chặt hơn', '2020-06-24 17:00:00'),
-(33, 3, 7, 'Quỳnh Yến', 'wow,cảnh đẹp quá', '2020-06-24 17:00:00'),
-(34, 9, 27, 'Mai Lan', 'thông tin hay nhưng phải chờ xemm', '2020-06-24 17:00:00');
+(1, 3, 30, 'Quỳnh Yến', 'Bài viết này hay!', '2020-06-23 10:00:00'),
+(2, 9, 1, 'Mai Lan', 'bài viết cho mình thêm nhiều kiến thức', '2020-06-21 10:00:00'),
+(3, 9, 1, 'Mai Lan', 'ffgfgg', '2020-06-24 10:00:00'),
+(4, 2, 11, 'thong', 'tkgnknfkfvfvf,v fvklf vflv efv v dn dn vve', '2020-06-23 10:00:00'),
+(6, 3, 1, 'Quỳnh Yến', 'hayyyyyyyyy', '2020-06-24 10:00:00'),
+(8, 2, 1, 'thông nguyễn', 'tin không hấp dẫn', '2020-06-24 10:00:00'),
+(10, 2, 1, 'thông nguyễn', 'test', '2020-06-24 10:00:00'),
+(11, 2, 1, 'thông nguyễn', 'hello', '2020-06-24 10:00:00'),
+(13, 2, 8, 'thông nguyễn', 'hayy', '2020-06-24 10:00:00'),
+(14, 2, 4, 'thông nguyễn', 'kiến thức bổ ích', '2020-06-24 10:00:00'),
+(30, 2, 30, 'thông nguyễn', 'hayy', '2020-06-24 10:00:00'),
+(31, 3, 17, 'Quỳnh Yến', 'bài viết dài quá,hix', '2020-06-24 10:00:00'),
+(32, 3, 18, 'Quỳnh Yến', 'Đúng rồi,phải chế tài và siết chặt hơn', '2020-06-24 10:00:00'),
+(33, 3, 7, 'Quỳnh Yến', 'wow,cảnh đẹp quá', '2020-06-24 10:00:00'),
+(34, 9, 27, 'Mai Lan', 'thông tin hay nhưng phải chờ xemm', '2020-06-24 10:00:00');
 
 -- --------------------------------------------------------
 
@@ -278,8 +278,22 @@ INSERT INTO `tag` (`ID`, `Name`) VALUES
 --
 -- Table structure for table `tag_article`
 --
--- Error reading structure for table news.tag_article: #1932 - Table 'news.tag_article' doesn't exist in engine
--- Error reading data for table news.tag_article: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `news`.`tag_article`' at line 1
+
+CREATE TABLE `tag_article` (
+  `id_article` int(11) NOT NULL,
+  `id_tag` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tag_article`
+--
+
+INSERT INTO `tag_article` (`id_article`, `id_tag`) VALUES
+(1, 3),
+(2, 1),
+(4, 7),
+(5, 6),
+(24, 1);
 
 -- --------------------------------------------------------
 
