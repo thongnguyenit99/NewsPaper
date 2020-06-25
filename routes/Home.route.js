@@ -3,7 +3,7 @@ const articleModel = require('../models/article.model');
 const moment = require('moment');
 
 const router = express.Router();
-router.get('/about.html',(req,res) => {
+router.get('/lien-he',(req,res) => {
   res.render('about');
 })
 router.get('/contact.html',(req,res) => {
@@ -30,6 +30,7 @@ router.get('/', async function (req, res) {
     top10_taichinh,
     helpers: {
       format_DOB: function (date) {
+        //console.log(moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY'));
         return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
       }
     }
