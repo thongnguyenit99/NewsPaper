@@ -27,26 +27,29 @@
             </h6>
 {{/each}}
             <!-- Khu vực bình luận -->
+            <form  method="POST" action="">
+                                
             <div class="comment-section bg-light w-100 p-3 my-3">
                 <input type="text" class="form-control mb-3" style="width: initial;" id="txtName"
-                    placeholder="Tên của bạn">
+                 name="readerName"    placeholder="Tên của bạn">
                 <textarea class="form-control mb-3" rows="2" id="txtComment"
-                    placeholder="Bạn nghĩ gì về tin này?"></textarea>
-                <button type="button" class="btn btn-primary" id="comment-btn">Gửi bình luận</button>
+                  name="Content"  placeholder="Bạn nghĩ gì về tin này?"></textarea>
+                <button type="submit" class="btn btn-primary" id="comment-btn">Gửi bình luận</button>
             </div>
-
+            </form>
             <div class="comment-list">
-                <h6>Ý kiến bạn đọc</h6>
+                <h5>Ý kiến bạn đọc</h5>
                 <ul class="list-group list-group-flush" id="comment-ul">
+                    {{#each this.opinion}}
                     <li class="list-group-item">
-                        <div class="font-weight-bold">Tên độc giả</div>
-                        <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero fuga quo, non
-                            voluptates voluptas voluptatem id adipisci vero cupiditate, qui omnis molestias ducimus
-                            cumque repudiandae error sit, culpa fugiat dolore!</div>
+                        <div class="font-weight-bold">{{readerName}}</div>
+                        <div>{{Content}}</div>
                         <div class="float-right text-muted">
-                            21/04/2019
+                        Ngày đăng: {{format_DOB created_at}}
                         </div>
                     </li>
+                    {{/each}}
+                  
                 </ul>
             </div>
 
@@ -66,7 +69,7 @@
                         </div>
                         
                             <div class="ml-5 col-md-12">
-                                <a href="/article/{{c_alias}}/{{title_alias}}" class="text-dark link_same">
+                                <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_same">
                                     <h5 class="card-title " title="{{title}}">{{title}}</h5>
                                 </a>
                             <h6 class="card-subtitle my-2 text-muted">
