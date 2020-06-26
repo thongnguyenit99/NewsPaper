@@ -1,0 +1,21 @@
+ p {
+    text-align: center;
+    font-weight: bold;
+}
+.table{
+    margin-top: 1%;
+}
+#btn{
+  margin-left:30%;
+}
+.error{
+color:red !important;
+}
+.error-text{
+border:1px solid red !important;
+}
+h2{
+
+  text-align: center;
+  color: deeppink;
+}
