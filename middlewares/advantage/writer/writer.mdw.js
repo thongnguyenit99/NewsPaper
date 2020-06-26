@@ -17,14 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single('images');
 
 module.exports = function (router) {
-//advantage
-    router.get('/advantage', restrict, async function(req, res){
-        if(req.session.authUser.r_ID == 2){
-        return res.redirect('/account/advantage/2');
-        }
-        res.redirect('/');
-    });
-    
+//advantage    
     router.get('/advantage/2', restrict, async function(req, res){
         if(req.session.authUser.r_ID == 2){
             res.render('vwAccount/vwAdvantage/writer/home', {layout: false});
@@ -32,7 +25,8 @@ module.exports = function (router) {
             res.redirect('/');
         }
     });
-    
+
+    // đang bài
     router.get('/advantage/2/write', restrict, async function(req, res){
         var id = req.query.type;
         var rows = await accountModles.getCategorybyID(id);
@@ -70,6 +64,61 @@ module.exports = function (router) {
             res.redirect(req.headers.referer);
         }else{
             res.render('500');
+        }
+    })
+
+    // chi tiết bài báo
+    router.get('/advantage/2/newspaper', restrict, async function(req, res){
+        res.render('vwAccount/vwAdvantage/writer/newspaper', {layout: false});
+    })
+    router.get('/advantage/2/newspaper/tablenewspaper', restrict, async function(req, res){
+        var statusid = req.query.type;
+        var rows = await accountModles.GetDataArticleByWriteridAndStatus(statusid, req.session.authUser.ID);
+        /*var today = new Date();
+        var publicday = new Date(`${rows[0].public_date}`);
+        var active_time = moment.utc(publicday, 'YYYY-MM-DD[T]HH:mm[Z]');
+        var current_time = moment.utc(today, 'YYYY-MM-DD[T]HH:mm[Z]');
+        if(rows.length > 0){
+            console.log(active_time.format());
+            console.log(current_time.format());
+            console.log( active_time.isAfter(current_time));
+        }*/
+        // không có nút sửa
+        if(statusid == 1 || statusid == 2){
+            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {layout:false, rows,
+                helpers: {
+                    isedit: function (status_id){
+                      if(status_id == 3 || status_id == 4){
+                        return true;
+                      }
+                      return false;
+                    }
+                }
+            });
+        }else if(statusid == 3 || statusid == 4){ 
+            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {layout:false, rows,
+                helpers: {
+                    isedit: function (status_id){
+                      if(status_id == 3 || status_id == 4){
+                        return true;
+                      }
+                      return false;
+                    }
+                }
+            });
+        }
+        else{
+            res.render('505');
+        }
+    })
+    // view, edit
+    router.get('/advantage/2/newspaper/tablenewspaper/detail', restrict, async function(req, res){
+        id = req.query.id;
+        isedit = req.query.isedit;
+        if(isedit == 'true'){
+            res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: false, id, isedit});
+        }else{
+            res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: false, id});
         }
     })
   

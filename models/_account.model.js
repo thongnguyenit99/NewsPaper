@@ -20,4 +20,7 @@ module.exports = {
     addNewArticle: function (entity) {
         return db.insert('article', entity);
     },
+    GetDataArticleByWriteridAndStatus:function (statusid, writerid) {
+        return db.load(`SELECT * FROM article art, article_status ats WHERE art.sts_id = ${statusid} and art.writerID = ${writerid} and art.sts_id=ats.asts_id`);
+    }
 }
