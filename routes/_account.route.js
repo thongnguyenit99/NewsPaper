@@ -92,12 +92,18 @@ router.get('/login/is-available_login', async function (req, res) {
   res.json(false);
 })
 
-
 router.post('/logout', restrict, async function (req, res) {
   req.session.isAuthenticated = false;
   req.session.authUser = null;
   res.redirect(req.headers.referer);
 })
+
+router.get('/advantage', restrict, async function(req, res){
+  if(req.session.authUser.r_ID == 2){
+    return res.redirect('/account/advantage/2');
+  }
+  res.redirect('/');
+});
 
 
 module.exports = router;

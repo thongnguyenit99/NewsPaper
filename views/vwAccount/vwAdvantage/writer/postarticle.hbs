@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post an article</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
@@ -28,44 +29,53 @@
     </nav>
     <h1 class="text-center">Viết bài báo</h1>
     <div class="container" style="margin-top: 15px; margin-bottom:15px;">
-        <form id="frmpostwriter" method="post" enctype="multipart/form-data">
+        <form id="frmpostwriter" action="/account/advantage/2/write" method="post" enctype="multipart/form-data">
             <div class="form-group">
+                <input type="text" name="id_article" value="{{row.id}}" hidden />
+                <input type="text" name="url_img" value="{{row.images}}" hidden />
                 <label style="font-weight: bold; font-size: 18px">Chuyên mục:</label>
                 <select class="custom-select" name="c_ID" id="c_ID">
-                    {{#each this.rows}}
-                        <option value="{{ID}}">{{c_Name}}</option>                  
+                    {{#each this.category}}
+                        {{#if selected}}
+                            <option selected value="{{ID}}">{{c_Name}}</option>
+                        {{else}}
+                            <option value="{{ID}}">{{c_Name}}</option>                  
+                        {{/if}}
                     {{/each}}
                 </select>
             </div>
             <div class="form-group">
                 <label style="font-weight: bold; font-size: 18px">Tiêu đề:</label>
-                <input type="text" name="title" id="title" class="form-control" placeholder="nhập tiêu đề">
+                <input type="text" value="{{row.title}}" name="title" id="title" class="form-control" placeholder="nhập tiêu đề">
             </div>
             <div class="form-group">
                 <label style="font-weight: bold; font-size: 18px">Ảnh đại điện(bài viết):</label><br>
-                <input name="images" id="images" type="file" multiple class="file-loading" accept="image/*">
+                <!--<input name="images" id="images" type="file" multiple  accept="image/*">-->
+                <div class="file-loading">
+                    <input id="images" name="images" value="{{row.images}}" type="file" accept="image/*" multiple>
+                </div>
             </div>
             <div class="form-group">
                 <label style="font-weight: bold; font-size: 18px">Tóm tắt:</label>
-                <textarea class="form-control" name="abstract" id="abstract" placeholder="nhập nội dung" rows="5"></textarea>
+                <textarea class="form-control" name="abstract" id="abstract" placeholder="nhập nội dung" rows="5">{{row.abstract}}</textarea>
             </div>
             <div class="form-group">
                   <label style="font-weight: bold; font-size: 18px">Nội dung bài viết:</label>
-                  <textarea name="content" id="content" class="form-control" cols="30" rows="10"></textarea>
+                  <textarea name="content" id="content" class="form-control" cols="30" rows="10">{{row.content}}</textarea>
             </div>
             <div class="form-group">
                 <label style="font-weight: bold; font-size: 18px">Gắn nhãn bài viết:</label>
-                <input type="text" name="tag" id="tag" class="form-control" placeholder="vd: abc;bcd;cde;">
+                <input value="{{row.tag}}" type="text" name="tag" id="tag" class="form-control" placeholder="vd: abc;bcd;cde;">
             </div>
                 {{#if id}}
-                    <a href="/account/advantage/2/newspaper/tablenewspaper" class="btn btn-success">
+                    <a href="/account/advantage/2/newspaper/tablenewspaper?type={{row.sts_id}}" class="btn btn-success">
                         <i class="fa fa-backward" aria-hidden="true"></i>
                             Trở lại 
                     </a>
                     {{#if isedit}}  
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-check" aria-hidden="true"></i>
-                            Lưu lại kìa
+                            Lưu lại
                         </button>  
                     {{/if}}
                 {{else}}
@@ -85,7 +95,30 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
     <script>
+        if("{{{row.images}}}" != ""){
+            $('#images').fileinput({
+                theme: 'fa',
+                showCaption: true,
+                dropZoneEnabled: true,
+                allowedFileExtensions: ['png', 'jpg', 'gif'],
+                language: 'vi',
+                defaultPreviewContent: '<img src="/article/{{{row.images}}}" width=200px name="images" id="imagesk" alt="Your Avatar">',
+             });
+        }else{
+            $('#images').fileinput({
+                theme: 'fa',
+                showCaption: true,
+                dropZoneEnabled: true,
+                allowedFileExtensions: ['png', 'jpg', 'gif'],
+                language: 'vi',
+    
+             });
+        }
+
         tinymce.init({
             selector: '#content',
             height: 450,
@@ -131,7 +164,7 @@
                 alert("Tóm tắt tối đa có 1000 ký tự");
                 return false;
             }
-            if(images == ""){
+            if(images == "" && "{{{row.images}}}" == ""){
                 alert("Ảnh bìa không được rỗng.");
                 return false;
             }
