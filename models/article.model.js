@@ -65,7 +65,7 @@ module.exports = {
 
     allSearch: function(key)
     {
-        return db.load(`SELECT * FROM ${TBL_article} WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
+        return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
     }
     
 }
