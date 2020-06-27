@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="card-header">
+        <h4>New Conference</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="">
+            <div class="form-group">
+                <label for="txtConName">Name</label>
+                <input type="text" class="form-control" id="txtConName" name="c_Name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputHomePage1">Bio</label>
+                <input type="text" class="form-control" id="exampleInputHomePage1" name="c_Bio">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputHomePage2">Details</label>
+                <input type="text" class="form-control" id="exampleInputHomePage2" name="c_Details">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputHomePage3">Time</label>
+                <input type="date" class="form-control" id="exampleInputHomePage3" name="c_Time">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputHomePage4">Status</label>
+                <input type="number" class="form-control" id="exampleInputHomePage4" name="c_Status">
+            </div>
+
+            <a class="btn btn-success" href="/admin/categories" role="button" title="Back to List">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Save
+            </button>
+        </form>
+    </div>
+    <div class="card-footer text-muted">
+        Footer
+    </div>
+</div>
