@@ -139,7 +139,8 @@ router.post('/:c_alias/:id/:title',restrict ,async (req, res) => {
             }});
     }
     else {
-        console.log('bạn phải đăng nhập');
+        res.render('403');
+        console.log('bạn phải đăng nhập đúng quyền');
     }
 
 

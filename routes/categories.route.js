@@ -3,7 +3,6 @@ const catModel = require('../models/category.model');
 const tagModel = require('../models/tag.model');
 const moment = require('moment');
 const config = require('../config/config.json');
-
 const router = express.Router();
 
 // get article byCat
