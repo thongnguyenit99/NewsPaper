@@ -1,0 +1,21 @@
+<div class="container" style="margin-top: 10%;">
+    {{#each _draft}}
+    <h2 class="display-4 font-weight-bold">{{title}}</h2>
+    <div class="row">
+        <div class="col">
+            <div class="text-muted mb-3">Ngày viết: {{format_DOB public_date}}</div>
+            <div id="article-detail" class="my-3">
+                <img src="/article/{{images}}" style="width:900px;height:400px" class="img-fluid">
+                <div class="container-fuild">
+                    {{{content}}}
+                </div>
+            </div>
+            <h6 class="article-tags d-none d-sm-block">
+                <a href="#" class="badge badge-secondary">{{splitTitle tag }}&nbsp; x</a>
+                <a href="#" class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;x</a>
+                <a href="#" class="badge badge-secondary">{{splitTitle2 tag }} &nbsp;x</a>
+            </h6>
+        </div>
+    </div>
+    {{/each}}
+</div>

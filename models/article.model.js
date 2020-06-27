@@ -66,6 +66,17 @@ module.exports = {
     allSearch: function(key)
     {
         return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
+    },
+    alldraft: function(c_id)
+    {
+        return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and sts_id=1`);
+    },
+    demListDraft:function()
+    {
+        return db.load(`SELECT COUNT(*) as dem FROM ${TBL_article} WHERE sts_id=1`)
+    },
+    draft : function(id)
+    {
+        return db.load(`SELECT * FROM ${TBL_article} WHERE id= ${id}`)
     }
-    
 }

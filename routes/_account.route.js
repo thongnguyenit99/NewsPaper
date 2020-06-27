@@ -15,6 +15,7 @@ require('../middlewares/forgotpass.mdw')(router);
 require('../middlewares/profile.mdw')(router);
 //writer
 require('../middlewares/advantage/writer/writer.mdw')(router);
+require('../middlewares/advantage/editor/editor.mdw')(router);
 
 //sign up
 router.get('/register', function (req, res) {
@@ -98,10 +99,14 @@ router.post('/logout', restrict, async function (req, res) {
   res.redirect(req.headers.referer);
 })
 
-router.get('/advantage', restrict, async function(req, res){
+router.get('/advantage', restrict,function(req, res){
   if(req.session.authUser.r_ID == 2){
     return res.redirect('/account/advantage/2');
   }
+  if(req.session.authUser.r_ID == 3){
+    return res.redirect('/account/advantage/3');
+  }
+
   res.redirect('/');
 });
 
