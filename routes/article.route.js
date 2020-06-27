@@ -4,6 +4,7 @@ const catModel = require('../models/category.model');
 const comModel = require('../models/comment.model');
 const acc_roleModel = require('../models/account_role.model');
 const accountModel = require('../models/_account.model.js');
+const tagModel = require('../models/tag.model');
 const restrict = require("../middlewares/auth.mdw");
 
 
@@ -25,19 +26,35 @@ router.get('/list', async (req, res) => {
 
 router.get('/:c_alias/:id/:title', async function (req, res) {
     const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
-    //const id_article = req.params.id_article;   
+
+    var isAbleToView;
+    var isSubscriberCanViewPremium = false;     // kiểm tra xem độc giả đã đăng nhập và còn hạn sử dụng
+    var subscriberName = null;
+
     const title = req.params.title;
     const nameChildCat = req.params.c_alias;
     const id = req.params.id;
     var user = req.session.authUser;
-    //console.log(user);
+    var articleEntity ;
+     // nếu là độc giả 
+    // if (user.r_ID === 1 && user !== undefined) {
+    //     subscriberName = user.username;
+    //     //và còn hạn thì
+    //     if (moment().isBefore(user.date_create_premium)) {
+    //         isSubscriberCanViewPremium = true;  // có thể xem bài viết premium
+
+    //     }
+    //  }
+    console.log(user);
+    
 
     // bỏ vào đây chạy song song
     const [list, list5Art_same, opinion, get] = await Promise.all([
         articleModel.detailByTitle(title),
         articleModel.ArtSameCat(nameChildCat),
         comModel.getByArticle(title),
-        comModel.getId_article(id)
+        comModel.getId_article(id),
+        
     ]);
     res.render('vwArticle/details', {
         list,

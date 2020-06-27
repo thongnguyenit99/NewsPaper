@@ -1,5 +1,6 @@
 const express = require('express');
 const catModel = require('../models/category.model');
+const tagModel = require('../models/tag.model');
 const moment = require('moment');
 const config = require('../config/config.json');
 

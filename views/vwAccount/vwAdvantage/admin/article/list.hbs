@@ -1,0 +1,47 @@
+
+
+<div class="container">
+    <h3 style="text-align: center;" class="mb-5 text-danger">MASTER-ARTICLE</h3>
+    <table class="table table-hover">
+        <a class="btn btn-outline-success mb-2 " style="float:left;" href="/admin/article/add" role="button">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add Article
+        </a>
+        <a class="btn btn-outline-warning ml-2" href="/admin/conference/edit" role="button" title="Edit Article">
+            <i class="fa fa-pencil" aria-hidden="true"></i>Edit Article
+        </a>
+        <thead class="thead-dark">
+            <tr>
+                <th>STT</th>
+                <th>id </th>
+                <th>c_ID</th>
+                <th>sts_id</th>
+                <th>writerID</th>
+                <th>title</th>
+                <th>abstract</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.listCon}}
+            <tr class="text-primary">
+                <td>{{c_ID}}</td>
+                <td>{{c_Name}}</td>
+                <td>{{c_Bio}}</td>
+                <td>{{{c_Details}}}</td>
+                <td>{{format_DOB c_Time}}</td>
+                <td>{{#if c_Status}}Đã diễn ra {{else}}Sắp diễn ra{{/if}}</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" href="/admin/conference/edit/{{c_ID}}" role="button"
+                        title="Edit Conference">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    {{!-- <a class="btn btn-danger btn-sm" href="javascript:;" role="button">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                              </a> --}}
+                </td>
+            </tr>
+
+            {{/each}}
+        </tbody>
+    </table>
+</div>
