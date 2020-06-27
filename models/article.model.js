@@ -60,23 +60,13 @@ module.exports = {
             WHERE c.c_alias='${c_alias}' and a.isActive=1 ORDER BY rand() LIMIT 5`)
     },
     detailByTitle: function (title) {
-        return db.load(`select * from ${TBL_article} where title_alias = '${title}'`);
+        return db.load(`select * from ${TBL_article}  a join tag_article ta on a.id=ta.id_article JOIN tag t on ta.id_tag=t.ID
+         where title_alias = '${title}'`);
     },
 
-    allSearch: function(key)
-    {
+    allSearch: function (key) {
         return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
-    },
-    alldraft: function(c_id)
-    {
-        return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and sts_id=1`);
-    },
-    demListDraft:function()
-    {
-        return db.load(`SELECT COUNT(*) as dem FROM ${TBL_article} WHERE sts_id=1`)
-    },
-    draft : function(id)
-    {
-        return db.load(`SELECT * FROM ${TBL_article} WHERE id= ${id}`)
     }
+
+
 }

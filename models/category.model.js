@@ -5,6 +5,9 @@ module.exports = {
     all: function () {
         return db.load(`SELECT * FROM ${TBL_cat } c JOIN type_catelgories tc on tc.ID=c.tc_ID`);
     },
+    getall: function() {
+            return db.load(`SELECT * FROM ${TBL_cat} `);
+        },
     // load byId
     single: function (Id) {
         return db.load(`select * from ${TBL_cat} c join  article a on c.ID=a.c_ID where tc_ID = ${Id}`);

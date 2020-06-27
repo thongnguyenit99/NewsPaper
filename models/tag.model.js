@@ -11,7 +11,7 @@ module.exports = {
     },
     countByTags: async function (name) {
         const rows = await db.load(`select count(*) as total FROM tag_article ta ,article a,${TBL_tag} t
-        WHERE ta.id_article=a.id and t.ID=ta.id_tag and t.Name like '%${name}%'`);
+        WHERE ta.id_article=a.id and t.ID=ta.id_tag and t.Name = '${name}'`);
         return rows[0].total;
     }
 }
