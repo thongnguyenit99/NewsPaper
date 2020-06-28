@@ -5,13 +5,12 @@ const articleModel = require('../../../models/article.model');
 const config = require('../../../config/config.json');
 const moment = require('moment');
 
-
 module.exports = function (router) {
 
     router.get('/advantage/3', restrict, function (req, res) {
         const DemDraft = articleModel.demListDraft();
         if (req.session.authUser.r_ID == 3) {
-            return res.render('vwAccount/vwAdvantage/editor/home', {DemDraft,layout: 'mainEditor.hbs' });
+            return res.render('vwAccount/vwAdvantage/editor/home', {DemDraft, layout: 'mainEditor.hbs' });
         } else {
             res.redirect('/');
         }

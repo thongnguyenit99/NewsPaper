@@ -7,7 +7,6 @@ const accountModel = require('../models/_account.model.js');
 const tagModel = require('../models/tag.model');
 const restrict = require("../middlewares/auth.mdw");
 
-
 const moment = require('moment');
 const router = express.Router();
 // get list article
@@ -25,8 +24,34 @@ router.get('/list', async (req, res) => {
 })
 
 router.get('/:c_alias/:id/:title', async function (req, res) {
-    const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
 
+    var isnopre = true;
+    const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
+    if(req.session.authUser){
+        if(req.session.authUser.premium == 1){
+            var row = await accountModel.singleByUserName(req.session.authUser.username);
+            date_create_pre = new Date(`${row[0].date_create_premium}`);
+            var datenow = new Date(Date.now());
+            diffTime = (Math.abs(datenow - date_create_pre))/1000;//giay
+            if(diffTime > row[0].time_premium){
+                isnopre = false;
+                var entity = {
+                    premium: 0,
+                    date_create_premium: null,
+                    time_premium: 0,
+                };
+                await accountModel.patch_account(entity, {username: req.session.authUser.username});
+                req.session.authUser.premium = 0;
+                req.session.authUser.date_create_premium = null;
+                req.session.authUser.time_premium = 0;
+            }
+        }
+        else{
+            isnopre = false;
+        }
+    }else{
+        isnopre = false;
+    }
     var isAbleToView;
     var isSubscriberCanViewPremium = false;     // kiểm tra xem độc giả đã đăng nhập và còn hạn sử dụng
     var subscriberName = null;
@@ -36,18 +61,7 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
     const id = req.params.id;
     var user = req.session.authUser;
     var articleEntity ;
-     // nếu là độc giả 
-    // if (user.r_ID === 1 && user !== undefined) {
-    //     subscriberName = user.username;
-    //     //và còn hạn thì
-    //     if (moment().isBefore(user.date_create_premium)) {
-    //         isSubscriberCanViewPremium = true;  // có thể xem bài viết premium
-
-    //     }
-    //  }
-    console.log(user);
     
-
     // bỏ vào đây chạy song song
     const [list, list5Art_same, opinion, get] = await Promise.all([
         articleModel.detailByTitle(title),
@@ -56,7 +70,12 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
         comModel.getId_article(id),
         
     ]);
+    if(list[0].isPremium  == 0){
+        isnopre = 1;
+    }
+    //console.log((isnopre));
     res.render('vwArticle/details', {
+        isnopre,
         list,
         list5Art_same,
         opinion,
@@ -111,7 +130,7 @@ router.post('/:c_alias/:id/:title',restrict ,async (req, res) => {
             comModel.getByArticle(title),
             comModel.getId_article(id)
         ]);
-        console.log(obj);
+        //console.log(obj);
         res.render('vwArticle/details', {
             add, list, list5Art_same, opinion, get,
             helpers: {
@@ -140,7 +159,7 @@ router.post('/:c_alias/:id/:title',restrict ,async (req, res) => {
     }
     else {
         res.render('403');
-        console.log('bạn phải đăng nhập đúng quyền');
+        //console.log('bạn phải đăng nhập đúng quyền');
     }
 
 
