@@ -41,7 +41,6 @@ router.post('/article/search', async function (req, res) {
   const key=req.body.key;
   var article_pre =[];
   const listSearch = await articleModel.allSearch(key)
-  console.log(listSearch.length);
   var index = 0;
   var index_remove = [];
   while (index < listSearch.length){
@@ -66,7 +65,6 @@ router.post('/article/search', async function (req, res) {
     index++;
   }
   const list = article_pre.concat(listSearch);
-  console.log(list.length);
   res.render('vwArticle/search',{
     list,
     helpers: {

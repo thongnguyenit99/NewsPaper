@@ -75,7 +75,12 @@ router.post('/login',async function (req, res) {
   if(url == "http://localhost:3000/account/login?retUrl=/account/logout"){
     url="/";
   }
-  res.redirect(url);
+  if(req.session.authUser.r_ID == 4){
+      return res.redirect('/admin');
+  }else{
+      return res.redirect(url);
+  }
+
 })
 
 router.get('/login/is-available_login', async function (req, res) {
@@ -105,6 +110,9 @@ router.get('/advantage', restrict,function(req, res){
   }
   if(req.session.authUser.r_ID == 3){
     return res.redirect('/account/advantage/3');
+  }
+  if(req.session.authUser.r_ID == 4){
+    return res.redirect('/admin');
   }
 
   res.redirect('/');

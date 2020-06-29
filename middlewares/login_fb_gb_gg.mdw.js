@@ -122,7 +122,11 @@ module.exports = function (router) {
         // Successful authentication, redirect home.
         req.session.isAuthenticated = isAuthenticated;
         req.session.authUser = authUser;
-        res.redirect('/');
+        if(req.session.authUser.r_ID == 4){
+          return res.redirect('/admin');
+        }else{
+          return res.redirect('/');
+        }
     }
     );
     //facebook
@@ -138,7 +142,11 @@ module.exports = function (router) {
         }else{
           req.session.isAuthenticated = isAuthenticated;
           req.session.authUser = authUser;
-          res.redirect('/');
+          if(req.session.authUser.r_ID == 4){
+            return res.redirect('/admin');
+          }else{
+            return res.redirect('/');
+          }
         }
     }
     );
@@ -158,7 +166,11 @@ module.exports = function (router) {
         }else{
           req.session.isAuthenticated = isAuthenticated;
           req.session.authUser = authUser;
-          res.redirect('/');
+          if(req.session.authUser.r_ID == 4){
+            return res.redirect('/admin');
+          }else{
+            return res.redirect('/');
+          }
         }
     });
 }
