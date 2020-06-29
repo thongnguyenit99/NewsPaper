@@ -63,10 +63,35 @@ module.exports = {
         return db.load(`select * from ${TBL_article}  a join tag_article ta on a.id=ta.id_article JOIN tag t on ta.id_tag=t.ID
          where title_alias = '${title}'`);
     },
-
     allSearch: function (key) {
         return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
-    }
-
+    },
+    alldraft: function(c_id)
+    {
+        return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and sts_id=4`);
+    },
+    demListDraft:function()
+    {
+        return db.load(`SELECT COUNT(*) as dem FROM ${TBL_article} WHERE sts_id=4`)
+    },
+    draft : function(id)
+    {
+        return db.load(`SELECT * FROM ${TBL_article} WHERE id= ${id}`)
+    },
+    single: function (id) {
+        return db.load(`select * from ${TBL_article} where id = ${id}`);
+    },
+    update: function (entity, condition) {
+        //sao lại viết ở đây ba thích làm chung mà gắn code cố định vl
+       // entity.sts_id=1;
+        //const condition = {
+        //  id: entity.id
+        //}
+        //delete entity.id;
+        return db.update(TBL_article, entity, condition);
+      },
+      insertnote: function (entity) {
+        return db.insert(TBL_article, entity);
+      },
 
 }

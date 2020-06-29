@@ -74,6 +74,7 @@ CREATE TABLE `article` (
   `content` text COLLATE utf8_unicode_ci,
   `author` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `public_date` datetime DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
   `images` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `featured` int(11) DEFAULT NULL COMMENT '1-nổi bật; 0-bình thường',
   `views` int(11) DEFAULT NULL,
