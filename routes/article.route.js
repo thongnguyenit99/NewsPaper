@@ -27,31 +27,6 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
 
     var isnopre = true;
     const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
-    if(req.session.authUser){
-        if(req.session.authUser.premium == 1){
-            var row = await accountModel.singleByUserName(req.session.authUser.username);
-            date_create_pre = new Date(`${row[0].date_create_premium}`);
-            var datenow = new Date(Date.now());
-            diffTime = (Math.abs(datenow - date_create_pre))/1000;//giay
-            if(diffTime > row[0].time_premium){
-                isnopre = false;
-                var entity = {
-                    premium: 0,
-                    date_create_premium: null,
-                    time_premium: 0,
-                };
-                await accountModel.patch_account(entity, {username: req.session.authUser.username});
-                req.session.authUser.premium = 0;
-                req.session.authUser.date_create_premium = null;
-                req.session.authUser.time_premium = 0;
-            }
-        }
-        else{
-            isnopre = false;
-        }
-    }else{
-        isnopre = false;
-    }
     var isAbleToView;
     var isSubscriberCanViewPremium = false;     // kiểm tra xem độc giả đã đăng nhập và còn hạn sử dụng
     var subscriberName = null;
@@ -70,8 +45,36 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
         comModel.getId_article(id),
         
     ]);
-    if(list[0].isPremium  == 0){
-        isnopre = 1;
+    if(list.length > 0 && list[0].isPremium != null){
+        if(list[0].isPremium  == 0){
+            isnopre = true;
+        }else{// 1
+            if(req.session.authUser){
+                if(req.session.authUser.premium == 1){
+                    var row = await accountModel.singleByUserName(req.session.authUser.username);
+                    date_create_pre = new Date(`${row[0].date_create_premium}`);
+                    var datenow = new Date(Date.now());
+                    diffTime = (Math.abs(datenow - date_create_pre))/1000;//giay
+                    if(diffTime > row[0].time_premium){
+                        isnopre = false;
+                        var entity = {
+                            premium: 0,
+                            date_create_premium: null,
+                            time_premium: 0,
+                        };
+                        await accountModel.patch_account(entity, {username: req.session.authUser.username});
+                        req.session.authUser.premium = 0;
+                        req.session.authUser.date_create_premium = null;
+                        req.session.authUser.time_premium = 0;
+                    }
+                }
+                else{
+                    isnopre = false;
+                }
+            }else{
+                isnopre = false;
+            }
+        }
     }
     //console.log((isnopre));
     res.render('vwArticle/details', {
