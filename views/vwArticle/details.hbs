@@ -1,10 +1,46 @@
-<div class="container mt-3">
+{{#section 'css'}}
+<style>
+</style>
+{{/section}}
+
+{{#section 'js'}}
+<script type="text/JavaScript">
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    function disableselect(e){
+        return false
+    }
+    function reEnable(){
+        return true
+    }
+    document.onselectstart=new Function ("return false")
+    if (window.sidebar){
+        document.onmousedown=disableselect
+        document.onclick=reEnable
+    }
+</script>
+{{/section}}
+
+{{#if isnopre}}
+
+{{else}}
+  <div style="position: absolute;z-index:1; margin-left: 20%; margin-top:7%;">
+    <div style="width:800px; height:400px;;background-image: url('https://i.pinimg.com/736x/79/e5/0c/79e50c3e8ee565dad09ac0ef222da854.jpg');background-repeat: no-repeat;background-size: cover;background-position: center;">
+      <p style="color: gold; font-size:25px; text-align:center; padding-top:255px">Bài viết chỉ được xem khi bạn nâng cấp tài khoản nên vip</p>
+      <a href="/account/profile/vip" style="text-align: center;margin-left:43%; background-color:#FFD700" class="btn btn-primary">
+      <i class="fa fa-crown"></i>
+        <span style="color: white; font-weight:bold; font-size:18px">Nạp vip</span>
+      </a>
+    </div>
+   
+</div>
+
+{{/if}}
+
+<div id="pageaticle" class="container mt-3" {{#if isnopre}} {{else}}style="filter: blur(5px); " {{/if}}>
+  
+
     {{#each list }}
         
-    
-    <a href="#">
-        <h3>Tên chuyên mục</h3>
-    </a>
     <h2 class="display-4 font-weight-bold">{{title}}</h2>
     <div class="row">
         <div class="col">

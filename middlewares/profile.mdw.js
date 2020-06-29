@@ -40,6 +40,9 @@ module.exports = function (router) {
                         time_premium: 0,
                     };
                     await accountModles.patch_account(entity, {username: req.session.authUser.username});
+                    req.session.authUser.premium = 0;
+                    req.session.authUser.date_create_premium = null;
+                    req.session.authUser.time_premium = 0;
                 }
             }
              //lay du lieu
@@ -144,6 +147,10 @@ module.exports = function (router) {
             time_premium: n,
         };
         await accountModles.patch_account(entity, {username: req.session.authUser.username});
+
+        req.session.authUser.premium = 1;
+        req.session.authUser.date_create_premium = datetime_pre;
+        req.session.authUser.time_premium = n;
         res.redirect('/account/profile');
     })
     //check tài khoản vip

@@ -5,7 +5,6 @@ const articleModel = require('../../../models/article.model');
 const config = require('../../../config/config.json');
 const moment = require('moment');
 
-
 module.exports = function (router) {
 
     router.get('/advantage/3', restrict, function (req, res) {
