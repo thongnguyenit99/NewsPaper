@@ -1,40 +1,4 @@
 {{#section 'css'}}
-    <style>
-    .divider-text {
-        position: relative;
-        text-align: center;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-    .divider-text span {
-        padding: 7px;
-        font-size: 12px;
-        position: relative;   
-        z-index: 2;
-    }
-    .divider-text:after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        border-bottom: 1px solid #ddd;
-        top: 55%;
-        left: 0;
-        z-index: 1;
-    }
-
-    .btn-facebook {
-        background-color: #405D9D;
-        color: #fff;
-    }
-    .btn-twitter {
-        background-color: #42AEEC;
-        color: #fff;
-    }
-    .btn-google{
-        background-color: #42e6ec;
-        color: #fff;
-    }
-    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 {{/section}}
 {{#section 'js'}}
@@ -166,8 +130,8 @@
 
 
 <div class="container" style="margin-top: 50px; margin-bottom:50px">
-    <div class="card bg-light">
-    <article class="card-body mx-auto" style="width: 50%;">
+    <div class="card bg-light cardRes ">
+    <article class="card-body mx-auto" style="width: 60%;">
         <h4 class="card-title mt-3 text-center">Đăng ký</h4>
         <p>
             <a href="/account/auth/github" style="background-color: #444444;" class="btn btn-block btn-twitter"> <i class="fab fa-github"></i>  Đăng nhập bằng github</a>
