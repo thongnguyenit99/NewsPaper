@@ -40,9 +40,36 @@ router.get('/', async function (req, res) {
 
 router.post('/article/search', async function (req, res) {
   const key=req.body.key;
+  var article_pre =[];
   const listSearch = await articleModel.allSearch(key)
+  console.log(listSearch.length);
+  var index = 0;
+  var index_remove = [];
+  while (index < listSearch.length){
+     if(listSearch[index].sts_id != 2 && listSearch[index].sts_id != null){
+        //listSearch.splice(index, 1);
+        if(index_remove.includes(index) == false){
+          index_remove.push(index);
+        }
+      }
+      if(listSearch[index].isPremium	== 1){
+        if(index_remove.includes(index) == false){
+          index_remove.push(index);
+        }
+        article_pre.push(listSearch[index]);
+        //listSearch.splice(index, 1);
+      }
+      index++;
+  }
+  index=0;
+  while (index < index_remove.length){
+    listSearch.splice(index, 1);
+    index++;
+  }
+  const list = article_pre.concat(listSearch);
+  console.log(list.length);
   res.render('vwArticle/search',{
-    listSearch,
+    list,
     helpers: {
       format_DOB: function (date) {
           return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
