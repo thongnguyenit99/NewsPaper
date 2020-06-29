@@ -93,5 +93,13 @@ module.exports = {
       insertnote: function (entity) {
         return db.insert(TBL_article, entity);
       },
+    // lấy dữ liệu và phân trang theo dữ liệu
+    pageByCat: function (key, limit, offset) {
+        return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}') limit ${limit} offset ${offset}`);
+    },
+    countByCat: async function (key) {
+        const rows = await db.load(`select count(*) as total from ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
+        return rows[0].total;
+    },
 
 }

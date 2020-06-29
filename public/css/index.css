@@ -411,3 +411,7 @@ CSS PHẦN CHO TRANG  LỖI 404
                 margin-bottom: 10px;
             }
         }
+        .viewest{
+            background-color: white;
+            border: solid 1px gainsboro;
+        }

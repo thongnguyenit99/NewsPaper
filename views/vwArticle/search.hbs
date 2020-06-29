@@ -1,7 +1,7 @@
 <div class="container" id="content">
     <div class="row mt-5">
         <div class="col-12" id="byCat-article">
-         {{#each list}}
+            {{#each list}}
             <div class="d-flex mt-5">
                 <div class="row no-gutters align-items-strech">
                     <div class="col-4">
@@ -21,7 +21,7 @@
                                     {{format_DOB public_date}}
                                 </span>
                             </h6>
-                             <h6 class="article-tags d-none d-sm-block">
+                            <h6 class="article-tags d-none d-sm-block">
                                 <i class="fas fa-tags mr-2"></i>
                                 <a href="#" class="badge badge-secondary">{{splitTitle tag }}&nbsp; x</a>
                                 <a href="#" class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;x</a>
@@ -34,29 +34,40 @@
                         </div>
                     </div>
                 </div>
-           </div>
-        {{/each}}
+            </div>
+            {{/each}}
 
 
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center mt-3">
-                    <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                    </li>
-                    <li class="page-item active">
-                        <span class="page-link">
-                            1
-                        </span>
-                    </li>
-                    <li class="page-item"><a href="#" class="page-link">2</a>
-
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
+            <div class="col-12 d-flex justify-content-center mt-5">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
+                            <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {{#each this.page_items}}
+                        {{#if isActive}}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">
+                                {{value}}
+                                <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                        {{else}}
+                        <li class="page-item {{#if isDisabled}}disabled{{/if}}">
+                            <a class="page-link" href="?page={{value}}">{{value}}</a>
+                        </li>
+                        {{/if}}
+                        {{/each}}
+                        <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
+                            <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
 
         </div> <!-- col-8-->
     </div>
