@@ -37,7 +37,6 @@ router.get('/', async function (req, res) {
   })
 
 })
-
 router.post('/article/search', async function (req, res) {
   const key=req.body.key;
   const listSearch = await articleModel.allSearch(key)

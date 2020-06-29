@@ -9,9 +9,8 @@ const moment = require('moment');
 module.exports = function (router) {
 
     router.get('/advantage/3', restrict, function (req, res) {
-        const DemDraft = articleModel.demListDraft();
         if (req.session.authUser.r_ID == 3) {
-            return res.render('vwAccount/vwAdvantage/editor/home', {DemDraft,layout: 'mainEditor.hbs' });
+            return res.render('vwAccount/vwAdvantage/editor/home', {layout: 'mainEditor.hbs' });
         } else {
             res.redirect('/');
         }
@@ -54,8 +53,11 @@ module.exports = function (router) {
     router.get('/advantage/categori/:c_ID/:id', async function (req, res) {
         const _draft = await articleModel.draft(req.params.id);
         const c_ID=req.params.c_ID;
+        const rows = await articleModel.single(req.params.id);
+        const articledraft = rows[0];
         res.render('vwAccount/vwAdvantage/editor/draft', {
             _draft,
+            articledraft,
             helpers: {
                 format_DOB: function (date) {
                     return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
@@ -81,6 +83,12 @@ module.exports = function (router) {
             },
             layout:'mainEditor.hbs'
         })
+    });
+    router.post('/advantage/categori/:c_ID/:id', async function (req, res) {
+        id = req.body.id;
+        delete req.body.id;
+        await articleModel.update(req.body, {id: id});
+        res.redirect('/account/advantage/3');
     });
 
 
