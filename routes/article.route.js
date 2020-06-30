@@ -17,7 +17,7 @@ router.get('/list', async (req, res) => {
         list,
         helpers: {
             format_DOB: function (date) {
-                return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
+                return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY,h:mm:ss');
             }
         }
     });
