@@ -1,50 +1,29 @@
-<div class="container mb-5">
-    <h3 style="text-align: center;" class="mb-5 text-danger">Trang quản lý chuyên mục cha</h3>
-    <table class="table table-hover">
-        <a class="btn btn-outline-success mb-2 " style="float:left;" href="/admin/categories/add" role="button">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-           Thêm chuyên mục cha
-        </a>
-        
-        <thead class="thead-dark">
-            <tr>
-                <th>STT</th>
-                <th>Tên</th>
-                <th>Bí danh</th>
-                <th>Thao tác</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            {{#each this.typeCat}}
-            <tr class="text-primary">
-                <td>{{ID}}</td>
-                <td>{{tc_Name}}</td>
-                <td>{{alias}}</td>
-               
-                <td>
-                    <a class="btn btn-warning btn-sm" href="/admin/categories/edit/{{ID}}" role="button"
-                        title="Edit Conference">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                        Chỉnh sửa
-                    </a>
-                    <a class="btn btn-primary btn-sm" href="/admin/categories/edit/{{ID}}" role="button" title="Edit Conference">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                        Chi tiết
-                    </a>
-                    {{!-- <a class="btn btn-danger btn-sm" href="javascript:;" role="button">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                              </a> --}}
-                </td>
-            </tr>
 
-            {{/each}}
-        </tbody>
-    </table>
-</div>
 <div class="container mb-5">
-    <h3 style="text-align: center;" class="mb-5 text-danger">Trang quản lý chuyên mục con</h3>
-    <table class="table table-hover">
+    <div class="row ml-5">
+        <div class="col-sm-5 ml-5">
+            <div class="card">
+                <h5 class="card-header bg-info text-white" style="text-align: center;">
+                    <b>Danh sách chuyên mục </b>
+                </h5>
+                <div class="list-group list-group-flush">
+                    {{#each lcCat}}
+                    <a href="/admin/categories/{{alias}}" style="text-align: center;"
+                        class="list-group-item list-group-item-action  {{#if isActive}}active{{/if}}">
+                        {{tc_Name}}&nbsp; <i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i>
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+
+<div class="container mb-5">
+    <h3 style="text-align: center;" class="mb-5 text-danger">Quản lý chuyên mục con</h3>
+    <table class="table table-hover table-bordered">
         <a class="btn btn-outline-success mb-2 " style="float:left;" href="/admin/categories/add" role="button">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Thêm chuyên mục con
@@ -68,13 +47,13 @@
 
                 <td>
                     <a class="btn btn-warning btn-sm" href="/admin/categories/edit/{{ID}}" role="button"
-                        title="Edit Conference">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                        Chỉnh sửa
+                        title="chỉnh sửa">
+                        <i class="fas fa-wrench" aria-hidden="true"></i>
+                        Sửa
                     </a>
-                    <a class="btn btn-primary btn-sm" href="/admin/categories/edit/{{c_ID}}" role="button"
-                        title="Edit Conference">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <a class="btn btn-primary btn-sm" href="/admin/categories/details/{{ID}}" role="button"
+                        title="chi tiết">
+                        <i class="fas fa-eye"></i>
                         Chi tiết
                     </a>
                     {{!-- <a class="btn btn-danger btn-sm" href="javascript:;" role="button">
