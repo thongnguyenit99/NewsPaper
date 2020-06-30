@@ -63,7 +63,7 @@ router.get('/categories/add', restrict, async (req, res) => {
      }
 });
 // Hiển thị chyên mục con theo chuyên mục cha
-router.get('/categories/:alias', async function (req, res) {
+router.get('/categories/:alias',restrict, async function (req, res) {
      var user = req.session.authUser;
      if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
           for (const c of res.locals.lcCat) {
@@ -103,7 +103,7 @@ router.get('/categories/edit/:id', restrict, async (req, res) => {
      }
 });
 // hiển thị trang chi tiết chuyên mục theo id
-router.get('/categories/details/:conId', async function (req, res) {
+router.get('/categories/details/:conId',restrict, async function (req, res) {
      var user = req.session.authUser;
      if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
      const list = await catModel.detailById(req.params.conId);
@@ -113,13 +113,13 @@ router.get('/categories/details/:conId', async function (req, res) {
          layout: 'mainAdmin.hbs',
      });
      }
-     else {
+     else  {
           res.render('403');
      }
     
  })
  // xử lý thêm chuyên mục
- router.post('/categories/add', async function (req, res) { 
+ router.post('/categories/add',restrict, async function (req, res) { 
      var user = req.session.authUser;
       if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
      const addCat = await catModel.insertCat(req.body);
@@ -134,7 +134,7 @@ router.get('/categories/details/:conId', async function (req, res) {
      
  })
 // xử lý xóa chuyên mục theo id
-router.post('/categories/del', async function (req, res) {
+router.post('/categories/del',restrict, async function (req, res) {
      var user = req.session.authUser;
      if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
           await catModel.delCat(req.body.ID);
