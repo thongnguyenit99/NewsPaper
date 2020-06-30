@@ -104,7 +104,7 @@ router.get('/categories/edit/:id', restrict, async (req, res) => {
 });
 // hiển thị trang chi tiết chuyên mục theo id
 router.get('/categories/details/:conId', async function (req, res) {
-     
+     var user = req.session.authUser;
      if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
      const list = await catModel.detailById(req.params.conId);
      res.render('vwAccount/vwAdvantage/admin/categories/details', {
@@ -120,7 +120,8 @@ router.get('/categories/details/:conId', async function (req, res) {
  })
  // xử lý thêm chuyên mục
  router.post('/categories/add', async function (req, res) { 
-     if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
+     var user = req.session.authUser;
+      if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
      const addCat = await catModel.insertCat(req.body);
      console.log(req.body);
      res.render('vwAccount/vwAdvantage/admin/categories/add', {
@@ -134,15 +135,14 @@ router.get('/categories/details/:conId', async function (req, res) {
  })
 // xử lý xóa chuyên mục theo id
 router.post('/categories/del', async function (req, res) {
-     await catModel.delCat(req.body.ID);
-     res.redirect('/admin/categories');
-     // if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
-         
-     //      res.redirect('/admin/categories');
-     //      }
-     //      else {
-     //           res.render('403');
-     //      }
+     var user = req.session.authUser;
+     if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
+          await catModel.delCat(req.body.ID);
+          res.redirect('/admin/categories');
+          }
+          else {
+               res.render('403');
+          }
      
  })
 
