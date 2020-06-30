@@ -29,7 +29,7 @@ router.get('/', async function (req, res) {
     helpers: {
       format_DOB: function (date) {
         //console.log(moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY'));
-        return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
+        return moment(date, 'YYYY/MM/DD').format('h:mm | DD-MM-YYYY');
       }
     }
   })
@@ -67,7 +67,7 @@ router.post('/article/search', async function (req, res) {
     list,
     helpers: {
       format_DOB: function (date) {
-          return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
+        return moment(date, 'YYYY/MM/DD').format('h:mm | DD-MM-YYYY');
       },
       splitTitle: function (tag) {
         for (var i = 0; i < tag.length; i++) {
