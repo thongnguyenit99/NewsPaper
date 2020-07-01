@@ -7,7 +7,12 @@ module.exports = {
     },
     getall: function() {
             return db.load(`SELECT * FROM ${TBL_cat} `);
-        },
+    },
+    singleCat: function (Id) {
+        return db.load(`SELECT tc.ID as tcID,tc.tc_Name as tc_Name,c.c_images as c_images  ,c.ID as ID,c.c_Name as c_Name,c.c_alias as c_alias
+        FROM ${TBL_cat} c JOIN type_catelgories tc 
+        on tc.ID=c.tc_ID and c.ID= ${Id}`);
+    },
     // load byId
     single: function (Id) {
         return db.load(`select * from ${TBL_cat} c join  article a on c.ID=a.c_ID where tc_ID = ${Id}`);
@@ -33,6 +38,31 @@ module.exports = {
     countByChild: async function (alias, c_alias) {
         const rows = await db.load(`select count(*) as total from ${TBL_cat} c join  article a on c.ID=a.c_ID where tc_alias = '${alias}' and c_alias = '${c_alias}'`);
         return rows[0].total;
-    }
+    },
+    getByCat: function (alias) {
+        return db.load(`SELECT tc.ID as tcID,tc.tc_Name as tc_Name,c.c_images as c_images,tc.alias as tc_alias  ,c.ID as ID,c.c_Name as c_Name,c.c_alias as c_alias
+        FROM ${TBL_cat} c JOIN type_catelgories tc 
+        on tc.ID=c.tc_ID where tc_alias = '${alias}'`);
+    },
+    getByChild: function (c_alias) {
+        return db.load(`SELECT tc.ID as tcID,tc.tc_Name as tc_Name,tc.alias as tc_alias  ,c.ID as ID,c.c_Name as c_Name,c.c_alias as c_alias
+        FROM ${TBL_cat} c JOIN type_catelgories tc 
+        on tc.ID=c.tc_ID and c.c_alias = '${c_alias}'`);
+    },
+    detailById:(id)=>{
+        return db.load(`SELECT * FROM ${TBL_cat} where ID =${id} `);
+    },
+    insertCat:(entity)=>{
+        return db.add(`insert into  ${TBL_cat} set ?`, entity);
+    },
+    delCat: function (id) {
+        const condition = {
+            ID: id
+        }
+        return db.del(`delete from ${TBL_cat} where ?`, condition);
+    },
+  
+
+
 
 }

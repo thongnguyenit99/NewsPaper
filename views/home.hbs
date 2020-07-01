@@ -11,19 +11,7 @@
                             <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                         </ol>
                         <div class="carousel-inner">
-                            {{!-- <div class="carousel-item active" data-interval="3000">
-                                <img src="https://dummyimage.com/970x600/ff9626/fff" class="d-block w-100 lazyload"
-                                    alt="...">
-                                <div class="carousel-caption d-md-block">
-                                    <h6 class="text-light font-weight-light">
-                                        <a href="./chung-khoan.html" class="badge badge-primary mr-3">Chứng Khoán</a>
-                                        11/06/2020
-                                    </h6>
-                                    <a href="#" class="text-light">
-                                        <h3>VIB lên kế hoạch năm 2020 sẽ niêm yết cổ phiếu trên sàn HOSE</h3>
-                                    </a>
-                                </div>
-                            </div> --}}
+                           
                             {{#each bestlist1 }}
                             <div class="carousel-item active" data-interval="3000">
                                 <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
@@ -160,7 +148,7 @@
             <!-- XEM NHIỀU -->
             <div id="most-viewed">
                 <div class="h3">XEM NHIỀU</div>
-                <div class="card mb-3">
+                <div class=" mb-3 viewest">
                     {{#each viewestlist}}
                     <div class="row no-gutters align-items-center ">
                         <div class="col-md-5 mb-2">
@@ -199,8 +187,8 @@
 
         <div class="card-group">
             <!--chứng khoán-->
-            
-            <div class="card ">
+            <div class="row">
+            <div class="col-4 ">
                 <h5 class="mb-5 text-danger">CHỨNG KHOÁN</h5>
                 {{#each this.top10_chungkhoan}}
                 <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_top10">
@@ -219,7 +207,7 @@
                 {{/each}}
             </div>
 
-            <div class="card ">
+            <div class="col-4 ">
                 <h5 class="mb-5 text-danger">DOANH NGHIỆP</h5>
                 {{#each this.top10_doanhnghiep}}
                 <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_top10">
@@ -237,7 +225,7 @@
                 </div>
                 {{/each}}
             </div>
-            <div class="card ">
+            <div class="col-4 ">
                 <h5 class="mb-5 text-danger">TÀI CHÍNH</h5>
                 {{#each this.top10_taichinh}}
                 <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_top10">
@@ -254,6 +242,7 @@
                     <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{author}}</p>
                 </div>
                 {{/each}}
+            </div>
             </div>
         </div>
 

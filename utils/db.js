@@ -57,5 +57,17 @@ module.exports = {
         results && reslove(results);
       })
     })
-  }
+  },
+  
+  del: function (sql, condition) {
+    return new Promise(function (resolve, reject) {
+        pool.query(sql, condition, function (error, results) {
+            if (error) {
+                return reject(error);
+            }
+
+            resolve(results);
+        });
+    });
+}
 }

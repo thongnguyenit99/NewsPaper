@@ -1,4 +1,6 @@
 const categoryModel = require('../models/category.model');
+const tpCatModel = require('../models/type_category.model');
+
 module.exports = function (app) {
     app.use(async function(req, res, next){
         if(req.session.isAuthenticated === null){
@@ -13,5 +15,11 @@ module.exports = function (app) {
         }
         next();
     });
+    app.use(async function (req, res, next) {
+        const rows = await tpCatModel.getAll();
+        res.locals.lcCat = rows;
+        next();
+    })
+
   }
   
