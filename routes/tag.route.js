@@ -17,7 +17,6 @@ router.get('/:name', async function (req, res) {
         tagModel.getByName(name, 2, offset),
         tagModel.countByTags(name)
     ]);
-    console.log(name);
    
     // tính số trang
     const nPages = Math.ceil(total / 2);
