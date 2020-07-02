@@ -27,7 +27,6 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
     var isnopre = true;
     const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
     var isAbleToView;
-    var isSubscriberCanViewPremium = false;     // kiểm tra xem độc giả đã đăng nhập và còn hạn sử dụng
     var subscriberName = null;
     const title = req.params.title;
     const nameChildCat = req.params.c_alias;
@@ -75,7 +74,14 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
         }
     }
     //console.log((isnopre));
+    if(req.session.authUser){
+        r_id = req.session.authUser.r_ID;
+    }else{
+        r_id = 0;
+    }
     res.render('vwArticle/details', {
+        r_id,
+        id,
         isnopre,
         list,
         list5Art_same,
@@ -106,14 +112,13 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
         }
     });
 })
+/*
 router.post('/:c_alias/:id/:title',restrict ,async (req, res) => {
     const title = req.params.title;
     const nameChildCat = req.params.c_alias;
     const id = req.params.id;
     const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
-    //var user = req.session.authUser;
-    //console.log(user);
-
+ 
     // nếu tồn tại user đã đăng nhập và quyền là độc giả
     if (req.session.authUser.r_ID == 1) {
              var obj = {
@@ -131,7 +136,6 @@ router.post('/:c_alias/:id/:title',restrict ,async (req, res) => {
             comModel.getByArticle(title),
             comModel.getId_article(id)
         ]);
-        //console.log(obj);
         res.render('vwArticle/details', {
             add, list, list5Art_same, opinion, get,
             helpers: {
@@ -160,10 +164,23 @@ router.post('/:c_alias/:id/:title',restrict ,async (req, res) => {
     }
     else {
         res.render('403');
-        //console.log('bạn phải đăng nhập đúng quyền');
     }
 
 
-});
+});*/
+router.get('/is-available_comment', async function (req, res) {
+    var obj = {
+        readerName: req.query.readerName,
+        ID_Account: req.session.authUser.ID,
+        ID_Article: req.query.id,
+        Content: req.query.Content,
+        created_at: moment().format('YYYY-MM-DD')
+    }
+    var result = await comModel.insertComment(obj);
+    if(result){
+        return res.json(true);
+    }
+    res.json(false);
+  })
 
 module.exports = router;
