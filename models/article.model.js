@@ -68,7 +68,7 @@ module.exports = {
     },
     alldraft: function(c_id)
     {
-        return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and sts_id=4`);
+        return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and (sts_id = 4 or sts_id = 3)`);
     },
     demListDraft:function()
     {
@@ -81,13 +81,10 @@ module.exports = {
     single: function (id) {
         return db.load(`select * from ${TBL_article} where id = ${id}`);
     },
+    getbytitlealias: function (title_alias) {
+        return db.load(`select * from ${TBL_article} where title_alias = '${title_alias}'`);
+    },
     update: function (entity, condition) {
-        //sao lại viết ở đây ba thích làm chung mà gắn code cố định vl
-       // entity.sts_id=1;
-        //const condition = {
-        //  id: entity.id
-        //}
-        //delete entity.id;
         return db.update(TBL_article, entity, condition);
       },
       insertnote: function (entity) {
@@ -100,6 +97,13 @@ module.exports = {
     countByCat: async function (key) {
         const rows = await db.load(`select count(*) as total from ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
         return rows[0].total;
+    },
+    getArticleByStatusC_IDandPulic_date: function(c_id){
+        return db.load(`SELECT * FROM article WHERE sts_id = 1 AND c_ID = ${c_id} 
+        and (TIMESTAMPDIFF(second,NOW(), public_date)) <= 0`);
+    },
+    addNewTagArticle: function (entity) {
+        return db.insert('tag_article', entity);
     },
 
 }

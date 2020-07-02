@@ -17,13 +17,19 @@
                     </div>
                     <div class="col-8">
                         <div class="">
-                            <a href="/account/advantage/categori/{{c_ID}}/{{id}}" class="text-dark link_bycat">
-                                <h5 class="card-title" title="{{title}}">{{title}}</h5>
+                            <a href="/account/advantage/3/category/{{c_ID}}/{{id}}" class="text-dark link_bycat">
+                                <h3 class="card-title" title="{{title}}">{{title}}</h3>
                             </a>
                             <h6 class="card-subtitle mb-2 text-muted d-none d-sm-block">
                                 <span class="article-date">
-                                    <i class="far fa-calendar-alt mr-1"></i>
+                                    <i class="fa fa-calendar mr-1"></i>
                                     {{format_DOB public_date}}
+                                </span>
+                            </h6>
+                            <h6 class="card-subtitle mb-2 text-muted d-none d-sm-block">
+                                <span class="article-date" style="color: red; font-weight:bold">
+                                   <i class="fa fa-check-square mr-1"></i>
+                                    {{check_status sts_id}}
                                 </span>
                             </h6>
                             <h6 class="article-tags d-none d-sm-block">

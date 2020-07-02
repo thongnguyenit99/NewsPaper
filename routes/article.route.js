@@ -24,13 +24,11 @@ router.get('/list', async (req, res) => {
 })
 
 router.get('/:c_alias/:id/:title', async function (req, res) {
-
     var isnopre = true;
     const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
     var isAbleToView;
     var isSubscriberCanViewPremium = false;     // kiểm tra xem độc giả đã đăng nhập và còn hạn sử dụng
     var subscriberName = null;
-
     const title = req.params.title;
     const nameChildCat = req.params.c_alias;
     const id = req.params.id;

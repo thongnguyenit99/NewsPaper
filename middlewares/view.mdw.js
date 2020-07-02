@@ -6,7 +6,7 @@ module.exports = function (app) {
     app.engine('hbs', exphbs({
         defaultLayout: 'main.hbs',
         helpers:{
-            section: express_handlebars_sections()
+            section: express_handlebars_sections()        
         }
     }))
     app.set('view engine', 'hbs');

@@ -5,11 +5,49 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
     <script>
-        $('#txtDOB').datetimepicker({
-            format: 'd/m/Y',
-            timepicker: false,
-            mask: true,
-        });
+        if("{{{this.articledraft.public_date}}}" != "" || "{{{this.articledraft.public_date}}}" != "null"){
+            $('#txtDOB').datetimepicker({
+                format: 'd/m/Y h:m:s',
+                mask: true,
+                //"setDate": "{{{this.articledraft.public_date}}}"
+            });
+            $("#txtDOB").val("{{{this.articledraft.public_date}}}");
+        }else{
+             $('#txtDOB').datetimepicker({
+                format: 'd/m/Y h:m:s',
+                mask: true,
+            });
+        }
+
+         $('#frmagree').on('submit', function (e) {
+            e.preventDefault();
+            validateagree();
+        })
+         $('#frmrefuse').on('submit', function (e) {
+            e.preventDefault();
+            validaterefuse();
+        })
+        function validaterefuse(){
+            const note = $('#note').val();
+            if(note == ""){
+                alert("Lý do từ chối không được rỗng.");
+                return false;
+            }
+            $('#frmrefuse').off('submit').submit();
+        }
+        function validateagree(){
+            const txtDOB = $('#txtDOB').val();
+            const tag = $('#tag').val();
+            if(txtDOB == "__/__/____ h:__:__" || txtDOB == ""){
+                alert("Ngày bài viết được đăng không được rỗng.");
+                return false;
+            }
+            if(tag == ""){
+                alert("Nhãn bài viết không được rỗng.");
+                return false;
+            }
+            $('#frmagree').off('submit').submit();
+         }
     </script>
 
 {{/section}}
@@ -34,47 +72,55 @@
         </div>
     </div>
     {{/each}}
-    <div style="margin-top: 5%;">
-        <form method="POST">
-            <div class="form-group">
+    <div class="row" style="margin-bottom:5%">
+        <div class="col-sm-6 border-right" style="margin-top: 5%;">
+            <h3 class="text-center mb-2">Duyệt bài báo</h3>
+            <form id="frmagree" method="POST">
+                <div class="form-group">
+                    <input type="number" class="form-control" name="id" value="{{this.articledraft.id}}" id="id" placeholder="id" hidden>
+                    <input type="number" class="form-control" name="sts_id" value="1" id="sts_id" placeholder="id" hidden>
+        
+                </div>
+                <div class="form-group input-group">
+                <div class="input-group-prepend w-100">
+                    <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
+                    <input  type="text" class="form-control" id="txtDOB" name="public_date">
+                </div>
+            </div> 
+                <div class="form-group">
+                    <label for="ChuyenMuc">Chuyên Mục :</label>
+                    <select class="form-control" name="c_ID" id="c_ID">
+                        {{#each this.category}}
+                            {{#if selected}}
+                                <option selected value="{{ID}}">{{c_Name}}</option>
+                            {{else}}
+                                <option value="{{ID}}">{{c_Name}}</option>                  
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tag">Tag :</label>
+                        <textarea class="form-control" name="tag" id="tag" placeholder="Điền vô đây......" rows="3" >{{this.articledraft.tag}}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Duyệt Bài</button>
+            </form>
+        </div>
+        
+        <div class="col-sm-6" style="margin-top: 5%;">
+            <h3 class="text-center mb-2">Từ chối duyệt bài báo</h3>
+            <form id="frmrefuse" method="POST">
                 <input type="number" class="form-control" name="id" value="{{this.articledraft.id}}" id="id" placeholder="id" hidden>
-                <input type="number" class="form-control" name="sts_id" value="1" id="sts_id" placeholder="id" hidden>
-                <input type="text" class="form-control" name="note" value="" id="id" placeholder="id" hidden>
-            </div>
-            <div class="form-group input-group">
-            <div class="input-group-prepend w-100">
-                <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
-                <input placeholder="__/__/____" type="text" class="form-control" id="txtDOB" name="dob" required>
-            </div>
-        </div> 
-            <div class="form-group">
-                <label for="ChuyenMuc">Chuyên Mục :</label>
-                <select class="form-control" name="c_ID" id="ChuyenMuc">
-                    <option value="1">Cổ phiếu top đầu</option>
-                    <option value="2">Xu hướng nhận định</option>
-                    <option value="3">Bất động sản</option>
-                    <option value="4">Doanh nghiệp niêm yết</option>
-                    <option value="5">Ngân hàng điện tử</option>
-                    <option value="6">Thương mại điện tử</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="tag">Tag :</label>
-                <input type="text" class="form-control" name="tag" value="{{this.articledraft.tag}}" id="tag" placeholder="tag">
-            </div>
-            <button type="submit" class="btn btn-primary">Duyệt Bài</button>
-        </form>
+                <input type="number" class="form-control" name="sts_id" value="3" id="sts_id" placeholder="id" hidden>
+                <input type="number" class="form-control" name="c_ID" value="{{this.articledraft.c_ID}}" id="c_ID" placeholder="id" hidden>
+                
+                <div class="form-group">
+                    <label for="tag">Lý do bài bị từ chối :</label>
+                    <textarea class="form-control" name="note" id="note" placeholder="Điền vô đây......" rows="9">{{this.articledraft.note}}</textarea>
+                </div>
+                <button type="submit" class="btn btn-danger">Từ chối</button>
+            </form>
+        </div>
     </div>
-    <div style="margin-top: 5%;">
-        <form method="POST">
-             <input type="number" class="form-control" name="id" value="{{this.articledraft.id}}" id="id" placeholder="id" hidden>
-             <input type="number" class="form-control" name="sts_id" value="3" id="sts_id" placeholder="id" hidden>
-             
-            <div class="form-group">
-                <label for="tag">Lý do bài bị từ chối :</label>
-                <textarea class="form-control" name="note" id="node" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-danger">Từ chối</button>
-        </form>
-    </div>
+
 </div>
