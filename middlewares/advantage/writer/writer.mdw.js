@@ -74,14 +74,15 @@ module.exports = function (router) {
                 await moveFile(`public/temp/${req.file.filename}`, `public/article/Tai Chinh/Thuong Mai Dien Tu/${req.file.filename}`);
                 data.images = `Tai Chinh/Thuong Mai Dien Tu/${req.file.filename}`;
             }
-            if(id_article == ""){//add
+
+            if(id_article == ""){//add chỗ này để phân biệt add với update
                 await accountModles.addNewArticle(data);
                 res.redirect(req.headers.referer);
             }
-            else{//update
+            else{//update 
                 var tam = await accountModles.getArticle(id_article);
                 await accountModles.patch_article(data, {id:id_article});
-                fs.unlinkSync(`public/article/${tam[0].images}`);
+                fs.unlinkSync(`public/article/${tam[0].images}`);// xóa ảnh cũ 
                 res.redirect(req.headers.referer);
             }
         }else{

@@ -12,19 +12,8 @@ router.get('/', restrict, (req, res) => {
     
     // console.log(list);
      user.r_ID === 4 && user !== 'undefined' && user !== null ? res.render('vwAccount/vwAdvantage/admin/home', { layout: 'mainAdmin.hbs' }):res.render('403');
-     console.log(user);
 });
-router.get('/article', restrict, async (req, res) => {
-     var user = req.session.authUser;
-     const list = await articleModel.all();
-     user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ? res.render('vwAccount/vwAdvantage/admin/article/list', {
-          list, layout: 'mainAdmin.hbs', helpers: {
-               format_DOB: function (date) {
-                    return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY')
-               }
-          }
-     }) : res.render('403');
-});
+
 router.get('/tag',restrict, (req, res) => {  var user = req.session.authUser;
      user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID!==null && user.r_ID!=="undefined" ? res.render('vwAccount/vwAdvantage/admin/tag/list', { layout: 'mainAdmin.hbs' }):res.render('home');
 });
@@ -123,7 +112,7 @@ router.get('/categories/details/:conId',restrict, async function (req, res) {
      var user = req.session.authUser;
       if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
      const addCat = await catModel.insertCat(req.body);
-     console.log(req.body);
+
      res.render('vwAccount/vwAdvantage/admin/categories/add', {
          layout: 'mainAdmin.hbs', addCat
      });

@@ -1,0 +1,121 @@
+{{#section 'js'}}
+<script>
+        $('#frmpostwriter').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+        function validate(){
+            const title = $('#title').val();
+            const abstract = $('#abstract').val();
+            const images = $('#images').val();
+            const content = $('#content').val();
+            const tag = $('#tag').val();
+            if(title == ""){
+                alert("Tiêu đễ không được rỗng.");
+                return false;
+            }
+            if(title.length < 10){
+                alert("Tiêu đễ phải lớn hơn 10 kí tự");
+                return false;
+            }
+            if(title.length > 200){
+                alert("Tiêu đề tối đa 200 ký tự.");
+                return false;
+            }
+            if(abstract.length ==""){
+                alert("Tóm tắt không được rỗng");
+                return false;
+            }
+            if(abstract.length < 200){
+                alert("Tóm tắt phải từ 200 ký tự");
+                return false;
+            }
+            if(abstract.length > 1000){
+                alert("Tóm tắt tối đa có 1000 ký tự");
+                return false;
+            }
+            if(images == "" && "{{{row.images}}}" == ""){
+                alert("Ảnh bìa không được rỗng.");
+                return false;
+            }
+            if(content == ""){
+                alert("Nộ dung bài viết không được rỗng.");
+                 return false;
+            }
+            if(content.length < 500){
+                alert("Nội dung bài viết phải từ 500 ký tự.");
+                 return false;
+            }
+            if(content.length > 100000){
+                alert("Nội dung bài tối đa của bài viết là 100000 ký tự.");
+                 return false;
+            }
+            if(tag == ""){
+                alert("Nhãn bài viết không được rỗng.");
+                return false;
+            }
+            if(tag.length  < 30){
+                alert("Nhãn bài viết phải từ 30 ký tự.");
+                return false;
+            }
+            if(tag.length  > 400){
+                alert("Nhãn bài viết tối đa 400 ký tự.");
+                return false;
+            }
+            $('#frmpostwriter').off('submit').submit();
+         }
+
+    </script>
+{{/section}}
+
+<h1 class="text-center">Thêm bài</h1>
+<div class="container">
+    <form id="frmpostwriter" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            {{!-- <input type="text" name="url_img" hidden /> --}}
+            <label style="font-weight: bold; font-size: 18px">Chuyên mục:</label>
+            <select class="custom-select" name="c_ID" id="c_ID">
+                <option value="1">Cổ phiếu top đầu</option>
+                <option value="2">Xu hướng nhận định</option>
+                <option value="3">Bất động sản</option>
+                <option value="4">Doanh nghiệp niêm yết</option>
+                <option value="5">Ngân hàng điện tử</option>
+                <option value="6">Thương mại điện tử</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Tiêu đề:</label>
+            <input type="text" name="title" id="title" class="form-control"
+                placeholder="nhập tiêu đề">
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Ảnh đại điện(bài viết):</label><br>
+            <div class="file-loading">
+                <input id="images" name="images" type="file" accept="image/*" multiple>
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Tóm tắt:</label>
+            <textarea class="form-control" name="abstract" id="abstract" placeholder="nhập nội dung"
+                rows="5"></textarea>
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Nội dung bài viết:</label>
+            <textarea name="content" id="content" class="form-control" cols="30" rows="10"></textarea>
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Gắn nhãn bài viết:</label>
+            <input value="" type="text" name="tag" id="tag" class="form-control"
+                placeholder="vd: abc;bcd;cde;">
+        </div>
+        <a href="/admin/article" class="btn btn-success">
+            <i class="fa fa-backward" aria-hidden="true"></i>
+            Trở lại
+        </a>
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Lưu lại
+        </button>
+</div>
+</form>
+</div>
