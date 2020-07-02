@@ -17,6 +17,59 @@
         document.onmousedown=disableselect
         document.onclick=reEnable
     }
+
+    $('#frmcomment').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+        function validate(){
+            const txtName = $('#txtName').val();
+            const txtComment = $('#txtComment').val();
+            const id = "{{{id}}}";
+            var check = false;
+            var d = new Date();
+            if("{{{r_id}}}" != "1"){
+                alert("Bình luận chỉ dành cho đọc giả. Vui lòng đăng nhập bằng tài khoản độc giả để bình luận");
+                return false;
+            }
+            if(txtName == ""){
+                alert('Tên người bình luận không được trống.');
+                    return false;
+            }
+            if(txtComment == ""){
+                alert('Nội dung bình luận không được trống.');
+                    return false;
+            }
+            $.getJSON(`/article/is-available_comment?readerName=${txtName}&Content=${txtComment}&id=${id}`, function (data) {
+                if (data) {
+                     var day = d.getDate();
+                 var month = parseInt(d.getMonth()) + 1;
+                if(day < 10){
+                    day = '0' + day;
+                }
+                if(month < 10){
+                    month = '0' + month;
+                }
+                d = day + '-' + month  + '-' + d.getFullYear();
+                $('#txtName').val("");
+                $('#txtComment').val("");
+                var str = '';
+                str += "<li class='list-group-item'>"; str += "<div class='font-weight-bold'>" + txtName + "</div>";
+                str += "<div>"+ txtComment + "</div>"; str += "<div class='float-right text-muted'>";
+                str += "Ngày đăng:" + d + "</div>"; str += "</li>";
+                $("#comment-ul").append(str);
+                return false;
+                    
+                } else {
+                    alert('luu db thât bại');
+                    return false;
+                }
+            })
+            if(check){
+               
+            }
+        }
+
 </script>
 {{/section}}
 
@@ -63,7 +116,7 @@
             </h6>
 {{/each}}
             <!-- Khu vực bình luận -->
-            <form  method="POST" action="">   
+            <form id="frmcomment" method="POST" action="">   
             <div class="comment-section bg-light w-100 p-3 my-3">
                 <input type="text" class="form-control mb-3" style="width: initial;" id="txtName"
                  name="readerName"    placeholder="Tên của bạn">
