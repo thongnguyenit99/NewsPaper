@@ -1,0 +1,31 @@
+
+
+<div class="container">
+    <h4 style="margin-bottom: 1%;"><i> CHI TIẾT BÀI BÁO :</i></h4>
+    {{#each detai}}
+    <h2 class="display-4 font-weight-bold" style="margin-left: 0%;">{{title}}</h2>
+    <div class="row">
+        <div class="col">
+            <div id="article-detail" class="my-3">
+                <img src="/article/{{images}}" style="width:900px;height:400px" class="img-fluid">
+                <div class="container-fuild">
+                    {{{content}}}
+                </div>
+            </div>
+            <h6 class="article-tags d-none d-sm-block">
+                <a href="#" class="badge badge-secondary">{{splitTitle tag }}&nbsp; x</a>
+                <a href="#" class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;x</a>
+                <a href="#" class="badge badge-secondary">{{splitTitle2 tag }} &nbsp;x</a>
+            </h6>
+        </div>
+    </div>
+    {{/each}}
+    <a href="/admin/article" class="btn btn-success">
+            <i class="fa fa-backward" aria-hidden="true"></i>
+            Trở lại
+    </a>
+    <a href="/admin/article" class="btn btn-warning">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            Chỉnh sửa
+    </a>
+</div>

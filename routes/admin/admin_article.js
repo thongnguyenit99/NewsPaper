@@ -1,8 +1,6 @@
 const express = require('express');
 const restrict = require("../../middlewares/auth.mdw");
 const articleModel = require('../../models/article.model');
-const tpCatModel = require('../../models/type_category.model');
-const catModel = require('../../models/category.model');
 const accountModles = require('../../models/_account.model')
 const moment = require('moment');
 const multer  = require('multer');
@@ -32,9 +30,11 @@ router.get('/', restrict, async (req, res) => {
          }
     }) : res.render('403');
 });
-router.get('/add', restrict, function(req, res){
-
-    res.render('vwAccount/vwAdvantage/admin/article/add', { layout: 'mainAdmin.hbs' });
+router.get('/add',function(req, res){
+    var user = req.session.authUser;
+    user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
+    res.render('vwAccount/vwAdvantage/admin/article/add', { layout: 'mainAdmin.hbs' }):res.render('403');
+    
 });
 //
 router.post('/add',upload,async function(req, res){
@@ -68,6 +68,36 @@ router.post('/add',upload,async function(req, res){
             await accountModles.addNewArticle(data);
             res.redirect('/admin/article');
         }
+    
+});
+// Hiển thị trang chi tiết bài báo admin
+router.get('/details/:id', async function(req, res){
+    const detai = await articleModel.draft(req.params.id);
+    var user = req.session.authUser;
+    user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
+    res.render('vwAccount/vwAdvantage/admin/article/details', {detai,
+         layout: 'mainAdmin.hbs',
+         helpers: {
+            splitTitle: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[0];
+                }
+            },
+            splitTitle1: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[1];
+                }
+            },
+            splitTitle2: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[2];
+                }
+            }
+        }
+    }):res.render('403');
     
 });
 module.exports = router;
