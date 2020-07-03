@@ -1,24 +1,21 @@
 
 <div class="container mb-5">
-    <div class="row ml-5">
-        <div class="col-sm-5 ml-5">
-            <div class="card">
-                <h5 class="card-header bg-info text-white" style="text-align: center;">
-                    <b>Danh sách chuyên mục </b>
-                </h5>
-                <div class="list-group list-group-flush">
-                    {{#each lcCat}}
-                    <a href="/admin/categories/{{alias}}" style="text-align: center;"
-                        class="list-group-item list-group-item-action  {{#if isActive}}active{{/if}}">
-                        {{tc_Name}}&nbsp; <i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i>
-                    </a>
-                    {{/each}}
-                </div>
+        <div class="dropdown dropright ml-3 mb-3 mt-3">
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                Các chuyên mục
+            </button>
+    
+            <div class="dropdown-menu">
+                {{#each lcCat}}
+                <a href="/admin/categories/{{alias}}" style="text-align: center;"
+                    class="list-group-item list-group-item-action  {{#if isActive}}active{{/if}}">
+                    {{tc_Name}}&nbsp; <i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i>
+                </a>
+                {{/each}}
             </div>
+    
         </div>
-        
-
-    </div>
+    
 </div>
 
 <div class="container mb-5">
