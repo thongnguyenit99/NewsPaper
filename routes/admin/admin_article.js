@@ -76,7 +76,7 @@ router.post('/add', upload, async function (req, res) {
 
 });
 // Hiển thị trang chi tiết bài báo admin
-router.get('/details/:id', async function (req, res) {
+router.get('/details/:id',restrict, async function (req, res) {
     const detai = await articleModel.draft(req.params.id);
     var user = req.session.authUser;
     user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
@@ -114,7 +114,7 @@ router.get('/details/:id', async function (req, res) {
 });
 
 // chỉnh sửa bài viết
-router.get('/edit/:id', async function (req, res) {
+router.get('/edit/:id',restrict, async function (req, res) {
     var category = await accountModles.getCategory();
     var articles = await accountModles.getArticle(req.params.id);
 
@@ -136,7 +136,7 @@ router.get('/edit/:id', async function (req, res) {
 
 });
 //Xóa bài viết
-router.post('/:id/del',async function (req, res) {
+router.post('/:id/del',restrict,async function (req, res) {
     var user = req.session.authUser;
     if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
         await articleModel.delArticle(req.params.id);
@@ -148,7 +148,7 @@ router.post('/:id/del',async function (req, res) {
    
 });
 //Duyệt thẳng
-router.get('/details/:id/publish',async function(req,res){  
+router.get('/details/:id/publish',restrict,async function(req,res){  
     var user = req.session.authUser;
     if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
         console.log(req.params.id);
