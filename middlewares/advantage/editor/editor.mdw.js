@@ -23,7 +23,6 @@ module.exports = function (router) {
         } else {
             res.redirect('/');
         }
-        console.log(DemDraft);
     });
     
     // load danh sách bài viết nháp

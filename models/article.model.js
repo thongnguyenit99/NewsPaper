@@ -4,7 +4,7 @@ const TBL_article = 'article'
 module.exports = {
     // get all article
     all: function () {
-        return db.load(`select * from ${TBL_article} a join categories c where a.c_ID=c.ID`);
+        return db.load(`select * from ${TBL_article} a ,categories c,article_status at where a.c_ID=c.ID and a.sts_id=at.asts_id`);
     },
     // 10 newest article
     newest: function () {
@@ -105,5 +105,12 @@ module.exports = {
     addNewTagArticle: function (entity) {
         return db.insert('tag_article', entity);
     },
+    delArticle:function(id){
+        const condition = {
+            ID: id
+        }
+        return db.del(`delete from ${TBL_article} where ?`, condition);
+    },
+    
 
 }

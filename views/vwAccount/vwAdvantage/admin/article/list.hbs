@@ -1,42 +1,37 @@
-
-
-<div class="container">
-    <h3 style="text-align: center;" class="mb-5 text-danger">MASTER-ARTICLE</h3>
-    <table class="table table-hover">
+<div class="container justify-content-sm-center">
+    <h3 style="text-align: center;" class="mb-5 text-danger">DANH SÁCH BÀI BÁO</h3>
+    <table class="table table-hover table-striped table-responsive">
         <a class="btn btn-outline-success mb-2 " style="float:left;" href="/admin/article/add" role="button">
             <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Article
+            Thêm bài
         </a>
-
         <thead class="thead-dark">
             <tr>
-                <th>id </th>
-                <th>c_ID</th>
-                <th>sts_id</th>
-                <th>title</th>
-                <th>public_date</th>
-                <th>thao tác</th>
+                <th>STT</th>
+                <th>Chuyên mục</th>
+                <th>Trạng thái</th>
+                <th style="max-width:550px;">Tiêu đề</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
             {{#each this.list}}
             <tr class="text-primary">
                 <td>{{id}}</td>
-                <td>{{c_ID}}</td>
-                <td>{{sts_id}}</td>
-                <td>{{title}}</td>
-                <td>{{format_DOB public_date}}</td>
-                <td>
-                    <a class="btn btn-warning btn-sm" href="/admin/article/edit/{{id}}" role="button"
+                <td>{{c_Name}}</td>
+                <td>{{asts_name}}</td>
+                <td  style="max-width:550px;">{{title}}</td>
+                <td >
+                    <div class="row">
+                    <a class="btn btn-warning btn-sm mr-2" href="/admin/article/edit/{{id}}" role="button"
                         title="Edit Article">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>Chỉnh sửa 
+                        <i class="fa fa-pencil" aria-hidden="true"></i>Chỉnh sửa
                     </a>
                       <a class="btn btn-primary  btn-sm " href="/admin/article/details/{{id}}" role="button" title="Edit Article">
                           <i class="fa fa-pencil" aria-hidden="true"></i>Chi tiết
                       </a>
-                    {{!-- <a class="btn btn-danger btn-sm" href="javascript:;" role="button">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                              </a> --}}
+               
+                    </div>
                 </td>
             </tr>
 

@@ -1,46 +1,170 @@
-<div class=" container">
-    <div class="card-header">
-        <h4>Chỉnh sửa bài viết</h4>
-    </div>
-    <div class="card-body">
-        <form method="POST">
-            <div class="form-group">
-                <label for="txtID">STT</label>
-                <input type="text" class="form-control" id="txtID" name="ID" readonly
-                    value="{{this.cats.ID}}">
-            </div>
-            <div class="form-group">
-                <label for="txtName">Tên chuyên mục cha</label>
-                <select class="form-control" value="{{this.cats.tc_Name}}" id="txtName">
-                    <option value="{{this.cats.tcID}}">{{#if this.cats.tcID}}
-                        {{this.cats.tc_Name}}
-                        {{/if}}
-                    </option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="txtname">Tên chuyên mục con</label>
-                <input type="text" class="form-control" id="txtname" name="c_Name" autofocus
-                    value="{{this.cats.c_Name}}">
-            </div>
-            <div class="form-group">
-                <label for="txtalias">Bí danh</label>
-                <input type="text" class="form-control" id="txtalias" name="c_alias" autofocus
-                    value="{{this.cats.c_alias}}">
-            </div>
-            
+{{#section 'js'}}
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
+<script>
+        if("{{{row.images}}}" != ""){
+            $('#images').fileinput({
+                theme: 'fa',
+                showCaption: true,
+                dropZoneEnabled: true,
+                allowedFileExtensions: ['png', 'jpg', 'gif'],
+                language: 'vi',
+                defaultPreviewContent: '<img src="/article/{{{row.images}}}" width=200px name="images" id="imagesk" alt="Your Avatar">',
+             });
+        }else{
+            $('#images').fileinput({
+                theme: 'fa',
+                showCaption: true,
+                dropZoneEnabled: true,
+                allowedFileExtensions: ['png', 'jpg', 'gif'],
+                language: 'vi',
+    
+             });
+        }
+    tinymce.init({
+                selector: '#content',
+                height: 450,
+                plugins: 'paste image link autolink lists table media',
+                menubar: false,
+                toolbar: [
+                'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
+                ],
+            });
+</script>
+<script>
+       $('#update').on('submit', function (e) {
+                e.preventDefault();
+            validate();
+        })
+        function validate(){
+            const title = $('#title').val();
+            const abstract = $('#abstract').val();
+            const images = $('#images').val();
+            const content = $('#content').val();
+            const tag = $('#tag').val();
+            if(title == ""){
+                alert("Tiêu đễ không được rỗng.");
+                return false;
+            }
+            if(title.length < 10){
+                alert("Tiêu đễ phải lớn hơn 10 kí tự");
+                return false;
+            }
+            if(title.length > 200){
+                alert("Tiêu đề tối đa 200 ký tự.");
+                return false;
+            }
+            if(abstract.length ==""){
+                alert("Tóm tắt không được rỗng");
+                return false;
+            }
+            if(abstract.length < 200){
+                alert("Tóm tắt phải từ 200 ký tự");
+                return false;
+            }
+            if(abstract.length > 1000){
+                alert("Tóm tắt tối đa có 1000 ký tự");
+                return false;
+            }
+            if(images == "" && "{{{row.images}}}" == ""){
+                alert("Ảnh bìa không được rỗng.");
+                return false;
+            }
+            if(content == ""){
+                alert("Nộ dung bài viết không được rỗng.");
+                 return false;
+            }
+            if(content.length < 500){
+                alert("Nội dung bài viết phải từ 500 ký tự.");
+                 return false;
+            }
+            if(content.length > 100000){
+                alert("Nội dung bài tối đa của bài viết là 100000 ký tự.");
+                 return false;
+            }
+            if(tag == ""){
+                alert("Nhãn bài viết không được rỗng.");
+                return false;
+            }
+            if(tag.length  < 30){
+                alert("Nhãn bài viết phải từ 30 ký tự.");
+                return false;
+            }
+            if(tag.length  > 400){
+                alert("Nhãn bài viết tối đa 400 ký tự.");
+                return false;
+            }
+            $('#update').off('submit').submit();
+         }
 
-            <a class="btn btn-success" href="/admin/categories" role="button" title="Trở về danh sách">
+</script>
+
+{{/section}}
+{{#section 'css'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
+{{/section}}
+
+<h1 class="text-center">CẬP NHẬT BÀI VIẾT</h1>
+<div class="container">
+    <form id="frmpostwriter" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="text" name="url_img" value="{{row.images}}" hidden/>
+            <input type="number" name="id" value="{{row.id}}" hidden/>
+            <label for="ChuyenMuc">Chuyên Mục :</label>
+            <select class="form-control" name="c_ID" id="c_ID">
+                {{#each this.category}}
+                {{#if selected}}
+                <option selected value="{{ID}}">{{c_Name}}</option>
+                {{else}}
+                <option value="{{ID}}">{{c_Name}}</option>
+                {{/if}}
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Tiêu đề:</label>
+            <input type="text" name="title" id="title" value="{{row.title}}" class="form-control"
+                placeholder="nhập tiêu đề">
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Ảnh đại điện(bài viết):</label><br>
+            <div class="file-loading">
+                <input id="images" name="images" value="{{row.images}}" type="file" accept="image/*" multiple />
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Tóm tắt:</label>
+            <textarea class="form-control" name="abstract" id="abstract" placeholder="nhập nội dung"
+                rows="5">{{row.abstract}}</textarea>
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Nội dung bài viết:</label>
+            <textarea name="content" id="content" class="form-control" cols="30"
+                rows="10">{{row.content}}</textarea>
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Gắn nhãn bài viết:</label>
+            <input type="text" name="tag" id="tag" value="{{row.tag}}" class="form-control"
+                placeholder="vd: abc;bcd;cde;">
+        </div>
+        <a class="btn btn-success" href="/admin/article" role="button" title="Trở về danh sách">
                 <i class="fa fa-backward" aria-hidden="true"></i>
             </a>
-            <button type="submit" class="btn btn-danger" title="Xóa chuyên mục" formaction="/admin/categories/del">
+            <button type="submit" class="btn btn-danger" title="Xóa chuyên mục" formaction="/admin/article/{{row.id}}/del">
                 <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
-            <button type="submit" class="btn btn-primary" formaction="/admin/categories/update">
+            <button id="update" type="submit" class="btn btn-primary" formaction="/admin/article/update">
                 <i class="fa fa-check" aria-hidden="true"></i>
-                Save
+                Lưu
             </button>
-        </form>
-    </div>
-   
+</div>
+</form>
 </div>
