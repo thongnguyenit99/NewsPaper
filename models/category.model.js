@@ -61,6 +61,13 @@ module.exports = {
         }
         return db.del(`delete from ${TBL_cat} where ?`, condition);
     },
+    updateCat: function (entity) {
+        const condition = {
+            ID: entity.ID
+        }
+        delete entity.ID;
+        return db.update( TBL_cat, entity, condition);
+    },
   
 
 
