@@ -106,10 +106,13 @@ module.exports = {
         return db.insert('tag_article', entity);
     },
     delArticle:function(id){
-        const condition = {
+        const condition1 = {
             ID: id
         }
-        return db.del(`delete from ${TBL_article} where ?`, condition);
+        const condition2 = {
+            id_article: id
+        }
+        return db.del(`delete from tag_article where ?`, condition2) ,db.del(`delete from comment where ?`, condition2) ,db.del(`delete from ${TBL_article} where ?`, condition1);
     },
     
 

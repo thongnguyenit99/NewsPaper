@@ -39,7 +39,7 @@
             });
 </script>
 <script>
-       $('#update').on('submit', function (e) {
+       $('#frmpostwriter').on('submit', function (e) {
                 e.preventDefault();
             validate();
         })
@@ -101,7 +101,7 @@
                 alert("Nhãn bài viết tối đa 400 ký tự.");
                 return false;
             }
-            $('#update').off('submit').submit();
+            $('#frmpostwriter').off('submit').submit();
          }
 
 </script>
@@ -157,10 +157,10 @@
         <a class="btn btn-success" href="/admin/article" role="button" title="Trở về danh sách">
                 <i class="fa fa-backward" aria-hidden="true"></i>
             </a>
-            <button type="submit" class="btn btn-danger" title="Xóa chuyên mục" formaction="/admin/article/{{row.id}}/del">
+            <a class="btn btn-danger" href="/admin/article/{{row.id}}/del" role="button" title="Xóa bài viết">
                 <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
-            <button id="update" type="submit" class="btn btn-primary" formaction="/admin/article/update">
+            </a>
+            <button id="update" type="submit" class="btn btn-primary" >
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Lưu
             </button>

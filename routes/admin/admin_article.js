@@ -134,7 +134,7 @@ router.get('/edit/:id',restrict, async function (req, res) {
 
 });
 //Xóa bài viết
-router.post('/:id/del',restrict,async function (req, res) {
+router.get('/:id/del',restrict,async function (req, res) {
     var user = req.session.authUser;
     if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
         await articleModel.delArticle(req.params.id);
@@ -158,7 +158,7 @@ router.get('/details/:id/publish',restrict,async function(req,res){
     
 })
 // cập nhật
-router.post('/update', upload, async function (req, res) {
+router.post('/edit/:id', upload, async function (req, res) {
     var id_article = req.body.id;
     var url_imgs = 'public/article/' + req.body.url_img;
     var urlsplit = url_imgs.split('/');
