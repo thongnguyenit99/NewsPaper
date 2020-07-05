@@ -30,7 +30,7 @@ router.get('/', restrict, async (req, res) => {
         }
     }) : res.render('403');
 });
-router.get('/add', function (req, res) {
+router.get('/add',restrict, function (req, res) {
     var user = req.session.authUser;
     user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
         res.render('vwAccount/vwAdvantage/admin/article/add', { layout: 'mainAdmin.hbs' }) : res.render('403');
@@ -137,7 +137,7 @@ router.get('/edit/:id',restrict, async function (req, res) {
 router.get('/:id/del',restrict,async function (req, res) {
     var user = req.session.authUser;
     if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
-        await articleModel.delArticle(req.params.id);
+        await articleModel.update({isActive:0}, {id: req.params.id});
         res.redirect('/admin/article');
     }
     else {

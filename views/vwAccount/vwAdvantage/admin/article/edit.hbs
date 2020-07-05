@@ -9,100 +9,110 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
 <script>
-        if("{{{row.images}}}" != ""){
-            $('#images').fileinput({
-                theme: 'fa',
-                showCaption: true,
-                dropZoneEnabled: true,
-                allowedFileExtensions: ['png', 'jpg', 'gif'],
-                language: 'vi',
-                defaultPreviewContent: '<img src="/article/{{{row.images}}}" width=200px name="images" id="imagesk" alt="Your Avatar">',
-             });
-        }else{
-            $('#images').fileinput({
-                theme: 'fa',
-                showCaption: true,
-                dropZoneEnabled: true,
-                allowedFileExtensions: ['png', 'jpg', 'gif'],
-                language: 'vi',
-    
-             });
-        }
+    if ("{{{row.images}}}" != "") {
+        $('#images').fileinput({
+            theme: 'fa',
+            showCaption: true,
+            dropZoneEnabled: true,
+            allowedFileExtensions: ['png', 'jpg', 'gif'],
+            language: 'vi',
+            defaultPreviewContent: '<img src="/article/{{{row.images}}}" width=200px name="images" id="imagesk" alt="Your Avatar">',
+        });
+    } else {
+        $('#images').fileinput({
+            theme: 'fa',
+            showCaption: true,
+            dropZoneEnabled: true,
+            allowedFileExtensions: ['png', 'jpg', 'gif'],
+            language: 'vi',
+
+        });
+    }
     tinymce.init({
-                selector: '#content',
-                height: 450,
-                plugins: 'paste image link autolink lists table media',
-                menubar: false,
-                toolbar: [
-                'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
-                ],
-            });
+        selector: '#content',
+        height: 450,
+        plugins: 'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
+        ],
+    });
 </script>
 <script>
-       $('#frmpostwriter').on('submit', function (e) {
-                e.preventDefault();
-            validate();
-        })
-        function validate(){
-            const title = $('#title').val();
-            const abstract = $('#abstract').val();
-            const images = $('#images').val();
-            const content = $('#content').val();
-            const tag = $('#tag').val();
-            if(title == ""){
-                alert("Tiêu đễ không được rỗng.");
-                return false;
-            }
-            if(title.length < 10){
-                alert("Tiêu đễ phải lớn hơn 10 kí tự");
-                return false;
-            }
-            if(title.length > 200){
-                alert("Tiêu đề tối đa 200 ký tự.");
-                return false;
-            }
-            if(abstract.length ==""){
-                alert("Tóm tắt không được rỗng");
-                return false;
-            }
-            if(abstract.length < 100){
-                alert("Tóm tắt phải từ 100 ký tự");
-                return false;
-            }
-            if(abstract.length > 1000){
-                alert("Tóm tắt tối đa có 1000 ký tự");
-                return false;
-            }
-            if(images == "" && "{{{row.images}}}" == ""){
-                alert("Ảnh bìa không được rỗng.");
-                return false;
-            }
-            if(content == ""){
-                alert("Nội dung bài viết không được rỗng.");
-                 return false;
-            }
-            if(content.length < 500){
-                alert("Nội dung bài viết phải từ 500 ký tự.");
-                 return false;
-            }
-            if(content.length > 100000){
-                alert("Nội dung bài tối đa của bài viết là 100000 ký tự.");
-                 return false;
-            }
-            if(tag == ""){
-                alert("Nhãn bài viết không được rỗng.");
-                return false;
-            }
-            if(tag.length  < 30){
-                alert("Nhãn bài viết phải từ 30 ký tự.");
-                return false;
-            }
-            if(tag.length  > 400){
-                alert("Nhãn bài viết tối đa 400 ký tự.");
-                return false;
-            }
-            $('#frmpostwriter').off('submit').submit();
-         }
+    $('#frmpostwriter').on('submit', function (e) {
+        e.preventDefault();
+        validate();
+    })
+    function validate() {
+        const title = $('#title').val();
+        const abstract = $('#abstract').val();
+        const images = $('#images').val();
+        const author = $('#author').val();
+        const content = $('#content').val();
+        const tag = $('#tag').val();
+        const title_alias = $('#title_alias').val();
+        if (title_alias == "") {
+            alert("Đường dẫn bài viết không được trống.");
+            return false;
+        }
+        if (title == "") {
+            alert("Tiêu đễ không được rỗng.");
+            return false;
+        }
+        if (title.length < 10) {
+            alert("Tiêu đễ phải lớn hơn 10 kí tự");
+            return false;
+        }
+        if (title.length > 200) {
+            alert("Tiêu đề tối đa 200 ký tự.");
+            return false;
+        }
+        if (abstract.length == "") {
+            alert("Tóm tắt không được rỗng");
+            return false;
+        }
+        if (abstract.length < 100) {
+            alert("Tóm tắt phải từ 100 ký tự");
+            return false;
+        }
+        if (author == "") {
+            alert("Tên tác giả không được rỗng.");
+            return false;
+        }
+        if (abstract.length > 1000) {
+            alert("Tóm tắt tối đa có 1000 ký tự");
+            return false;
+        }
+        if (images == "" && "{{{row.images}}}" == "") {
+            alert("Ảnh bìa không được rỗng.");
+            return false;
+        }
+        if (content == "") {
+            alert("Nội dung bài viết không được rỗng.");
+            return false;
+        }
+        if (content.length < 500) {
+            alert("Nội dung bài viết phải từ 500 ký tự.");
+            return false;
+        }
+        if (content.length > 100000) {
+            alert("Nội dung bài tối đa của bài viết là 100000 ký tự.");
+            return false;
+        }
+        if (tag == "") {
+            alert("Nhãn bài viết không được rỗng.");
+            return false;
+        }
+        if (tag.length < 30) {
+            alert("Nhãn bài viết phải từ 30 ký tự.");
+            return false;
+        }
+        if (tag.length > 400) {
+            alert("Nhãn bài viết tối đa 400 ký tự.");
+            return false;
+        }
+        $('#frmpostwriter').off('submit').submit();
+    }
 
 </script>
 
@@ -115,8 +125,8 @@
 <div class="container">
     <form id="frmpostwriter" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <input type="text" name="url_img" value="{{row.images}}" hidden/>
-            <input type="number" name="id" value="{{row.id}}" hidden/>
+            <input type="text" name="url_img" value="{{row.images}}" hidden />
+            <input type="number" name="id" value="{{row.id}}" hidden />
             <label for="ChuyenMuc">Chuyên Mục :</label>
             <select class="form-control" name="c_ID" id="c_ID">
                 {{#each this.category}}
@@ -146,24 +156,32 @@
         </div>
         <div class="form-group">
             <label style="font-weight: bold; font-size: 18px">Nội dung bài viết:</label>
-            <textarea name="content" id="content" class="form-control" cols="30"
-                rows="10">{{row.content}}</textarea>
+            <textarea name="content" id="content" class="form-control" cols="30" rows="10">{{row.content}}</textarea>
+        </div>
+        <div class="form-group">
+            <label style=" font-weight:bold">Đường dẫn alias(đường dẫn vô bài viết)</label>
+            <textarea class="form-control" name="title_alias" id="title_alias"
+                placeholder="dai-dich-co-vid-19-bat-nguon-tu-trung-quoc--..." rows="2">{{row.title_alias}}</textarea>
         </div>
         <div class="form-group">
             <label style="font-weight: bold; font-size: 18px">Gắn nhãn bài viết:</label>
             <input type="text" name="tag" id="tag" value="{{row.tag}}" class="form-control"
                 placeholder="vd: abc;bcd;cde;">
         </div>
+         <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Tác giả:</label>
+            <input type="text" name="author" id="author" class="form-control" value="{{row.author}}" placeholder="Nhập tên tác giả">
+        </div>
         <a class="btn btn-success" href="/admin/article" role="button" title="Trở về danh sách">
-                <i class="fa fa-backward" aria-hidden="true"></i>
-            </a>
-            <a class="btn btn-danger" href="/admin/article/{{row.id}}/del" role="button" title="Xóa bài viết">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
-            <button id="update" type="submit" class="btn btn-primary" >
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Lưu
-            </button>
+            <i class="fa fa-backward" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-danger" href="/admin/article/{{row.id}}/del" role="button" title="Xóa bài viết">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+        <button id="update" type="submit" class="btn btn-primary">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Lưu
+        </button>
 </div>
 </form>
 </div>

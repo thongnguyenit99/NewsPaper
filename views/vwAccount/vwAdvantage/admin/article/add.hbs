@@ -35,9 +35,15 @@
     function validate() {
         const title = $('#title').val();
         const abstract = $('#abstract').val();
+        const author = $('#author').val();
         const images = $('#images').val();
         const content = $('#content').val();
         const tag = $('#tag').val();
+        const title_alias = $('#title_alias').val();
+        if (title_alias == "") {
+            alert("Đường dẫn bài viết không được trống.");
+            return false;
+        }
         if (title == "") {
             alert("Tiêu đễ không được rỗng.");
             return false;
@@ -54,8 +60,8 @@
             alert("Tóm tắt không được rỗng");
             return false;
         }
-        if (abstract.length < 200) {
-            alert("Tóm tắt phải từ 200 ký tự");
+        if (abstract.length < 100) {
+            alert("Tóm tắt phải từ 100 ký tự");
             return false;
         }
         if (abstract.length > 1000) {
@@ -82,6 +88,10 @@
             alert("Nhãn bài viết không được rỗng.");
             return false;
         }
+        if (author == "") {
+            alert("Tên tác giả không được rỗng.");
+            return false;
+        }
         if (tag.length < 30) {
             alert("Nhãn bài viết phải từ 30 ký tự.");
             return false;
@@ -104,6 +114,7 @@
     <form id="frmpostwriter" method="post" enctype="multipart/form-data">
         <div class="form-group">
             {{!-- <input type="text" name="url_img" hidden /> --}}
+            <input type="number" name="isActive" value="1" hidden />
             <label style="font-weight: bold; font-size: 18px">Chuyên mục:</label>
             <select class="custom-select" name="c_ID" id="c_ID">
                 <option value="1">Cổ phiếu top đầu</option>
@@ -116,7 +127,7 @@
         </div>
         <div class="form-group">
             <label style="font-weight: bold; font-size: 18px">Tiêu đề:</label>
-            <input type="text" name="title" id="title" class="form-control" placeholder="nhập tiêu đề">
+            <input type="text" name="title" id="title" class="form-control" placeholder="Nhập tiêu đề">
         </div>
         <div class="form-group">
             <label style="font-weight: bold; font-size: 18px">Ảnh đại điện(bài viết):</label><br>
@@ -126,7 +137,7 @@
         </div>
         <div class="form-group">
             <label style="font-weight: bold; font-size: 18px">Tóm tắt:</label>
-            <textarea class="form-control" name="abstract" id="abstract" placeholder="nhập nội dung"
+            <textarea class="form-control" name="abstract" id="abstract" placeholder="Nhập nội dung"
                 rows="5"></textarea>
         </div>
         <div class="form-group">
@@ -134,8 +145,17 @@
             <textarea name="content" id="content" class="form-control" cols="30" rows="10"></textarea>
         </div>
         <div class="form-group">
+            <label style=" font-weight:bold">Đường dẫn alias(đường dẫn vô bài viết)</label>
+            <textarea class="form-control" name="title_alias" id="title_alias"
+                placeholder="dai-dich-co-vid-19-bat-nguon-tu-trung-quoc--..." rows="2"></textarea>
+        </div>
+        <div class="form-group">
             <label style="font-weight: bold; font-size: 18px">Gắn nhãn bài viết:</label>
             <input value="" type="text" name="tag" id="tag" class="form-control" placeholder="vd: abc;bcd;cde;">
+        </div>
+        <div class="form-group">
+            <label style="font-weight: bold; font-size: 18px">Tác giả:</label>
+            <input type="text" name="author" id="author" class="form-control" placeholder="Nhập tên tác giả">
         </div>
         <a href="/admin/article" class="btn btn-success">
             <i class="fa fa-backward" aria-hidden="true"></i>
