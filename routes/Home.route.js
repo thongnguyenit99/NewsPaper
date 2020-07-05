@@ -1,8 +1,9 @@
 const express = require('express');
 const articleModel = require('../models/article.model');
 const moment = require('moment');
-
+const config = require('../config/config.json');
 const router = express.Router();
+
 router.get('/lien-he',(req,res) => {
   res.render('about');
 })
@@ -35,10 +36,37 @@ router.get('/', async function (req, res) {
   })
 
 })
-router.post('/article/search', async function (req, res) {
-  const key=req.body.key;
-  var article_pre =[];
-  const listSearch = await articleModel.allSearch(key)
+router.post('/article/search' , async function (req, res) {
+  const key =req.body.key;
+  const k=key.split(' ').join('-'); 
+  res.redirect( '/article/search/'+k)
+})
+
+
+router.get('/article/search/:key', async function (req, res) {
+  const key=req.params.key;
+  const k=key.split('-').join(' ');
+  
+  const page = +req.query.page || 1;
+  if (page < 0) page = 1;
+  const offset = (page - 1) * config.pagination.limit;
+  const [listSearch, total] = await Promise.all([
+    articleModel.pageByCat(k, config.pagination.limit, offset),
+    articleModel.countByCat(k)
+  ]);
+  
+  // tính số trang
+  const nPages = Math.ceil(total / config.pagination.limit);
+  const page_items = [];
+  // duyệt số trang và  tính
+  for (let i = 1; i <= nPages; i++) {
+      const item = {
+          value: i,
+          isActive: i === page
+      }
+      page_items.push(item);
+  }
+  var article_pre =[]; 
   var index = 0;
   var index_remove = [];
   while (index < listSearch.length){
@@ -48,13 +76,7 @@ router.post('/article/search', async function (req, res) {
           index_remove.push(index);
         }
       }
-      if(listSearch[index].isPremium	== 1){
-        if(index_remove.includes(index) == false){
-          index_remove.push(index);
-        }
-        article_pre.push(listSearch[index]);
-        //listSearch.splice(index, 1);
-      }
+      
       index++;
   }
   index=0;
@@ -65,6 +87,11 @@ router.post('/article/search', async function (req, res) {
   const list = article_pre.concat(listSearch);
   res.render('vwArticle/search',{
     list,
+    page_items,
+    prev_value: page - 1,
+    next_value: page + 1,
+    can_go_prev: page > 1,
+    can_go_next: page < nPages,
     helpers: {
       format_DOB: function (date) {
         return moment(date, 'YYYY/MM/DD').format('h:mm | DD-MM-YYYY');
