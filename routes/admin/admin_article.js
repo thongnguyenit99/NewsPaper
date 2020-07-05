@@ -30,7 +30,7 @@ router.get('/', restrict, async (req, res) => {
         }
     }) : res.render('403');
 });
-router.get('/add', function (req, res) {
+router.get('/add', restrict, function (req, res) {
     var user = req.session.authUser;
     user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
         res.render('vwAccount/vwAdvantage/admin/article/add', { layout: 'mainAdmin.hbs' }) : res.render('403');
@@ -38,7 +38,7 @@ router.get('/add', function (req, res) {
 });
 
 
-router.post('/add', upload, async function (req, res) {
+router.post('/add', upload, restrict, async function (req, res) {
 
     const data = { ...req.body, images: req.file.filename };
     if (req.body.c_ID == 1) {

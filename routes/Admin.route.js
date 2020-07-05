@@ -128,19 +128,11 @@ router.post('/categories/add', restrict, async function (req, res) {
                c_Large,
 
          }
-          if (req.body.c_Name!='' && req.body.c_alias!=='' ) {
                const addCat = await catModel.insertCat(entity);
                res.render('vwAccount/vwAdvantage/admin/categories/add', {
                     layout: 'mainAdmin.hbs', addCat
                })
                //console.log(addCat);
-          }
-          else if (req.body.c_Name = '' || req.body.c_alias == '' || req.body.c_Name == '' && req.body.c_alias == '')
-          {
-                res.render('vwAccount/vwAdvantage/admin/categories/errorAdd', {
-                   layout: 'mainAdmin.hbs', err: 'Nội dung không được rỗng!Mời bạn nhập lại!!'
-              })
-          }
      }
      else {
           res.render('403');
@@ -163,9 +155,29 @@ router.post('/categories/del', restrict, async function (req, res) {
 router.post('/categories/update', restrict, async function (req, res) {
      var user = req.session.authUser;
      if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
-       await catModel.updateCat(req.body);
-          console.log(req.body);
-          res.redirect('/admin/categories');
+          if (req.body.c_Name == '' || req.body.c_alias == '' || req.body.c_Name == '' && req.body.c_alias == '') {
+
+               if (req.body.c_Name == '')
+               {
+                    res.render('vwAccount/vwAdvantage/admin/categories/error-alert', {
+                         layout: 'mainAdmin.hbs', err: 'Tên chuyên mục không được rỗng!Mời bạn nhập lại!!'
+                    })
+               }
+               else if ( req.body.c_alias == '')
+               {
+                    res.render('vwAccount/vwAdvantage/admin/categories/error-alert', {
+                         layout: 'mainAdmin.hbs',
+                         err: 'Bí danh không được rỗng!!Mời bạn nhập lại!',
+                         idCat:req.body.ID,
+                    })
+               }
+          }
+          else {
+
+               await catModel.updateCat(req.body);
+               console.log(req.body);
+               res.redirect('/admin/categories');
+          }
      }
      else {
           res.render('403');
