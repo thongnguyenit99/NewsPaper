@@ -30,7 +30,7 @@ router.get('/', restrict, async (req, res) => {
         }
     }) : res.render('403');
 });
-router.get('/add', function (req, res) {
+router.get('/add',restrict, function (req, res) {
     var user = req.session.authUser;
     user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
         res.render('vwAccount/vwAdvantage/admin/article/add', { layout: 'mainAdmin.hbs' }) : res.render('403');
@@ -44,7 +44,7 @@ router.post('/add', upload, async function (req, res) {
     if (req.body.c_ID == 1) {
         await moveFile(`public/temp/${req.file.filename}`, `public/article/Chung Khoan/Co Phieu Top Dau/${req.file.filename}`);
         data.images = `Chung Khoan/Co Phieu Top Dau/${req.file.filename}`;
-    }
+    }   
     if (req.body.c_ID == 2) {
         await moveFile(`public/temp/${req.file.filename}`, `public/article/Chung Khoan/Xu Huong Nhan Dinh/${req.file.filename}`);
         data.images = `Chung Khoan/Xu Huong Nhan Dinh/${req.file.filename}`;
@@ -69,9 +69,7 @@ router.post('/add', upload, async function (req, res) {
     else {
 
         await accountModles.addNewArticle(data);
-        var user = req.session.authUser;
-        user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
-            res.redirect('/admin/article') : res.render('403');
+        res.redirect('/admin/article');
     }
 
 });
@@ -151,7 +149,6 @@ router.post('/:id/del',restrict,async function (req, res) {
 router.get('/details/:id/publish',restrict,async function(req,res){  
     var user = req.session.authUser;
     if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
-        console.log(req.params.id);
         await articleModel.update({sts_id:2}, {id: req.params.id});
         res.redirect('/admin/article');
     }
@@ -169,7 +166,6 @@ router.post('/update', upload, async function (req, res) {
     url_img = urlsplit[urlsplit.length - 1];
     delete req.body.url_img;
     delete req.body.id_article;
-    req.body.sts_id = 4;
     req.body.WriterID = req.session.authUser.ID;
     // nó đổi ảnh       
     if (req.file) {
