@@ -1,9 +1,10 @@
+
 <div class=" container">
     <div class="card-header">
-        <h4>Edit Conference</h4>
+        <h4>Chỉnh sửa chuyên mục</h4>
     </div>
     <div class="card-body">
-        <form method="POST">
+        <form method="POST" id="frmUpdateCat">
             <div class="form-group">
                 <label for="txtID">STT</label>
                 <input type="text" class="form-control" id="txtID" name="ID" readonly
@@ -20,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label for="txtname">Tên chuyên mục con</label>
-                <input type="text" class="form-control" id="txtname" name="c_Name" autofocus
+                <input type="text" class="form-control" id="txtname"  name="c_Name" autofocus
                     value="{{this.cats.c_Name}}">
             </div>
             <div class="form-group">
@@ -36,9 +37,9 @@
             <button type="submit" class="btn btn-danger" title="Xóa chuyên mục" formaction="/admin/categories/del">
                 <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
-            <button type="submit" class="btn btn-primary" formaction="/admin/categories/update">
+            <button type="submit" id="btnUpdateCat" class="btn btn-primary" formaction="/admin/categories/update">
                 <i class="fa fa-check" aria-hidden="true"></i>
-                Save
+                Lưu
             </button>
         </form>
     </div>
