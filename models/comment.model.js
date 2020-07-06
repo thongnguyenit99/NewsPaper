@@ -7,7 +7,7 @@ module.exports = {
     },
     getByArticle: (title) => {
         return db.load(`select * from ${TBL_comment} co ,article a,account ac
-        where co.ID_Article=a.id  and co.ID_Account=ac.ID and title_alias='${title}' `);
+        where co.ID_Article=a.id and a.sts_id=2 and co.ID_Account=ac.ID and title_alias='${title}' `);
     },
     addComment: function (entity) {
         return db.insert(TBL_comment, entity);
@@ -17,7 +17,8 @@ module.exports = {
     }
     ,
     getId_article: (id) => {
-        return db.load(`select DISTINCT(a.id) as id from ${TBL_comment} co join article a on co.ID_Article=a.id where a.id=${id} `);
+        return db.load(`select DISTINCT(a.id) as id from ${TBL_comment} co join article a on co.ID_Article=a.id
+         where a.id=${id}  and a.sts_id=2`);
     }
 
 
