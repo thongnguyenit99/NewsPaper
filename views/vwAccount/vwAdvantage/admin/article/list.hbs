@@ -8,10 +8,10 @@
         <thead class="thead-dark">
             <tr>
                 <th>STT</th>
-                <th>Chuyên mục</th>
-                <th>Trạng thái</th>
-                <th style="max-width:550px;">Tiêu đề</th>
-                <th>Thao tác</th>
+                <th style="min-width:150px;">Chuyên mục</th>
+                <th style="min-width:150px;">Trạng thái</th>
+                <th style="min-width:550px;">Tiêu đề</th>
+                <th style="min-width:150px;">Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -20,15 +20,19 @@
                 <td>{{id}}</td>
                 <td>{{c_Name}}</td>
                 <td>{{asts_name}}</td>
-                <td  style="max-width:550px;">{{title}}</td>
+                <td>{{title}}</td>
                 <td >
                     <div class="row">
                     <a class="btn btn-warning btn-sm mr-2" href="/admin/article/edit/{{id}}" role="button"
-                        title="Edit Article">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>Chỉnh sửa
+                        title="Chỉnh sửa">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
                     </a>
-                      <a class="btn btn-primary  btn-sm " href="/admin/article/details/{{id}}" role="button" title="Edit Article">
-                          <i class="fa fa-pencil" aria-hidden="true"></i>Chi tiết
+                      <a class="btn btn-primary  btn-sm " href="/admin/article/details/{{id}}" role="button" title="Chi tiết">
+                        <i class="fas fa-info-circle"></i>
+                      </a>
+
+                       <a class="btn btn-primary  btn-sm ml-2" href="#" role="button" title="Xuất bản">
+                        <i class="fas fa-file-export"></i>
                       </a>
                
                     </div>

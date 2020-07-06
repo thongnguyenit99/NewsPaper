@@ -66,7 +66,7 @@ module.exports = function (router) {
                     path_img = value.Image;
                     value.url = false;
                 }
-                if(value.r_ID == 2){
+                if(value.r_ID == 2 || value.r_ID == 4){
                     value.writer = true;
                 }
                 else{

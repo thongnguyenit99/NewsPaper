@@ -1,5 +1,6 @@
 const express = require('express');
 const restrict = require("../middlewares/auth.mdw");
+const restrictadmin = require("../middlewares/restrictadmin.mdw");
 const articleModel = require('../models/article.model');
 const tpCatModel = require('../models/type_category.model');
 const catModel = require('../models/category.model');
@@ -7,12 +8,19 @@ const moment = require('moment');
 
 
 const router = express.Router();
-router.get('/', restrict, (req, res) => {
-     var user = req.session.authUser;
+router.get('/', restrict, restrictadmin, (req, res) => {
+     //var user = req.session.authUser;
 
      // console.log(list);
-     user.r_ID === 4 && user !== 'undefined' && user !== null ? res.render('vwAccount/vwAdvantage/admin/home', { layout: 'mainAdmin.hbs' }) : res.render('403');
+     //user.r_ID === 4 && user !== 'undefined' && user !== null ?
+      res.render('vwAccount/vwAdvantage/admin/home', { layout: 'mainAdmin.hbs' }) //: res.render('403');
 });
+
+router.get('/logout', restrict, async function (req, res) {
+     req.session.isAuthenticated = false;
+     req.session.authUser = null;
+     res.redirect(req.headers.referer);
+})
 
 router.get('/tag', restrict, (req, res) => {
      var user = req.session.authUser;
