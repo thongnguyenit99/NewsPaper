@@ -35,11 +35,11 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
     var articleEntity ;
     
     // bỏ vào đây chạy song song
-    const [list, list5Art_same, opinion, get] = await Promise.all([
+    const [list, list5Art_same, opinion] = await Promise.all([
         articleModel.detailByTitle(title),
         articleModel.ArtSameCat(nameChildCat),
         comModel.getByArticle(title),
-        comModel.getId_article(id),
+       // comModel.getId_article(id),
         
     ]);
     if(list.length > 0 && list[0].isPremium != null){
@@ -86,10 +86,10 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
         list,
         list5Art_same,
         opinion,
-        get,
+       // get,
         helpers: {
             format_DOB: function (date) {
-                return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
+                return moment(date, 'YYYY/MM/DD').format('h:mm | DD-MM-YYYY');
             },
             splitTitle: function (tag) {
                 for (var i = 0; i < tag.length; i++) {
