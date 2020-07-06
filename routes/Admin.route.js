@@ -160,7 +160,9 @@ router.post('/categories/update', restrict, async function (req, res) {
                if (req.body.c_Name == '')
                {
                     res.render('vwAccount/vwAdvantage/admin/categories/error-alert', {
-                         layout: 'mainAdmin.hbs', err: 'Tên chuyên mục không được rỗng!Mời bạn nhập lại!!'
+                         layout: 'mainAdmin.hbs',
+                         err: 'Tên chuyên mục không được rỗng!Mời bạn nhập lại!!',
+                         idCat: req.body.ID
                     })
                }
                else if ( req.body.c_alias == '')

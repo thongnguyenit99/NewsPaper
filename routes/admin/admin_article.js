@@ -21,7 +21,7 @@ const router = express.Router();
 //hiện thị danh sách bài
 router.get('/', restrict, async (req, res) => {
     var user = req.session.authUser;
-    const list = await articleModel.all();
+    const list = await articleModel.getAll();
     user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ? res.render('vwAccount/vwAdvantage/admin/article/list', {
         list, layout: 'mainAdmin.hbs', helpers: {
             format_DOB: function (date) {
@@ -39,8 +39,15 @@ router.get('/add',restrict, function (req, res) {
 
 
 router.post('/add', upload, async function (req, res) {
-
-    const data = { ...req.body, images: req.file.filename };
+    const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
+    sts_id = req.body.sts_id;
+    const data = {
+        ...req.body,
+        images: req.file.filename,
+        sts_id:4,
+        public_date:today
+        
+    };
     if (req.body.c_ID == 1) {
         await moveFile(`public/temp/${req.file.filename}`, `public/article/Chung Khoan/Co Phieu Top Dau/${req.file.filename}`);
         data.images = `Chung Khoan/Co Phieu Top Dau/${req.file.filename}`;
