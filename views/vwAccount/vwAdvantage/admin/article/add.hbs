@@ -34,15 +34,10 @@
     function validate() {
         const title = $('#title').val();
         const abstract = $('#abstract').val();
-        const author = $('#author').val();
         const images = $('#images').val();
         const content = $('#content').val();
         const tag = $('#tag').val();
-        const title_alias = $('#title_alias').val();
-        if (title_alias == "") {
-            alert("Đường dẫn bài viết không được trống.");
-            return false;
-        }
+       
         if (title == "") {
             alert("Tiêu đễ không được rỗng.");
             return false;
@@ -85,10 +80,6 @@
         }
         if (tag == "") {
             alert("Nhãn bài viết không được rỗng.");
-            return false;
-        }
-        if (author == "") {
-            alert("Tên tác giả không được rỗng.");
             return false;
         }
         if (tag.length < 30) {
@@ -145,17 +136,8 @@
             <textarea name="content" id="content" class="form-control" cols="30" rows="10"></textarea>
         </div>
         <div class="form-group">
-            <label style=" font-weight:bold">Đường dẫn alias(đường dẫn vô bài viết)</label>
-            <textarea class="form-control" name="title_alias" id="title_alias"
-                placeholder="dai-dich-co-vid-19-bat-nguon-tu-trung-quoc--..." rows="2"></textarea>
-        </div>
-        <div class="form-group">
             <label style="font-weight: bold; font-size: 18px">Gắn nhãn bài viết:</label>
             <input value="" type="text" name="tag" id="tag" class="form-control" placeholder="vd: abc;bcd;cde;">
-        </div>
-        <div class="form-group">
-            <label style="font-weight: bold; font-size: 18px">Tác giả:</label>
-            <input type="text" name="author" id="author" class="form-control" placeholder="Nhập tên tác giả">
         </div>
         <a href="/admin/article" class="btn btn-success">
             <i class="fa fa-backward" aria-hidden="true"></i>

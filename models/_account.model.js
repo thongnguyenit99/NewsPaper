@@ -32,4 +32,8 @@ module.exports = {
     getArticle:function (id) {
         return db.load(`SELECT * FROM article WHERE id =${id}`);
     },
+    getWrite:function()
+    {
+        return db.load(`SELECT * FROM account where r_ID=2`);
+    }
 }

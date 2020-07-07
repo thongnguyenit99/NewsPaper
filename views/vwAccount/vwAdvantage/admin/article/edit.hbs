@@ -46,7 +46,6 @@
         const title = $('#title').val();
         const abstract = $('#abstract').val();
         const images = $('#images').val();
-        const author = $('#author').val();
         const content = $('#content').val();
         const tag = $('#tag').val();
         const title_alias = $('#title_alias').val();
@@ -72,10 +71,6 @@
         }
         if (abstract.length < 100) {
             alert("Tóm tắt phải từ 100 ký tự");
-            return false;
-        }
-        if (author == "") {
-            alert("Tên tác giả không được rỗng.");
             return false;
         }
         if (abstract.length > 1000) {
@@ -167,10 +162,10 @@
             <input type="text" name="tag" id="tag" value="{{row.tag}}" class="form-control"
                 placeholder="vd: abc;bcd;cde;">
         </div>
-         <div class="form-group">
+         {{!-- <div class="form-group">
             <label style="font-weight: bold; font-size: 18px">Tác giả:</label>
             <input type="text" name="author" id="author" class="form-control" value="{{row.author}}" placeholder="Nhập tên tác giả">
-        </div>
+        </div> --}}
         <a class="btn btn-success" href="/admin/article" role="button" title="Trở về danh sách">
             <i class="fa fa-backward" aria-hidden="true"></i>
         </a>

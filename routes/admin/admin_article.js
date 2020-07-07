@@ -9,6 +9,7 @@ const path = require('path');
 const fs = require('fs');
 const validUrl = require('valid-url');
 const moveFile = require('move-file');
+const { Console } = require('console');
 const storage = multer.diskStorage({
     destination: './Public/temp/',
     filename: function (req, file, cb) {
@@ -20,40 +21,43 @@ const router = express.Router();
 
 
 //hiện thị danh sách bài
-router.get('/', restrict, restrictadmin, async (req, res) => {
-    var user = req.session.authUser;
+router.get('/',restrict, restrictadmin, async (req, res) => {
     const list = await articleModel.getAll();
-    //user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ? 
+    //var x = list.find(article => article.sts_id === 4)
     res.render('vwAccount/vwAdvantage/admin/article/list', {
         list, layout: 'mainAdmin.hbs', helpers: {
             format_DOB: function (date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY')
-            }
+            },
+            // check_status: function (value) {
+            //     if(value == x.sts_id){
+            //         return true;
+            //     }
+            //         return false;
+            // }
         }
-    })// : res.render('403');
+    })
 });
 router.get('/add',restrict, restrictadmin, function (req, res) {
-    var user = req.session.authUser;
-    //user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
-        res.render('vwAccount/vwAdvantage/admin/article/add', { layout: 'mainAdmin.hbs' }) //: res.render('403');
+    res.render('vwAccount/vwAdvantage/admin/article/add', { layout: 'mainAdmin.hbs' })
 
 });
 
 
-router.post('/add', restrict, restrictadmin, upload, async function (req, res) {
+router.post('/add', restrictadmin, upload, async function (req, res) {
     const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
     sts_id = req.body.sts_id;
     const data = {
         ...req.body,
         images: req.file.filename,
-        sts_id:4,
-        public_date:today
-        
+        sts_id: 4,
+        public_date: today
+
     };
     if (req.body.c_ID == 1) {
         await moveFile(`public/temp/${req.file.filename}`, `public/article/Chung Khoan/Co Phieu Top Dau/${req.file.filename}`);
         data.images = `Chung Khoan/Co Phieu Top Dau/${req.file.filename}`;
-    }   
+    }
     if (req.body.c_ID == 2) {
         await moveFile(`public/temp/${req.file.filename}`, `public/article/Chung Khoan/Xu Huong Nhan Dinh/${req.file.filename}`);
         data.images = `Chung Khoan/Xu Huong Nhan Dinh/${req.file.filename}`;
@@ -85,38 +89,31 @@ router.post('/add', restrict, restrictadmin, upload, async function (req, res) {
 // Hiển thị trang chi tiết bài báo admin
 router.get('/details/:id',restrict, restrictadmin, async function (req, res) {
     const detai = await articleModel.draft(req.params.id);
-    var user = req.session.authUser;
-   // user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
-        res.render('vwAccount/vwAdvantage/admin/article/details', {
-            detai,
-            layout: 'mainAdmin.hbs',
-            helpers: {
-                splitTitle: function (tag) {
-                    for (var i = 0; i < tag.length; i++) {
-                        var t = tag.split(';');
-                        return t[0];
-                    }
-                },
-                splitTitle1: function (tag) {
-                    for (var i = 0; i < tag.length; i++) {
-                        var t = tag.split(';');
-                        return t[1];
-                    }
-                },
-                splitTitle2: function (tag) {
-                    for (var i = 0; i < tag.length; i++) {
-                        var t = tag.split(';');
-                        return t[2];
-                    }
-                },
-                check_status: function (value) {
-                    if(value == detai[0].sts_id){
-                        return true;
-                    }
-                        return false;
+    res.render('vwAccount/vwAdvantage/admin/article/details', {
+        detai,
+        layout: 'mainAdmin.hbs',
+        helpers: {
+            splitTitle: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[0];
+                }
+            },
+            splitTitle1: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[1];
+                }
+            },
+            splitTitle2: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[2];
                 }
             }
-        })// : res.render('403');
+
+        }
+    })
 
 });
 
@@ -133,38 +130,41 @@ router.get('/edit/:id',restrict, restrictadmin, async function (req, res) {
             value.selected = false;
         }
     });
-    var user = req.session.authUser;
-   //user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ?
-        res.render('vwAccount/vwAdvantage/admin/article/edit', {
-            layout: 'mainAdmin.hbs',
-            category,
-            row: articles[0]
-        })// : res.render('403');
+    res.render('vwAccount/vwAdvantage/admin/article/edit', {
+        layout: 'mainAdmin.hbs',
+        category,
+        Tacgia,
+        row: articles[0]
+    })
 
 });
 //Xóa bài viết
 router.get('/:id/del', restrict, restrictadmin, async function (req, res) {
-    var user = req.session.authUser;
-    //if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
-        await articleModel.update({isActive:0}, {id: req.params.id});
-        res.redirect('/admin/article');
-    //}
-   // else {
-   //     res.render('403');
-    //}
-   
+    await articleModel.update({ isActive: 0 }, { id: req.params.id });
+    res.redirect('/admin/article');
+
 });
 //Duyệt thẳng
-router.get('/details/:id/publish',restrict, restrictadmin, async function(req,res){  
-    var user = req.session.authUser;
-    //if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
-        await articleModel.update({sts_id:2}, {id: req.params.id});
-        res.redirect('/admin/article');
-//}
-    //else {
-        res.render('403');
-    //}
-    
+router.post('/', restrictadmin, async function (req, res) {
+    id = req.body.id;
+    delete req.body.id;
+    if (req.body.featured) {
+        req.body.featured = 1;
+    } else {
+        req.body.featured = 0;
+    }
+    if (req.body.isPremium) {
+        req.body.isPremium = 1;
+    } else {
+        req.body.isPremium = 0;
+    }
+    req.body.note = "";
+    req.body.sts_id = 2;
+    req.body.isActive = 1;
+    await articleModel.update(req.body, { id: id });
+    await articleModel.addNewTagArticle({ id_tag: 1, id_article: id });
+    res.redirect(req.headers.referer);
+
 })
 // cập nhật
 router.post('/edit/:id', upload, restrict, restrictadmin, async function (req, res) {
@@ -234,7 +234,7 @@ router.post('/edit/:id', upload, restrict, restrictadmin, async function (req, r
             await moveFile(url_imgs, `public/article/Tai Chinh/Thuong Mai Dien Tu/${url_img}`);
             req.body.images = `Tai Chinh/Thuong Mai Dien Tu/${url_img}`;
         }
-        if (id_article != "") {//
+        if (id_article != "") {
             var tam = await accountModles.getArticle(id_article);
             await accountModles.patch_article(req.body, { id: id_article });
             res.redirect('/admin/article');
