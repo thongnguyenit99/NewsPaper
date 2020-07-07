@@ -11,7 +11,6 @@
                             <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                         </ol>
                         <div class="carousel-inner">
-                           
                             {{#each bestlist1 }}
                             <div class="carousel-item active" data-interval="3000">
                                 <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
@@ -32,14 +31,13 @@
                                     class="d-block w-100 lazyload" alt="..." style="width: 600px;height:600px">
                                 <div class="carousel-caption d-md-block">
                                     <h6 class="text-light font-weight-light">
-                                        <a href="/categories/chung-khoan" class="badge badge-warning mr-3">{{c_Large}}</a>
-                                        
+                                        <a href="/categories/chung-khoan" class="badge badge-warning mr-3">{{c_Large}}</a> 
                                     </h6>
                                     <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}/" class="text-light link_trend">
                                         <h3 title="{{title}}">{{title}}</h3>
                                     </a>
                                     <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
-                                    <p class="text-light font-weight-light">Tác giả: {{author}}</p>
+                                    <p class="text-light font-weight-light">Tác giả: {{pseudonym}}</p>
                                 </div>
                             </div>
                             {{/each}}
@@ -62,7 +60,7 @@
                                 <h5 title="{{title}}">{{title}}</h5>
                             </a>
                             
-                            <p class="text-light font-weight-light">Tác giả: {{author}}</p>
+                            <p class="text-light font-weight-light">Tác giả: {{pseudonym}}</p>
                         </div>
                     {{/each}}
                    
@@ -80,7 +78,7 @@
                         <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-light link_trend">
                             <h5 title="{{title}}">{{title}}</h5>
                         </a>
-                        <p class="text-light font-weight-light">Tác giả: {{author}}</p>
+                        <p class="text-light font-weight-light">Tác giả: {{pseudonym}}</p>
                     </div>
                     {{/each}}
                 
@@ -113,7 +111,7 @@
                                 </h6>
                                 <p>{{abstract}}</p>
                                 <h6 class="card-subtitle mt-2 mr-1 text-muted">
-                                    Tác giả: {{author}}
+                                    Tác giả: {{pseudonym}}
                                 </h6>
 
                             </div>
@@ -166,7 +164,7 @@
                                 </h6>
                                 <p>{{abstract}}</p>
                                 <h6 class="card-subtitle mt-2 mr-1 text-muted">
-                                    Tác giả: {{author}}  
+                                    Tác giả: {{pseudonym}}
                                  <p class="mt-2">Lược xem:{{views}}</p>
                                  <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
 
@@ -202,7 +200,7 @@
                 </div>
                 <div class="card-body " style="height: 120px;">
                      <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
-                     <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{author}}</p>
+                     <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{pseudonym}}</p>
                 </div>
                 {{/each}}
             </div>
@@ -221,7 +219,7 @@
                 </div>
                 <div class="card-body "style="height: 120px;">
                     <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
-                    <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{author}}</p>
+                    <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{pseudonym}}</p>
                 </div>
                 {{/each}}
             </div>
@@ -239,7 +237,7 @@
                 </div>
                 <div class="card-body " style="height: 120px;">
                     <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
-                    <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{author}}</p>
+                    <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{pseudonym}}</p>
                 </div>
                 {{/each}}
             </div>
