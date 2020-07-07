@@ -23,27 +23,29 @@ const router = express.Router();
 //hiện thị danh sách bài
 router.get('/',restrict, restrictadmin, async (req, res) => {
     const list = await articleModel.getAll();
-    //var x = list.find(article => article.sts_id === 4)
     res.render('vwAccount/vwAdvantage/admin/article/list', {
         list, layout: 'mainAdmin.hbs', helpers: {
             format_DOB: function (date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY')
             },
-            // check_status: function (value) {
-            //     if(value == x.sts_id){
-            //         return true;
-            //     }
-            //         return false;
-            // }
+            isedit: function (status_id){
+                if(status_id == 4){
+                  return true;
+                }
+                return false;
+              }
         }
     })
 });
-router.get('/add',restrict, restrictadmin, function (req, res) {
-    res.render('vwAccount/vwAdvantage/admin/article/add', { layout: 'mainAdmin.hbs' })
+// load view thêm bài
+router.get('/add',restrict, restrictadmin,async function (req, res) {
+    var category = await accountModles.getCategory();
+    var witer = await accountModles.getWrite();
+    res.render('vwAccount/vwAdvantage/admin/article/add', {category,witer, layout: 'mainAdmin.hbs' })
 
 });
 
-
+// thêm bài viết
 router.post('/add', restrictadmin, upload, async function (req, res) {
     const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
     sts_id = req.body.sts_id;
@@ -133,7 +135,6 @@ router.get('/edit/:id',restrict, restrictadmin, async function (req, res) {
     res.render('vwAccount/vwAdvantage/admin/article/edit', {
         layout: 'mainAdmin.hbs',
         category,
-        Tacgia,
         row: articles[0]
     })
 

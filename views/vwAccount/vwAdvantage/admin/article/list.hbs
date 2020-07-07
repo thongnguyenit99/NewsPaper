@@ -1,30 +1,30 @@
 {{#section 'js'}}
 <script>
-    $(document).ready( function(){
-        $("#BangTTBai").on("click", ".xuatban", function (event){
-            var $row = $(this).closest("tr"); 
-            $("#id").val( $row.find("#id_modal").text());
+    $(document).ready(function () {
+        $("#BangTTBai").on("click", ".xuatban", function (event) {
+            var $row = $(this).closest("tr");
+            $("#id").val($row.find("#id_modal").text());
         });
     });
 
     $('#frmmodal').on('submit', function (e) {
-            e.preventDefault();
-            validate();
-        })
-        function validate(){
-            const title_alias = $('#title_alias').val();
-            if(title_alias == ""){
-                alert("Đường dẫn bài viết không được trống.");
-                return false;
-            }
-            $.getJSON(`/account/advantage/3/is-available?alias=${title_alias}`, function (data) {
-                if (data) {
-                    $('#frmmodal').off('submit').submit();
-                } else {
-                    alert('đường dẫn alias đã tồn tại');
-                }
-            })
+        e.preventDefault();
+        validate();
+    })
+    function validate() {
+        const title_alias = $('#title_alias').val();
+        if (title_alias == "") {
+            alert("Đường dẫn bài viết không được trống.");
+            return false;
         }
+        $.getJSON(`/account/advantage/3/is-available?alias=${title_alias}`, function (data) {
+            if (data) {
+                $('#frmmodal').off('submit').submit();
+            } else {
+                alert('đường dẫn alias đã tồn tại');
+            }
+        })
+    }
 </script>
 
 {{/section}}
@@ -51,62 +51,76 @@
                 <td>{{c_Name}}</td>
                 <td>{{asts_name}}</td>
                 <td>{{title}}</td>
-                <td >
+                <td>
                     <div class="row">
-                    <a class="btn btn-warning btn-sm mr-2" href="/admin/article/edit/{{id}}" role="button"
-                        title="Chỉnh sửa">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                    </a>
-                      <a class="btn btn-primary  btn-sm " href="/admin/article/details/{{id}}" role="button" title="Chi tiết">
-                        <i class="fas fa-info-circle"></i>
-                      </a>
-                        {{!-- {{#if () }} --}}
-                        <button type="button"  class="xuatban btn btn-primary btn-sm ml-2" data-toggle="modal" title="xuất bản" data-target="#exampleModal">
-                        <i class="fa fa-check-square" aria-hidden="true"></i>
+                        <a class="btn btn-warning btn-sm mr-2" href="/admin/article/edit/{{id}}" role="button"
+                            title="Chỉnh sửa">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-primary  btn-sm " href="/admin/article/details/{{id}}" role="button"
+                            title="Chi tiết">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+
+                        {{#if (isedit sts_id) }}
+                        <button type="button" class="xuatban btn btn-primary btn-sm ml-2" data-toggle="modal"
+                            title="xuất bản" data-target="#exampleModal">
+                            <i class="fa fa-check-square" aria-hidden="true"></i>
                         </button>
-                        {{!-- {{/if}} --}}
+                        {{else}}
+                        <button type="button"
+                            style="opacity: 0.5;text-decoration: none;pointer-events: none;"
+                            class="xuatban btn btn-primary btn-sm ml-2" data-toggle="modal" title="xuất bản"
+                            data-target="#exampleModal">
+                            <i class="fa fa-check-square" aria-hidden="true"></i>
+                        </button>
+                        {{/if}}
                     </div>
                 </td>
             </tr>
-
             {{/each}}
         </tbody>
     </table>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Xuất Bản</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="background-image: url('https://i.ytimg.com/vi/mubt_h9NRn4/maxresdefault.jpg'); background-position: right; background-size: cover;">
-            <form method="POST" id="frmmodal">
-                <div class="form-group">
-                    <label  for="exampleInputEmail1" style="color: red; font-weight:bold">Id</label>
-                    <input id="id" name="id" type="text" class="form-control" readonly>
-                </div>
-                <div class="form-group">
-                    <label style="color: red; font-weight:bold">Đường dẫn alias(đường dẫn vô bài viết)</label>
-                    <textarea class="form-control" name="title_alias" id="title_alias" placeholder="dai-dich-co-vid-19-bat-nguon-tu-trung-quoc--..." rows="2" ></textarea>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="featured" name="featured">
-                    <label class="form-check-label" for="exampleCheck1" style="color:green; font-weight:bold">Featured</label>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="isPremium" name="isPremium" checked>
-                    <label class="form-check-label" for="exampleCheck2" style="color:green; font-weight:bold">Premium</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Xuất bản</button>
-            </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xuất Bản</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"
+                style="background-image: url('https://i.ytimg.com/vi/mubt_h9NRn4/maxresdefault.jpg'); background-position: right; background-size: cover;">
+                <form method="POST" id="frmmodal">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" style="color: red; font-weight:bold">Id</label>
+                        <input id="id" name="id" type="text" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label style="color: red; font-weight:bold">Đường dẫn alias(đường dẫn vô bài viết)</label>
+                        <textarea class="form-control" name="title_alias" id="title_alias"
+                            placeholder="dai-dich-co-vid-19-bat-nguon-tu-trung-quoc--..." rows="2"></textarea>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="featured" name="featured">
+                        <label class="form-check-label" for="exampleCheck1"
+                            style="color:green; font-weight:bold">Featured</label>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="isPremium" name="isPremium" checked>
+                        <label class="form-check-label" for="exampleCheck2"
+                            style="color:green; font-weight:bold">Premium</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Xuất bản</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div
