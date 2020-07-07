@@ -14,49 +14,61 @@ module.exports = {
     // 10 newest article
     newest: function () {
         return db.load(`select * from ${TBL_article} a join categories c on a.c_ID=c.ID
+        join account ac 
+        on a.writerID=ac.ID
          where isActive=1 and  a.sts_id=2 order by public_date DESC limit 10`);
     },
     // 3-4 best featured article:chứng khoán,doanh nghiệp,tài chính in the weekend
     // get 1 featured article
     bestnew1: function () {
-        return db.load(`select c.c_alias,a.title_alias,a.public_date,a.c_ID ,a.id,a.title,a.abstract,a.author,DATEDIFF(CURDATE(), a.public_date) AS day,a.featured,a.views,a.isActive,a.images,c.ID,c.tc_ID,c.c_Name,c.c_Large 
-        from article a join categories c on a.c_ID=c.ID
+        return db.load(`select ac.pseudonym , c.c_alias,a.title_alias,a.public_date,a.c_ID ,a.id,a.title,a.abstract,a.author,DATEDIFF(CURDATE(), a.public_date) AS day,a.featured,a.views,a.isActive,a.images,c.ID,c.tc_ID,c.c_Name,c.c_Large 
+        from article a join categories c on a.c_ID=c.ID join account ac 
+        on a.writerID=ac.ID
         where a.isActive=1 and  a.sts_id=2 and a.featured=1 and a.c_ID=1 OR a.c_ID=2 having (day>0 and day<7) order by rand() LIMIT 1`);
     },
     bestnew2: function () {
-        return db.load(`select c.c_alias,a.title_alias,a.public_date,a.c_ID , a.id,a.title,a.abstract,a.author,DATEDIFF(CURDATE(), a.public_date) AS day,a.featured,a.views,a.isActive,a.images,c.ID,c.tc_ID,c.c_Name,c.c_Large
-         from article a join categories c on a.c_ID=c.ID
+        return db.load(`select ac.pseudonym , c.c_alias,a.title_alias,a.public_date,a.c_ID , a.id,a.title,a.abstract,a.author,DATEDIFF(CURDATE(), a.public_date) AS day,a.featured,a.views,a.isActive,a.images,c.ID,c.tc_ID,c.c_Name,c.c_Large
+         from article a join categories c on a.c_ID=c.ID join account ac 
+        on a.writerID=ac.ID
           where a.isActive=1 and  a.sts_id=2 and a.featured=1  and a.c_ID=3 OR a.c_ID=4
          having (day>0 and day<7) order by rand() LIMIT 1`);
     },
     bestnew3: function () {
-        return db.load(`select c.c_alias,a.title_alias,a.public_date,a.c_ID , a.id,a.title,a.abstract,a.author,DATEDIFF(CURDATE(), a.public_date) AS day,a.featured,a.views,a.isActive,a.images,c.ID,c.tc_ID,c.c_Name,c.c_Large 
-        from article a join categories c on a.c_ID=c.ID
+        return db.load(`select ac.pseudonym ,c.c_alias,a.title_alias,a.public_date,a.c_ID , a.id,a.title,a.abstract,a.author,DATEDIFF(CURDATE(), a.public_date) AS day,a.featured,a.views,a.isActive,a.images,c.ID,c.tc_ID,c.c_Name,c.c_Large 
+        from article a join categories c on a.c_ID=c.ID  join account ac 
+        on a.writerID=ac.ID
         where a.isActive=1 and a.featured=1 and  a.sts_id=2 and a.c_ID=5 OR a.c_ID=6 having (day>0 and day<7)
         order by rand() LIMIT 1`);
     },
     // 10 the viewest  article
     viewest: function () {
-        return db.load(`select * from ${TBL_article} a join categories c on a.c_ID=c.ID 
+        return db.load(`select * from ${TBL_article} a join categories c on a.c_ID=c.ID  join account ac 
+        on a.writerID=ac.ID
         where isActive=1 AND  a.sts_id=2 order by views DESC limit 10`)
     },
     //top 10 categories
     top10_chungkhoan: function () {
-        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
+        on a.writerID=ac.ID
             WHERE a.c_ID=1 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1) UNION
-             (SELECT * FROM article a join categories c on a.c_ID=c.ID
+             (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
+        on a.writerID=ac.ID
                  WHERE a.c_ID=2 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
     },
     top10_doanhnghiep: function () {
-        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
+        on a.writerID=ac.ID
             WHERE a.c_ID=3 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1) UNION
-             (SELECT * FROM article a join categories c on a.c_ID=c.ID
+             (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
+        on a.writerID=ac.ID
                  WHERE a.c_ID=4 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
     },
     top10_taichinh: function () {
-        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
+        on a.writerID=ac.ID
             WHERE a.c_ID=5 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1) UNION
-             (SELECT * FROM article a join categories c on a.c_ID=c.ID
+             (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
+        on a.writerID=ac.ID
                  WHERE a.c_ID=6 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
     },
     detailById: function (Id) {
