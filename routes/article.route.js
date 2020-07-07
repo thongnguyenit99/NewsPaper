@@ -10,7 +10,7 @@ const restrict = require("../middlewares/auth.mdw");
 const moment = require('moment');
 const router = express.Router();
 // get list article
-router.get('/list', async (req, res) => {
+router.get('/danh-sach-bai-viet', async (req, res) => {
     const list = await articleModel.all();
     res.render('vwArticle/list', {
         layout: 'main.hbs',
@@ -18,8 +18,27 @@ router.get('/list', async (req, res) => {
         helpers: {
             format_DOB: function (date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY,h:mm:ss');
+            },
+            splitTitle: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[0];
+                }
+            },
+            splitTitle1: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[1];
+                }
+            },
+            splitTitle2: function (tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[2];
+                }
             }
-        }
+        },
+
     });
 })
 
