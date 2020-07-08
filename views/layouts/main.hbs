@@ -115,165 +115,34 @@
             </div>
         </div>
     </div>
-    {{!-- <nav class="navbar navbar-expand-xl navbar-dark " style="background-color: #00558c;">
-        <div class="container">
-            <button class="navbar-toggler d-xl-none" type="button" data-toggle="collapse"
-                data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav">
-                    <li class="nav-item" id="home">
-                        <a class="nav-link" style="color: white;" href="/"><i class="fa fa-home"
-                                aria-hidden="true"></i> TRANG CHỦ<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item dropdown" style="color: white;" id="chungkhoan">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            CHỨNG KHOÁN
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item text-primary" href="#">Cổ phiếu top đầu</a>
-                            <a class="dropdown-item text-primary" href="#">Xu hướng nhận định</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown" style="color: white;" id="doanhnghiep">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            DOANH NGHIỆP
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item text-primary" href="#">Bất động sản</a>
-                            <a class="dropdown-item text-primary" href="#">Doanh nghiệp niêm yết</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown" style="color: white;" id="taichinh">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           TÀI CHÍNH
-                        </a>
-                        <div class="dropdown-menu " aria-labelledby="dropdownId">
-                            <a class="dropdown-item text-primary" href="#">Ngân hàng hiện đại</a>
-                            <a class="dropdown-item text-primary" href="#">Thương mại điện tử</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <form class="form-inline search-form ml-auto mr-5" id="search-form" action="#">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="button" class="btn btn-dark" id="search-btn">
-                    <i class="fas fa-search center-right"></i>
-                </button>
-            </form>
-            <ul class="navbar-nav ml-5">
-                <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="/login">
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        Login
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="/register">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i>
-                        Register
-                    </a>
-                </li>
-            </ul>
-            <!-- Subscriber -->
-            <div id="subscriberNavItem" class="navbar-nav navbar-right d-none">
-                <div class="dropdown" id="subscriberDropdownMenu">
-                    <img src="#" class="rounded-circle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <span id="userName" class="dropdown-item-text"></span>
-                        <a class="dropdown-item" href="#">Gia hạn</a>
-                        <a class="dropdown-item" href="#">Đổi mật khẩu</a>
-                        <a class="dropdown-item" href="#">Cập nhật thông tin</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Editor -->
-            <div id="editorNavItem" class="navbar-nav navbar-right d-none">
-                <div class="dropdown" id="editorDropdownMenu">
-                    <img src="#" class="rounded-circle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <span id="userName" class="dropdown-item-text"></span>
-                        <a class="dropdown-item" href="#">Duyệt bài viết</a>
-                        <a class="dropdown-item" href="#">Đổi mật khẩu</a>
-                        <a class="dropdown-item" href="#">Cập nhật thông tin</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Writer -->
-            <div id="writerNavItem" class="navbar-nav navbar-right d-none">
-                <div class="dropdown" id="writerDropdownMenu">
-                    <img src="#" class="rounded-circle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <span id="userName" class="dropdown-item-text"></span>
-                        <a class="dropdown-item" href="#">Đăng bài mới</a>
-                        <a class="dropdown-item" href="#">Xem bài đã đăng</a>
-                        <a class="dropdown-item" href="#">Đổi mật khẩu</a>
-                        <a class="dropdown-item" href="#">Cập nhật thông tin</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Administrator -->
-            <div id="adminNavItem" class="navbar-nav navbar-right d-none">
-                <div class="dropdown" id="adminDropdownMenu">
-                    <img src="#" class="rounded-circle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <span id="userName" class="dropdown-item-text"></span>
-                        <a class="dropdown-item" href="#">Quản lý chuyên mục</a>
-                        <a class="dropdown-item" href="#">Quản lý nhân viên</a>
-                        <a class="dropdown-item" href="#">Quản lý bài viết</a>
-                        <a class="dropdown-item" href="#">Quản lý người dùng</a>
-                        <a class="dropdown-item" href="#">Đổi mật khẩu</a>
-                        <a class="dropdown-item" href="#">Cập nhật thông tin</a>g</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav> --}}
+
     <div id="menu">
-        <ul class="col-sm-12 col-md-12 col-xs-12">
+    
+        <ul class="col-sm-12 col-md-12 col-xs-12 shadow p-1 ">
             <div class="container">
                 <div class="col-sm-4 col-md-12 col-xs-8">
                     <li><a href="/" id="home"><i class="fa fa-home" aria-hidden="true"></i><span
-                                class="sr-only">(current)</span> TRANG CHỦ</a>
+                                class="sr-only ">(current)</span> Trang Chủ</a>
                     </li>
-
-                    <li><a href="/categories/chung-khoan" id="chungkhoan">CHỨNG KHOÁN</a>
-                        <ul class="sub-menu">
-                            <li><a href="/categories/chung-khoan/co-phieu-top-dau">Cổ phiếu top đầu</a></li>
-                            <li><a href="/categories/chung-khoan/xu-huong-nhan-dinh">Xu hướng nhận định</a></li>
+                    {{#each lcCats}}
+                    <li>
+                        <a href="/categories/{{alias}}">{{tc_Name}}&nbsp; <i class="fa fa-angle-down text-primary"
+                                aria-hidden="true"></i></a>
+                        <ul class="sub-menu ">
+                            {{#each categories}}
+                            <li>
+                                <a href="/categories/{{tc_alias}}/{{c_alias}}">{{c_Name}}</a>
+                            </li>
+                            {{/each}}
                         </ul>
                     </li>
-                    <li><a href="/categories/doanh-nghiep" id="doanhnghiep">DOANH NGHIỆP</a>
-                        <ul class="sub-menu">
-                            <li><a href="/categories/doanh-nghiep/bat-dong-san">Bất động sản</a></li>
-                            <li><a href="/categories/doanh-nghiep/doanh-nghiep-niem-yet">Doanh nghiệp niêm yết</a></li>
-                        </ul>
+                    {{/each}}
+                    <li><a href="/lien-he" id="contact"> Liên Hệ</a>
                     </li>
-                    <li><a href="/categories/tai-chinh" id="taichinh">TÀI CHÍNH</a>
-                        <ul class="sub-menu">
-                            <li><a href="/categories/tai-chinh/ngan-hang-dien-tu">Ngân hàng điện tử</a></li>
-                            <li><a href="/categories/tai-chinh/thuong-mai-dien-tu">Thương mại điện tử</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/lien-he" id="about">LIÊN HỆ</a>
-                    </li>
-                    {{!-- <li><a href="contact.html" id="contact">LIÊN LẠC</a>
-                </li> --}}
                 </div>
             </div>
         </ul>
-
+    
     </div>
     {{{body}}}
     <div class="jumbotron text-center mb-0" id="footer">

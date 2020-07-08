@@ -1,11 +1,11 @@
 
 <div class="container mb-5">
-        <div class="dropdown dropright ml-3 mb-3 mt-3">
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+        <div class="dropdown dropright ml-4 mb-5 mt-3">
+            <button type="button" class="btn btn-success dropdown-toggle mb-5" data-toggle="dropdown">
                 Các chuyên mục
             </button>
     
-            <div class="dropdown-menu">
+            <div class="dropdown-menu ">
                 {{#each lcCat}}
                 <a href="/admin/categories/{{alias}}" style="text-align: center;"
                     class="list-group-item list-group-item-action  {{#if isActive}}active{{/if}}">
@@ -18,16 +18,16 @@
     
 </div>
 
-<div class="container mb-5">
-    <h3 style="text-align: center;" class="mb-5 text-danger">Quản lý chuyên mục con</h3>
-    <table class="table table-hover table-bordered">
-        <a class="btn btn-outline-success mb-2 " style="float:left;" href="/admin/categories/add" role="button">
+<div class="container mb-5 mt-5">
+    <h3 style="text-align: center;" class="mb-5 text-danger mt-5">Quản lý chuyên mục con</h3>
+    <table class="table table-hover table-bordered mt-5">
+        <a class="btn btn-outline-success mb-2 mt-5 " style="float:left;" href="/admin/categories/add" role="button">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Thêm chuyên mục con
         </a>
 
         <thead class="thead-dark">
-            <tr>
+            <tr style="text-align:center">
                 <th>STT</th>
                 <th>Tên</th>
                 <th>Bí danh</th>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
             {{#each this.Cat}}
-            <tr class="text-primary">
+            <tr class="text-primary" style="text-align:center">
                 <td>{{ID}}</td>
                 <td>{{c_Name}}</td>
                 <td>{{c_alias}}</td>
