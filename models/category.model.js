@@ -8,6 +8,10 @@ module.exports = {
     getall: function () {
         return db.load(`SELECT * FROM ${TBL_cat} `);
     },
+    getByCatId: (id) => {
+        return db.load(`select * from ${TBL_cat} where tc_ID=${id}`);
+    }
+    ,
     singleCat: function (Id) {
         return db.load(`SELECT tc.ID as tcID,tc.tc_Name as tc_Name,c.c_images as c_images  ,c.ID as ID,c.c_Name as c_Name,c.c_alias as c_alias
         FROM ${TBL_cat} c JOIN type_catelgories tc 
