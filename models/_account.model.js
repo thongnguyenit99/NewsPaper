@@ -32,8 +32,14 @@ module.exports = {
     getArticle:function (id) {
         return db.load(`SELECT * FROM article WHERE id =${id}`);
     },
-    getWrite:function()
-    {
+    getWrite:function(){
         return db.load(`SELECT * FROM account where r_ID=2`);
+    },
+    getpathimagecategotybyc_id:function(c_id){
+        return db.load(`SELECT * FROM pathimagecategory where c_id = ${c_id}`);
+    },
+    getalltypecategory:function(){
+        return db.load(`SELECT * FROM type_catelgories, imgtypecategory WHERE type_catelgories.ID = imgtypecategory.t_category`);
     }
+
 }

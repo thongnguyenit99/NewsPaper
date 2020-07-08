@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
-
+require('express-async-errors');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public/'));
 require('./middlewares/view.mdw')(app);

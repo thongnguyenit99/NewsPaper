@@ -13,5 +13,8 @@ module.exports = {
         clientID: 'Iv1.59689c4f566135bc',
         clientSecret: 'd5966fdbf57bdd4fcd59e1520c2e76c97a0ace16',
         callbackURL: "http://localhost:3000/account/auth/github/callback",
+    },
+    tryvip:{
+        n : 7*24*60*60
     }
 };

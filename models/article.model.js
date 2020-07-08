@@ -9,7 +9,7 @@ module.exports = {
     },
     getAll: function () {
         return db.load(`select * from ${TBL_article} a ,categories c,article_status at
-         where a.c_ID=c.ID and a.sts_id=at.asts_id  and isActive=1`);
+         where a.c_ID=c.ID and a.sts_id=at.asts_id`);
     },
     // 10 newest article
     newest: function () {

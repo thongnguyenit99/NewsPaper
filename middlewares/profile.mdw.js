@@ -10,7 +10,7 @@ const fs = require('fs');
 const multer  = require('multer');
 const moment = require('moment');
 var datetime = new Date();
-
+//thoi gian tai khoan vip
 var n = 7*24*60*60;
 var path_img="";
 const storage = multer.diskStorage({

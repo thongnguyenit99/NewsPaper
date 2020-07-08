@@ -3,13 +3,25 @@ const accountModles = require('../../../models/_account.model');
 const router = express.Router();
 const moment = require('moment');
 const restrict = require("../../auth.mdw");
-const multer  = require('multer');
-const path  = require('path');
+//const multer  = require('multer');
+//const path  = require('path');
 const fs = require('fs');
 const validUrl = require('valid-url');
 const moveFile = require('move-file');
+const multer  = require('multer');
+const path  = require('path');
+const { getalltypecategory } = require('../../../models/_account.model');
+
 const storage = multer.diskStorage({
-    destination: './Public/temp/',
+    destination: async function (req, file, cb) {
+        //add
+        var pathimg = "";
+        if(req.body.c_ID){
+            var arr_path_img_category = await accountModles.getpathimagecategotybyc_id(req.body.c_ID);
+            pathimg =arr_path_img_category[0].path;
+        }
+        cb(null, 'public/article/'+ pathimg);
+    },
     filename: function (req, file, cb) {
       cb(null, file.fieldname + '-' + Date.now()+path.extname(file.originalname))
     }
@@ -20,7 +32,8 @@ module.exports = function (router) {
 //advantage    
     router.get('/advantage/2', restrict, async function(req, res){
         if(req.session.authUser.r_ID == 2){
-            res.render('vwAccount/vwAdvantage/writer/home', {layout: false});
+            var rows = await accountModles.getalltypecategory();
+            res.render('vwAccount/vwAdvantage/writer/home', {layout: 'mainWriter.hbs', rows});
         }else{
             res.redirect('/');
         }
@@ -31,99 +44,52 @@ module.exports = function (router) {
         var id = req.query.type;
         var category = await accountModles.getCategorybytcID(id);
         if(category.length > 0){
-        res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: false, category});
+        res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: 'mainWriter.hbs', category});
         }
         else{
-        res.render('500');
+            res.render('500', {layout: 'mainWriter.hbs'});
         }
     });
     router.post('/advantage/2/write', restrict, upload, async function(req, res){
+        //add update dùng chung 1 form
         var id_article = req.body.id_article;
-        var url_imgs = 'public/article/'+ req.body.url_img;
-        var urlsplit = url_imgs.split('/');
-        var temp = urlsplit[urlsplit.length -2];
-        url_img = urlsplit[urlsplit.length -1];
         delete req.body.url_img;
         delete req.body.id_article;
         req.body.sts_id=4;
         req.body.WriterID = req.session.authUser.ID; 
+        var arr_path_img_category = await accountModles.getpathimagecategotybyc_id(req.body.c_ID);
         // nó đổi ảnh        
         if(req.file){
-            const data = {...req.body, images: req.file.filename};
-            if(req.body.c_ID == 1){
-                await moveFile(`public/temp/${req.file.filename}`, `public/article/Chung Khoan/Co Phieu Top Dau/${req.file.filename}`);
-                data.images = `Chung Khoan/Co Phieu Top Dau/${req.file.filename}`;
-            }
-            if(req.body.c_ID == 2){
-                await moveFile(`public/temp/${req.file.filename}`, `public/article/Chung Khoan/Xu Huong Nhan Dinh/${req.file.filename}`);
-                data.images = `Chung Khoan/Xu Huong Nhan Dinh/${req.file.filename}`;
-            }
-            if(req.body.c_ID == 3){
-                await moveFile(`public/temp/${req.file.filename}`, `public/article/Doanh Nghiep/Bat Dong San/${req.file.filename}`);
-                data.images = `Doanh Nghiep/Bat Dong San/${req.file.filename}`;
-            }
-            if(req.body.c_ID == 4){
-                await moveFile(`public/temp/${req.file.filename}`, `public/article/Doanh Nghiep/Doanh Nghiep Niem Yet/${req.file.filename}`);
-                data.images = `Doanh Nghiep/Doanh Nghiep Niem Yet/${req.file.filename}`;
-            }
-            if(req.body.c_ID == 5){
-                await moveFile(`public/temp/${req.file.filename}`, `public/article/Tai Chinh/Ngan Hang Dien Tu/${req.file.filename}`);
-                data.images = `Tai Chinh/Ngan Hang Dien Tu/${req.file.filename}`;
-            }
-            if(req.body.c_ID == 6){
-                await moveFile(`public/temp/${req.file.filename}`, `public/article/Tai Chinh/Thuong Mai Dien Tu/${req.file.filename}`);
-                data.images = `Tai Chinh/Thuong Mai Dien Tu/${req.file.filename}`;
-            }
-
+            const data = {...req.body, images: arr_path_img_category[0].path + req.file.filename};
             if(id_article == ""){//add chỗ này để phân biệt add với update
                 await accountModles.addNewArticle(data);
                 res.redirect(req.headers.referer);
             }
-            else{//update 
+            else{//update // xử lý đổi ảnh , đôi chuyên mục đổi ảnh
                 var tam = await accountModles.getArticle(id_article);
                 await accountModles.patch_article(data, {id:id_article});
                 fs.unlinkSync(`public/article/${tam[0].images}`);// xóa ảnh cũ 
                 res.redirect(req.headers.referer);
             }
         }else{
-            // đổi chuyển mục cay vl
-            if(req.body.c_ID == 1 && temp != 'Co Phieu Top Dau'){
-                await moveFile(url_imgs, `public/article/Chung Khoan/Co Phieu Top Dau/${url_img}`);
-                req.body.images = `Chung Khoan/Co Phieu Top Dau/${url_img}`;
-            }
-            if(req.body.c_ID == 2 && temp != 'Xu Huong Nhan Dinh'){
-                await moveFile(url_imgs, `public/article/Chung Khoan/Xu Huong Nhan Dinh/${url_img}`);
-                req.body.images = `Chung Khoan/Xu Huong Nhan Dinh/${url_img}`;
-            }
-            if(req.body.c_ID == 3 && temp != 'Bat Dong San'){
-                await moveFile(url_imgs, `public/article/Doanh Nghiep/Bat Dong San/${url_img}`);
-                req.body.images = `Doanh Nghiep/Bat Dong San/${url_img}`;
-            }
-            if(req.body.c_ID == 4 && temp != 'Doanh Nghiep Niem Yet'){
-                await moveFile(url_imgs, `public/article/Doanh Nghiep/Doanh Nghiep Niem Yet/${url_img}`);
-                req.body.images = `Doanh Nghiep/Doanh Nghiep Niem Yet/${url_img}`;
-            }
-            if(req.body.c_ID == 5 && temp != 'Ngan Hang Dien Tu'){
-                await moveFile(url_imgs, `public/article/Tai Chinh/Ngan Hang Dien Tu/${url_img}`);
-                req.body.images = `Tai Chinh/Ngan Hang Dien Tu/${url_img}`;
-            }
-            if(req.body.c_ID == 6 && temp != 'Thuong Mai Dien Tu'){
-                await moveFile(url_imgs, `public/article/Tai Chinh/Thuong Mai Dien Tu/${url_img}`);
-                req.body.images = `Tai Chinh/Thuong Mai Dien Tu/${url_img}`;
-            }
             if(id_article != ""){
                 var tam = await accountModles.getArticle(id_article);
+                var nameimgold = tam[0].images.split('/');
+                nameimgold  = nameimgold[nameimgold.length - 1];
+                // đổi chuyển mục di chuyển ảnh
+                if(tam[0].c_ID != req.body.c_ID){
+                    await moveFile(`public/article/${tam[0].images}`, `public/article/${arr_path_img_category[0].path}${nameimgold}`);
+                    req.body.images = arr_path_img_category[0].path + nameimgold;
+                }
                 await accountModles.patch_article(req.body, {id:id_article});
                 res.redirect(req.headers.referer);
-            }else{
-                res.render('500');
             }
         }
     })
 
     // chi tiết bài báo
     router.get('/advantage/2/newspaper', restrict, async function(req, res){
-        res.render('vwAccount/vwAdvantage/writer/newspaper', {layout: false});
+        res.render('vwAccount/vwAdvantage/writer/newspaper', {layout: 'mainWriter.hbs'});
     })
     router.get('/advantage/2/newspaper/tablenewspaper', restrict, async function(req, res){
         var statusid = req.query.type;
@@ -139,7 +105,7 @@ module.exports = function (router) {
         }*/
         // không có nút sửa
         if(statusid == 1 || statusid == 2){
-            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {layout:false, rows,statusid,
+            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {layout: 'mainWriter.hbs', rows,statusid,
                 helpers: {
                     isedit: function (status_id){
                       if(status_id == 3 || status_id == 4){
@@ -150,7 +116,7 @@ module.exports = function (router) {
                 }
             });
         }else if(statusid == 3 || statusid == 4){ 
-            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {layout:false, rows, statusid,
+            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {layout: 'mainWriter.hbs', rows, statusid,
                 helpers: {
                     isedit: function (status_id){
                       if(status_id == 3 || status_id == 4){
@@ -162,7 +128,7 @@ module.exports = function (router) {
             });
         }
         else{
-            res.render('505');
+            res.render('500');
         }
     })
     // view, edit
@@ -180,11 +146,11 @@ module.exports = function (router) {
             }
         });
         if(isedit == 'true'){
-            res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: false, id, isedit,
+            res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: 'mainWriter.hbs', id, isedit,
                 row: articles[0], category
             });
         }else{
-            res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: false, id, 
+            res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: 'mainWriter.hbs', id, 
                 row: articles[0], category
             });
         }

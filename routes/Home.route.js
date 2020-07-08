@@ -17,7 +17,6 @@ router.get('/', async function (req, res) {
   const top10_chungkhoan = await articleModel.top10_chungkhoan();
   const top10_doanhnghiep = await articleModel.top10_doanhnghiep();
   const top10_taichinh = await articleModel.top10_taichinh();
-
   res.render('home', {
     newlist,
     bestlist1,

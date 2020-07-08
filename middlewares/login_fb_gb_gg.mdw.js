@@ -15,6 +15,18 @@ const GitHubStrategy = require('passport-github').Strategy;
 
 passport.serializeUser(function(user, done) {done(null, user);});
 passport.deserializeUser(function(user, done) { done(null, user);});
+function getDatime(){
+  var date_ob = new Date();
+  var date = ("0" + date_ob.getDate()).slice(-2);
+  var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  var year = date_ob.getFullYear();
+  var hours = date_ob.getHours();
+  var minutes = date_ob.getMinutes();
+  var seconds = date_ob.getSeconds();
+  // prints date & time in YYYY-MM-DD HH:MM:SS format
+  datetime_pre = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+  return datetime_pre;
+}
 //google
 passport.use(new GoogleStrategy({
   clientID: configAuth.googleAuth.clientID,
@@ -29,8 +41,11 @@ passport.use(new GoogleStrategy({
       }else{// chua co trong db
         var data={
           email: profile._json.email, username: profile._json.name, r_ID: 1,
-          premium: 0, cre_Date: datetime.toISOString().slice(0,10),
-          Image: profile._json.picture
+          cre_Date: datetime.toISOString().slice(0,10),
+          Image: profile._json.picture,
+          premium: 1,
+          date_create_premium: getDatime(),
+          time_premium: configAuth.tryvip.n,
         }
         isAuthenticated = true;
         authUser = data;
@@ -60,7 +75,10 @@ passport.use(new FacebookStrategy({
           username: profile._json.last_name + profile._json.first_name, r_ID: 1,
           Email: profile._json.email,
           Image: profile.photos[0].value,
-          premium: 0, cre_Date: datetime.toISOString().slice(0, 10),
+          cre_Date: datetime.toISOString().slice(0, 10),
+          premium: 1,
+          date_create_premium: getDatime(),
+          time_premium: configAuth.tryvip.n,
         }
         await accountModles.addNewAccount(data);
         // thiết lập dữ liêu để tạo section
@@ -95,7 +113,10 @@ async function(accessToken, refreshToken, profile, cb, done) {
         username: cb.username, r_ID: 1,
         Email: cb.emails[0].value,
         Image: cb.photos[0].value,
-        premium: 0, cre_Date: datetime.toISOString().slice(0, 10),
+        cre_Date: datetime.toISOString().slice(0, 10),
+        premium: 1,
+        date_create_premium: getDatime(),
+        time_premium: configAuth.tryvip.n,
       }
       await accountModles.addNewAccount(data);
       // thiết lập dữ liêu để tạo section

@@ -3,7 +3,7 @@
 {{/section}}
 {{#section 'js'}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         $('#txtDOB').datetimepicker({
             format: 'd/m/Y',
@@ -60,6 +60,8 @@
             const password = $('#password').val();
             const password_cf = $('#password_cf').val();
             const dob = $('#txtDOB').val();
+            var formData = new FormData(document.getElementById("frmRegister"));
+            var captchaResponse = formData.get("g-recaptcha-response");
             if(user== ""){
                 alert('Tên đăng nhập không được rỗng.')
                     return false;
@@ -104,6 +106,10 @@
                 alert("Ngày sinh không được rỗng.");
                 return false;
             }
+            if(captchaResponse == ""){
+                alert("Vui lòng xác minh bạn không phải là người máy.");
+                return false;
+            }
             var temp=""
             $.getJSON(`/account/register/is-available-email?email=${email}`, function (data) {
                 temp=data;
@@ -123,6 +129,18 @@
                     alert('Tên đăng nhập đã tồn tại.');
                 }
             })
+            if(captchaResponse != ""){
+                $.getJSON(`/account/register/is-available-capcha?capcha=${captchaResponse}`, function (data) {
+                    if (data == true) {
+                            $('#frmRegister').off('submit').submit();
+                        }
+                    else {
+                        alert("Verifying the user's response error");
+                        return false;
+                    }
+                })
+            }
+
         }
     </script>
 
@@ -181,7 +199,10 @@
             </div>
             <input class="form-control" id="password_cf" placeholder="Xác nhận lại mật khẩu" type="password">
             <div id="password_cf_error"></div>
-        </div> <!-- form-group// -->                                      
+        </div> <!-- form-group// --> 
+
+        <div style="margin-bottom: 15px;" class="g-recaptcha" data-sitekey="6Leu4q4ZAAAAAHw4bwo0IJQ5Hq_wptDt4qCekMH9"></div>
+                                          
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block"> Tạo tài khoản  </button>
         </div> <!-- form-group// -->      

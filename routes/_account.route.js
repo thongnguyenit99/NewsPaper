@@ -6,7 +6,7 @@ const moment = require('moment');
 const saltRounds = 12;
 const restrict = require("../middlewares/auth.mdw");
 var datetime = new Date();
-
+const configAuth = require('../config/auth');
 //login fb,gg, gh
 require('../middlewares/login_fb_gb_gg.mdw')(router);
 //regot password
@@ -21,12 +21,28 @@ require('../middlewares/advantage/editor/editor.mdw')(router);
 router.get('/register', function (req, res) {
   res.render('vwAccount/register');
 })
+
+function getDatime(){
+  var date_ob = new Date();
+  var date = ("0" + date_ob.getDate()).slice(-2);
+  var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  var year = date_ob.getFullYear();
+  var hours = date_ob.getHours();
+  var minutes = date_ob.getMinutes();
+  var seconds = date_ob.getSeconds();
+  // prints date & time in YYYY-MM-DD HH:MM:SS format
+  datetime_pre = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+  return datetime_pre;
+}
 router.post('/register', async function (req, res) {
   var data={
     email: req.body.email, username: req.body.username,
     DOB: moment(req.body.dob, 'DD-MM-YYYY').format('YYYY/MM/DD'),
     password: bcrypt.hashSync(req.body.password, saltRounds), r_ID: 1,
-    premium: 0, cre_Date: datetime.toISOString().slice(0,10)
+    cre_Date: datetime.toISOString().slice(0,10),
+    premium: 1,
+    date_create_premium: getDatime(),
+    time_premium: configAuth.tryvip.n
   }
   await accountModles.addNewAccount(data);
   const user = await accountModles.singleByUserName(req.body.username);
@@ -94,6 +110,15 @@ router.get('/login/is-available_login', async function (req, res) {
         return res.json(false);
       }
     }
+  }
+  res.json(false);
+})
+
+router.get('/login/is-available-capcha', async function (req, res) {
+  var capcha = req.query.capcha;
+  const captchaVerified = "https://www.google.com/recaptcha/api/siteverify?secret=6Leu4q4ZAAAAAFQPcA6q2K8THWznxb9xlADy0fmw&response=${capcha}";
+  if(captchaVerified == true){
+    return res.json(true);
   }
   res.json(false);
 })

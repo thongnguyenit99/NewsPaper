@@ -137,12 +137,6 @@
             <label style="font-weight: bold; font-size: 18px">Gắn nhãn bài viết:</label>
             <input type="text" name="tag" id="tag" class="form-control" placeholder="vd: abc;bcd;cde;">
         </div>
-        <label for="ChuyenMuc">Phóng viên :</label>
-        <select class="form-control" name="writerID">
-            {{#each this.witer}}
-            <option value="{{ID}}">{{username}}</option>
-            {{/each}}
-        </select>
         <div style="margin-top: 1%;">
             <a href="/admin/article" class="btn btn-success">
                 <i class="fa fa-backward" aria-hidden="true"></i>
