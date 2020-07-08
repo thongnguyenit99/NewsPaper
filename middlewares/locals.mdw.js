@@ -20,6 +20,16 @@ module.exports = function (app) {
         res.locals.lcCat = rows;
         next();
     })
+    app.use(async function (req, res, next) {
+        const rows = await tpCatModel.getAll();
+        for (cat in rows) {
+            const childCat = await categoryModel.getByCatId(rows[cat]['ID'])
+            rows[cat]['categories'] = childCat;
+
+        }
+        res.locals.lcCats = rows;
+        next();
+    })
 
   }
   
