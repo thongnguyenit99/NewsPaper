@@ -72,6 +72,7 @@ CREATE TABLE `article` (
   `id` int(3) NOT NULL,
   `c_ID` int(11) DEFAULT NULL,
   `sts_id` int(11) DEFAULT NULL COMMENT '1-Đã Được Duyệt và Chờ Xuất Bản ;2-Đã Xuất Bản;3-Bị Từ Chối;4-Chưa Được Duyệt',
+  `e_id` int  NULL,
   `writerID` int(11) DEFAULT NULL,
   `tag` text COLLATE utf8_unicode_ci,
   `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -163,34 +164,32 @@ INSERT INTO `article_status` (`asts_id`, `asts_name`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `categories`
---
-
 CREATE TABLE `categories` (
-  `ID` int(3) NOT NULL,
+  `ID` int(3) NOT NULL AUTO_INCREMENT,
   `tc_ID` int(11) DEFAULT NULL,
   `c_Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `c_alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `c_images` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `c_Large` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tc_alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
+  `tc_alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
-INSERT INTO `categories` (`ID`, `tc_ID`, `c_Name`, `c_alias`, `c_images`, `c_Large`, `tc_alias`) VALUES
-(1, 1, 'Cổ Phiếu Top Đầu', 'co-phieu-top-dau', 'cptd.gif', 'Chứng Khoán', 'chung-khoan'),
-(2, 1, 'Xu Hướng Nhận Định', 'xu-huong-nhan-dinh', 'xhnd.gif', 'Chứng Khoán', 'chung-khoan'),
-(3, 2, 'Bất Động Sản', 'bat-dong-san', 'bds.gif', 'Doanh Nghiệp', 'doanh-nghiep'),
-(4, 2, 'Doanh Nghiệp Niêm Yết', 'doanh-nghiep-niem-yet', 'dnnt.gif', 'Doanh Nghiệp', 'doanh-nghiep'),
-(5, 3, 'Ngân Hàng Điện Tử', 'ngan-hang-dien-tu', 'nhdt.gif', 'Tài Chính', 'tai-chinh'),
-(6, 3, 'Thương Mại Điện Tử', 'thuong-mai-dien-tu', 'tmdt.gif', 'Tài Chính', 'tai-chinh'),
-(8, 1, 'chứng khoán bình dương hôm nay', 'c-k-b-d-H-N', NULL, NULL, 'chung-khoan'),
-(17, 3, 'Hội nghị thượng đỉnh KHTN', 'c-k-b-d-H-N', NULL, 'Tài Chính', 'tai-chinh'),
-(18, 1, 'bggkhtn', 'c-k-b-d-H-N-m', NULL, 'Chứng Khoán', 'chung-khoan');
+INSERT INTO `categories` (`ID`, `tc_ID`, `c_Name`, `c_alias`, `c_images`, `c_Large`, `tc_alias`, `path`) VALUES
+(1, 1, 'Cổ Phiếu Top Đầu', 'co-phieu-top-dau', 'cptd.gif', 'Chứng Khoán', 'chung-khoan', 'Chung Khoan/Co Phieu Top Dau/'),
+(2, 1, 'Xu Hướng Nhận Định', 'xu-huong-nhan-dinh', 'xhnd.gif', 'Chứng Khoán', 'chung-khoan', 'Chung Khoan/Xu Huong Nhan Dinh/'),
+(3, 2, 'Bất Động Sản', 'bat-dong-san', 'bds.gif', 'Doanh Nghiệp', 'doanh-nghiep', 'Doanh Nghiep/Bat Dong San/'),
+(4, 2, 'Doanh Nghiệp Niêm Yết', 'doanh-nghiep-niem-yet', 'dnnt.gif', 'Doanh Nghiệp', 'doanh-nghiep', 'Doanh Nghiep/Doanh Nghiep Niem Yet/'),
+(5, 3, 'Ngân Hàng Điện Tử', 'ngan-hang-dien-tu', 'nhdt.gif', 'Tài Chính', 'tai-chinh', 'Tai Chinh/Ngan Hang Dien Tu/'),
+(6, 3, 'Thương Mại Điện Tử', 'thuong-mai-dien-tu', 'tmdt.gif', 'Tài Chính', 'tai-chinh', 'Tai Chinh/Thuong Mai Dien Tu/'),
+(8, 1, 'chứng khoán bình dương hôm nay', 'c-k-b-d-H-N', NULL, NULL, 'chung-khoan', NULL),
+(17, 3, 'Hội nghị thượng đỉnh KHTN', 'c-k-b-d-H-N', NULL, 'Tài Chính', 'tai-chinh', NULL),
+(18, 1, 'bggkhtn', 'c-k-b-d-H-N-m', NULL, 'Chứng Khoán', 'chung-khoan', NULL);
+COMMIT;
 
 -- --------------------------------------------------------
 
@@ -369,66 +368,22 @@ INSERT INTO `tag_article` (`id_article`, `id_tag`) VALUES
 --
 
 CREATE TABLE `type_catelgories` (
-  `ID` int(3) NOT NULL,
+  `ID` int(3) NOT NULL AUTO_INCREMENT,
   `tc_Name` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `images` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `type_catelgories`
+-- Đang đổ dữ liệu cho bảng `type_catelgories`
 --
 
-INSERT INTO `type_catelgories` (`ID`, `tc_Name`, `alias`) VALUES
-(1, 'Chứng Khoán', 'chung-khoan'),
-(2, 'Doanh Nghiệp', 'doanh-nghiep'),
-(3, 'Tài Chính', 'tai-chinh');
-
-
---
--- Cấu trúc bảng cho bảng `pathimagecategory`
---
-CREATE TABLE `pathimagecategory` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `c_id` int(11) NOT NULL,
-  `path` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `pathimagecategory`
---
-
-INSERT INTO `pathimagecategory` (`id`, `c_id`, `path`) VALUES
-(1, 1, 'Chung Khoan/Co Phieu Top Dau/'),
-(2, 2, 'Chung Khoan/Xu Huong Nhan Dinh/'),
-(3, 3, 'Doanh Nghiep/Bat Dong San/'),
-(4, 4, 'Doanh Nghiep/Doanh Nghiep Niem Yet/'),
-(5, 5, 'Tai Chinh/Ngan Hang Dien Tu/'),
-(6, 6, 'Tai Chinh/Thuong Mai Dien Tu/');
+INSERT INTO `type_catelgories` (`ID`, `tc_Name`, `alias`, `images`) VALUES
+(1, 'Chứng Khoán', 'chung-khoan', 'https://thumbs.gfycat.com/MediocreElegantFattaileddunnart-size_restricted.gif'),
+(2, 'Doanh Nghiệp', 'doanh-nghiep', 'https://media2.giphy.com/media/l0HlDDyxBfSaPpU88/giphy.gif'),
+(3, 'Tài Chính', 'tai-chinh', 'https://images.squarespace-cdn.com/content/v1/554414c2e4b0120074fa3fcd/1511832596772-EG625S81TSJVZJGPS1AP/ke17ZwdGBToddI8pDm48kITwL9b7pJatqUqQlb2Ug4lZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxOACcOsfjuVBLSqRXR0W7eo0fROaGBg6JRyzvEzKlK873rH15SV-SH4vZJU_caNPs/Savings_X4_Nov3.gif');
 COMMIT;
-
---
--- Cấu trúc bảng cho bảng `imgtypecategory`
---
-
-CREATE TABLE `imgtypecategory` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `t_category` int(11) NOT NULL,
-  `images` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `imgtypecategory`
---
-
-INSERT INTO `imgtypecategory` (`id`, `t_category`, `images`) VALUES
-(1, 1, 'https://thumbs.gfycat.com/MediocreElegantFattaileddunnart-size_restricted.gif'),
-(2, 2, 'https://media2.giphy.com/media/l0HlDDyxBfSaPpU88/giphy.gif'),
-(3, 3, 'https://images.squarespace-cdn.com/content/v1/554414c2e4b0120074fa3fcd/1511832596772-EG625S81TSJVZJGPS1AP/ke17ZwdGBToddI8pDm48kITwL9b7pJatqUqQlb2Ug4lZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxOACcOsfjuVBLSqRXR0W7eo0fROaGBg6JRyzvEzKlK873rH15SV-SH4vZJU_caNPs/Savings_X4_Nov3.gif'),
-(4, 4, 'https://media.giphy.com/media/LwIyvaNcnzsD6/giphy.gif');
-COMMIT;
-
 
 
 --
@@ -457,9 +412,6 @@ ALTER TABLE `article_status`
 --
 -- Indexes for table `categories`
 --
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`ID`);
-
 --
 -- Indexes for table `comment`
 --
@@ -494,8 +446,6 @@ ALTER TABLE `tag_article`
 --
 -- Indexes for table `type_catelgories`
 --
-ALTER TABLE `type_catelgories`
-  ADD PRIMARY KEY (`ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -522,8 +472,6 @@ ALTER TABLE `article_status`
 --
 -- AUTO_INCREMENT for table `categories`
 --
-ALTER TABLE `categories`
-  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -552,8 +500,6 @@ ALTER TABLE `tag`
 --
 -- AUTO_INCREMENT for table `type_catelgories`
 --
-ALTER TABLE `type_catelgories`
-  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

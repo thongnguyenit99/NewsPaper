@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
         //add
         var pathimg = "";
         if(req.body.c_ID){
-            var arr_path_img_category = await accountModles.getpathimagecategotybyc_id(req.body.c_ID);
+            var arr_path_img_category = await accountModles.getCategorybyID(req.body.c_ID);
             pathimg =arr_path_img_category[0].path;
         }
         cb(null, 'public/article/'+ pathimg);
@@ -57,7 +57,7 @@ module.exports = function (router) {
         delete req.body.id_article;
         req.body.sts_id=4;
         req.body.WriterID = req.session.authUser.ID; 
-        var arr_path_img_category = await accountModles.getpathimagecategotybyc_id(req.body.c_ID);
+        var arr_path_img_category = await accountModles.getCategorybyID(req.body.c_ID);
         // nó đổi ảnh        
         if(req.file){
             const data = {...req.body, images: arr_path_img_category[0].path + req.file.filename};

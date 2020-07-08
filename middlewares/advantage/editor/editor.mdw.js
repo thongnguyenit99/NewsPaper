@@ -127,6 +127,7 @@ module.exports = function (router) {
     router.post('/advantage/3/category/:c_ID/:id', async function (req, res) {
         id = req.body.id;
         delete req.body.id;
+        req.body.e_id = req.session.authUser.ID;
         if(req.body.tag){
             req.body.note = null;
             req.body.public_date = moment(req.body.public_date , 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
@@ -172,6 +173,19 @@ module.exports = function (router) {
         await articleModel.addNewTagArticle({id_tag: 1,id_article:id});
         res.redirect(req.headers.referer);
     });
+    // tu chối 
+    router.get('/advantage/3/refuse', restrict, async function (req, res){
+        var rows = await articleModel.getallaricledefusebyeditor(req.session.authUser.ID);
+        res.render('vwAccount/vwAdvantage/editor/refuse', {rows,layout:'mainEditor.hbs', 
+        check_pemission: function (value) {
+            if(value == req.session.authUser.tc_ID){
+                return true;
+            }
+                return false;
+        }
+        }); 
+    });
+
     router.get('/advantage/3/is-available', async function (req, res) {
         const user = await articleModel.getbytitlealias(req.query.alias);
         //console.log(user);

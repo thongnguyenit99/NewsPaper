@@ -23,6 +23,9 @@ module.exports = {
     getCategory: function(){
         return db.load(`SELECT * FROM categories`);
     },
+    getCategorybyID: function(id){
+        return db.load(`SELECT * FROM categories where ID= ${id}`);
+    },
     addNewArticle: function (entity) {
         return db.insert('article', entity);
     },
@@ -39,7 +42,7 @@ module.exports = {
         return db.load(`SELECT * FROM pathimagecategory where c_id = ${c_id}`);
     },
     getalltypecategory:function(){
-        return db.load(`SELECT * FROM type_catelgories, imgtypecategory WHERE type_catelgories.ID = imgtypecategory.t_category`);
+        return db.load(`SELECT * FROM type_catelgories`);
     }
 
 }

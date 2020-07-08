@@ -1,0 +1,29 @@
+<div class="container">
+ <h3 style="text-align: center;" class="mb-3">Danh Sách Bài Viết</h3>
+    <table class="table table-bordered text-center" id="BangTTSanPham">
+    <thead>
+        <tr class="text-center">
+            <th>Id</th>
+            <th style="max-width: 400px;">Tiêu Đề</th>
+            <th style="min-width:120px">Tình Trạng</th>
+            <th style="min-width:250px">Lý Do</th>
+            <th style="min-width:110px">Thao Tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each rows}}
+            <tr>
+                <th scope="row" id="id_modal">{{id}}</th>
+                <td>{{title}}</td>
+                <td>Bị từ chối</td>
+                <td>{{note}}</td>
+                <td>
+                    <a class="btn btn-info btn-sm" href="/account/advantage/3/category/{{c_ID}}/{{id}}" role="button" title="Chỉnh sửa">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+    </table>
+</div>

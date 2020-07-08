@@ -88,7 +88,7 @@ module.exports = {
          WHERE  a.sts_id=2 AND MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
     },
     alldraft: function (c_id) {
-        return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and (sts_id = 4 or sts_id = 3)`);
+        return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and sts_id = 4`);
     },
     demListDraft: function () {
         return db.load(`SELECT COUNT(*) as dem FROM ${TBL_article} WHERE sts_id=4`)
@@ -101,6 +101,9 @@ module.exports = {
     },
     getbytitlealias: function (title_alias) {
         return db.load(`select * from ${TBL_article} where title_alias = '${title_alias}' and sts_id=2`);
+    },
+    getallaricledefusebyeditor: function (id) {
+        return db.load(`select * from ${TBL_article} where e_id = ${id} and sts_id = 3`);
     },
     update: function (entity, condition) {
         return db.update(TBL_article, entity, condition);
