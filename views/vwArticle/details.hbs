@@ -110,9 +110,27 @@
             <!-- Danh sách các thẻ được gắn -->
             <h6 class="article-tags d-none d-sm-block">
                 <i class="fas fa-tags mr-2"></i>
-                <a href="/tags/{{Name}}" class="badge badge-secondary">{{splitTitle tag }}&nbsp; x</a>
-                <a href="/tags/{{Name}}" class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;x</a>
-                <a href="/tags/{{Name}}" class="badge badge-secondary">{{splitTitle2 tag }} &nbsp;x</a>
+                <span id="thetab">
+                    
+                </span>
+                <script type="text/javascript">
+                    var str = "{{{tag}}}";
+                    str = str.split(';');
+                    var temp="";
+                    for(i = 0; i < str.length -1 ; i++){   
+                        //tạo phần tử p    
+                        var a = document.createElement("a");
+                        a.className = "badge badge-secondary";
+                        a.style=" margin-right:5px";
+                        a.href = "/tags/{{{Name}}}";
+                        a.innerText = str[i] + " x ";
+
+                        var span = document.getElementById("thetab");
+                        //gắn p vào div
+                        span.appendChild(a)
+                    }
+                    console.log(temp);
+                </script>
             </h6>
 {{/each}}
             <!-- Khu vực bình luận -->

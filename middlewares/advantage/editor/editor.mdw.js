@@ -141,8 +141,13 @@ module.exports = function (router) {
     // chờ xuất bản
     router.get('/advantage/3/watingforpublic', restrict,async function (req, res){
         var rows = await articleModel.getArticleByStatusC_IDandPulic_date(req.session.authUser.tc_ID);
+        var today = moment.utc(new Date(), 'YYYY-MM-DD[T]HH:mm[Z]');
+        //datetime hien tai
+        var datenow = new Date(Date.now());
         rows.forEach(function(value){
-        value.public_date = moment(value.public_date , 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm:ss');
+            var public_date = moment.utc(value.public_date, 'YYYY-MM-DD[T]HH:mm[Z]');
+            value.public_date = moment(value.public_date , 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm:ss');
+            value.duocxb = today.isAfter(public_date);
         });
         res.render('vwAccount/vwAdvantage/editor/waitpublic', {rows,layout:'mainEditor.hbs', 
         check_pemission: function (value) {

@@ -120,8 +120,7 @@ module.exports = {
         return rows[0].total;
     },
     getArticleByStatusC_IDandPulic_date: function (c_id) {
-        return db.load(`SELECT * FROM article WHERE sts_id = 1 AND c_ID = ${c_id} 
-        and (TIMESTAMPDIFF(second,NOW(), public_date)) <= 0`);
+        return db.load(`SELECT * FROM article WHERE sts_id = 1 AND c_ID = ${c_id}`);
     },
     addNewTagArticle: function (entity) {
         return db.insert('tag_article', entity);
