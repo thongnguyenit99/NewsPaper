@@ -5,8 +5,8 @@ const articleModel = require('../models/article.model');
 const tpCatModel = require('../models/type_category.model');
 const catModel = require('../models/category.model');
 const moment = require('moment');
-
-
+var fs = require('fs');
+const mkdirp = require('mkdirp');
 const router = express.Router();
 router.get('/', restrict, restrictadmin, (req, res) => {
      //var user = req.session.authUser;
@@ -121,6 +121,12 @@ router.post('/categories/add', restrict, async function (req, res) {
      var user = req.session.authUser;
      if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined")
      {
+          var row = await catModel.getByCatId(req.body.tc_ID);
+          var path = row[0].path;
+          path = path.split('/');
+          path = path[0] + "/" + req.body.c_Name + "/";
+          req.body.path = path;
+          mkdirp.sync('public/article/'+ path)
           c_Large = req.body.tc_ID
           if (c_Large == 1) {
                c_Large = 'Chứng Khoán'
@@ -128,18 +134,16 @@ router.post('/categories/add', restrict, async function (req, res) {
           else if (c_Large == 2) {
                c_Large = 'Doanh Nghiệp'
           }
-          else {
+          else if(c_Large == 3){
                c_Large = 'Tài Chính'
           }
+          else{
+               c_Large ="Kiến Thức Đầu Tư";
+          }
           var entity = {
-               ...req.body,
-               c_Large,
-
-         }
+               ...req.body, c_Large,}
                const addCat = await catModel.insertCat(entity);
-               res.render('vwAccount/vwAdvantage/admin/categories/add', {
-                    layout: 'mainAdmin.hbs', addCat
-               })
+               res.redirect('/categories/add');
                //console.log(addCat);
      }
      else {

@@ -21,6 +21,7 @@
     "express-session": "^1.17.1",
     "fs": "0.0.1-security",
     "image-downloader": "^4.0.1",
+    "mkdirp": "^1.0.4",
     "moment": "^2.27.0",
     "move-file": "^2.0.0",
     "multer": "^1.4.2",

@@ -5,7 +5,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
     <script>
-        if("{{{this.articledraft.public_date}}}" != "" || "{{{this.articledraft.public_date}}}" != "null"){
+        if("{{{this.articledraft.public_date}}}" != "Invalid date" && "{{{this.articledraft.public_date}}}" != "null"&& "{{{this.articledraft.public_date}}}" != ""){
             $('#txtDOB').datetimepicker({
                 format: 'd/m/Y h:m:s',
                 mask: true,
@@ -17,6 +17,7 @@
                 format: 'd/m/Y h:m:s',
                 mask: true,
             });
+            $("#txtDOB").val("__/__/____ h:__:__");
         }
 
          $('#frmagree').on('submit', function (e) {

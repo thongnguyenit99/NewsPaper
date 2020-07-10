@@ -119,8 +119,8 @@ module.exports = {
         const rows = await db.load(`select count(*) as total from ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
         return rows[0].total;
     },
-    getArticleByStatusC_IDandPulic_date: function (c_id) {
-        return db.load(`SELECT * FROM article WHERE sts_id = 1 AND c_ID = ${c_id}`);
+    getArticleByStatusC_IDandPulic_date: function (e_id) {
+        return db.load(`SELECT * FROM article WHERE sts_id = 1 AND e_id = ${e_id}`);
     },
     addNewTagArticle: function (entity) {
         return db.insert('tag_article', entity);

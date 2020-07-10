@@ -35,9 +35,9 @@ module.exports = function (router) {
         subject: 'Xác Nhận Email Từ Sàn Chướng Khoán DK',
         text: 'Chạo bạn ' + username + ',',
         html: `<p>Chào Bạn <b>${username}</b>,</p>
-                <p>Mã OTP xác nhận của bạn là: <b>${otp}</b></p>
-                <p style="color: red;  font-style: italic;">Vui lòng không cung cấp mã OTP này cho ai khác. Xin cảm ơn </p>
-                <div>Tạm biệt nhen ahihi</div>
+                <p>Mã OTP để xác nhận lấy lại mật khẩu từ trang web <b>tradebull</b> của bạn là: <b>${otp}</b></p>
+                <p style="color: red;  font-style: italic;">Vui lòng không cung cấp mã OTP này cho ai khác. Xin cảm ơn! </p>
+                <div>Tạm biệt</div>
                 `
     }
     transporter.sendMail(mainOptions, function(err, info){

@@ -140,7 +140,7 @@ module.exports = function (router) {
 
     // chờ xuất bản
     router.get('/advantage/3/watingforpublic', restrict,async function (req, res){
-        var rows = await articleModel.getArticleByStatusC_IDandPulic_date(req.session.authUser.tc_ID);
+        var rows = await articleModel.getArticleByStatusC_IDandPulic_date(req.session.authUser.ID);
         var today = moment.utc(new Date(), 'YYYY-MM-DD[T]HH:mm[Z]');
         //datetime hien tai
         var datenow = new Date(Date.now());

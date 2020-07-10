@@ -9,8 +9,7 @@ app.use(express.static('./public/'));
 require('./middlewares/view.mdw')(app);
 require('./middlewares/session.mdw')(app);
 require('./middlewares/locals.mdw')(app);
-
-
+    
 app.use('/', require('./routes/home.route'));
 app.use('/account', require('./routes/_account.route'));
 app.use('/article', require('./routes/article.route'));
