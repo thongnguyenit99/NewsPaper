@@ -2,10 +2,10 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 08, 2020 at 08:02 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Máy chủ: 127.0.0.1:3306
+-- Thời gian đã tạo: Th7 10, 2020 lúc 06:29 AM
+-- Phiên bản máy phục vụ: 5.7.26
+-- Phiên bản PHP: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,17 +19,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `news`
+-- Cơ sở dữ liệu: `news`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `account`
+-- Cấu trúc bảng cho bảng `account`
 --
 
-CREATE TABLE `account` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE IF NOT EXISTS `account` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `tc_ID` int(11) DEFAULT NULL,
   `r_ID` int(11) DEFAULT NULL,
   `Email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -41,11 +42,12 @@ CREATE TABLE `account` (
   `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `premium` int(11) DEFAULT NULL,
   `date_create_premium` datetime DEFAULT NULL,
-  `time_premium` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `time_premium` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `account`
+-- Đang đổ dữ liệu cho bảng `account`
 --
 
 INSERT INTO `account` (`ID`, `tc_ID`, `r_ID`, `Email`, `username`, `pseudonym`, `password`, `DOB`, `cre_Date`, `Image`, `premium`, `date_create_premium`, `time_premium`) VALUES
@@ -65,11 +67,12 @@ INSERT INTO `account` (`ID`, `tc_ID`, `r_ID`, `Email`, `username`, `pseudonym`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `article`
+-- Cấu trúc bảng cho bảng `article`
 --
 
-CREATE TABLE `article` (
-  `id` int(3) NOT NULL,
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE IF NOT EXISTS `article` (
+  `id` int(3) NOT NULL AUTO_INCREMENT,
   `c_ID` int(11) DEFAULT NULL,
   `sts_id` int(11) DEFAULT NULL COMMENT '1-Đã Được Duyệt và Chờ Xuất Bản ;2-Đã Xuất Bản;3-Bị Từ Chối;4-Chưa Được Duyệt',
   `e_id` int(11) DEFAULT NULL,
@@ -86,11 +89,12 @@ CREATE TABLE `article` (
   `views` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   `isActive` int(11) DEFAULT NULL COMMENT '1=Active, 0=Inactive',
-  `isPremium` int(11) DEFAULT NULL COMMENT '1-premium;0-normal'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `isPremium` int(11) DEFAULT NULL COMMENT '1-premium;0-normal',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `article`
+-- Đang đổ dữ liệu cho bảng `article`
 --
 
 INSERT INTO `article` (`id`, `c_ID`, `sts_id`, `e_id`, `writerID`, `tag`, `title`, `title_alias`, `abstract`, `content`, `author`, `public_date`, `images`, `featured`, `views`, `note`, `isActive`, `isPremium`) VALUES
@@ -139,21 +143,27 @@ INSERT INTO `article` (`id`, `c_ID`, `sts_id`, `e_id`, `writerID`, `tag`, `title
 (33, 1, 4, NULL, 14, 'xác thực ảnh chứng minh thư;Ngân hàng Nhà nước;Ví MoMo;', 'ndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh', 'ndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh', 'ndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh', 'ndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhndjcnkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh', 'Lâm Tuyền', NULL, 'Chung Khoan/Co Phieu Top Dau/images-1593965973851.jpg', NULL, NULL, NULL, 1, NULL),
 (34, 1, 4, NULL, 13, 'xác thực ảnh chứng minh thư;Ngân hàng Nhà nước;Ví MoMo;', 'ddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhj', 'fffff-fffff', 'ddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhj', 'ddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhjddddddddddddddddddddddddddddddddđghhhhhhhjklkjhgfđácvbgnm,kjhgfbdsaxsgbnhj', 'Lâm Tuyền', '2020-07-05 00:00:00', 'Chung Khoan/Co Phieu Top Dau/images-1593967477328.jpg', NULL, NULL, NULL, 1, NULL),
 (35, 4, 4, NULL, 10, 'Tổng công ty Khí Việt Nam;Doanh nghiệp niêm yết;Doanh nghiệp;', 'PV Gas vượt 20% kế hoạch lãi 6 tháng đầu năm 2020', 'pv-gas-vuot-20-ke-hoach-lai-6-thang-dau-nam-2020', 'Tổng Công ty khí Việt Nam (PV Gas - Mã: GAS) mới đây đã tổ chức Hội nghị Sơ kết công tác 6 tháng đầu năm và đưa ra định hướng triển khai cho 6 tháng cuối năm 2020.    ', 'Tổng Công ty khí Việt Nam (PV Gas - Mã: GAS) mới đây đã tổ chức Hội nghị Sơ kết công tác 6 tháng đầu năm và đưa ra định hướng triển khai cho 6 tháng cuối năm 2020.    \r\n	Cảng Cát Lái (CLL) dự chi 75 tỷ đồng trả cổ tức năm 2019\r\n	Chứng khoán SHS trở thành cổ đông lớn sau khi TEG xuống đáy gần một tháng\r\npv gas vuot 20 ke hoach lai 6 thang dau nam 2020\r\nhttps://kinhtechungkhoan.vn/stores/news_dataimages/xuanhoang/072020/03/14/2347_PV_gas.jpg?rt=20200703142737\r\nPV GAS vượt 20% kế hoạch lãi 6 tháng đầu năm 2020. (Nguồn ảnh: PV Gas)\r\nTrong nửa đầu 2020, PV Gas sản xuất và cung cấp gần 4,6 tỉ m3 khí; sản xuất và kinh doanh 923 nghìn tấn LPG; sản xuất và cung cấp 31 nghìn tấn condensate; lần lượt thực hiện 104%, 142% và 110% kế hoạch (KH) 6 tháng.\r\n\r\nQua đó, doanh nghiệp ghi nhận tổng doanh thu ước đạt 33.438 tỉ đồng, lãi sau thuế 3.930 tỉ đồng, tương ứng giảm 16% và 36% so với cùng kì năm trước.\r\n\r\nVới kết quả trên, PV Gas ước thực hiện 106% kế hoạch doanh thu và 120% kế hoạch lãi sau thuế 6 tháng đầu năm. Nộp Ngân sách Nhà nước ước đạt 2.275 tỉ đồng, bằng 154% kế hoạch 6 tháng.\r\n\r\nTheo PV Gas, hoạt động sản xuất kinh doanh trong nửa đầu năm của công ty chịu nhiều ảnh hưởng từ dịch COVID-19, giá dầu sụt giảm và sự cố từ phía thượng nguồn ngày một tăng cao.\r\n\r\nVới dự báo hoạt động kinh doanh sẽ còn đối mặt với nhiều khó khăn, doanh nghiệp đặt mục tiêu vận hành an toàn hệ thống khí; thực hiện tốt công tác vận hành; tập trung xử lí vướng mắc; phối hợp chặt chẽ với các nhà thầu thực hiện giải pháp giảm thiểu ảnh hưởng của hậu dịch COVID-19 đến tiến độ dự án...\r\n\r\nNgoài ra, PV sẽ chuẩn bị cho công tác bảo dưỡng sửa chữa lớn trong các đợt dừng khí tháng 8, 9/2020, đảm bảo đưa hệ thống vào vận hành an toàn, theo tiến độ; tập trung triển khai các dự án/phương án cấp LNG, LPG...\r\n\r\nNăm 2020, Tổng công ty lên kế hoạch doanh thu hợp nhất 66.163 tỉ đồng, lợi nhuận trước thuế 8.294 tỉ đồng. Với kết quả ước tính trên, công ty thực hiện 51% kế hoạch doanh thu và 60% kế hoạch lợi nhuận cả năm.', 'Lâm Linh', '0000-00-00 00:00:00', 'Doanh Nghiep/Doanh Nghiep Niem Yet/images-1593967816055.jpg', NULL, NULL, NULL, 1, NULL),
-(36, 5, 4, NULL, 10, 'Techcombank;doanh nghiệp;Ngân hàng', 'Techcombank và giải pháp giúp doanh nghiệp giữ nhân tài', 'techcombank-va-giai-phap-giup-doanh-nghiep-giu-nhan-tai', 'Techcombank được đánh giá sở hữu nguồn nhân lực mạnh, chất lượng cao hàng đầu trong ngành. Năm 2019, nhà băng này trở thành ngân hàng được nhân viên yêu mến nhất, top 2 nhà tuyển dụng được yêu thích ...', '\r\nTechcombank được đánh giá sở hữu nguồn nhân lực mạnh, chất lượng cao hàng đầu trong ngành. Năm 2019, nhà băng này trở thành ngân hàng được nhân viên yêu mến nhất, top 2 nhà tuyển dụng được yêu thích nhất trong ngành tài chính - ngân hàng, theo khảo sát của CareerBuilder phối hợp với Insight Asia thực hiện.\r\ntechcombank va giai phap giup doanh nghiep giu nhan tai\r\nTechcombank được đánh giá là đang sở hữu nguồn nhân lực mạnh\r\nTechcombank và Manulife thiết kế gói bảo hiểm dành cho người lao động, tạo sự an tâm, gắn bó và tập trung hơn cho công việc, tăng hiệu suất của doanh nghiệp.\r\n\r\nKhảo sát do Anphabe thực hiện cuối năm ngoái với gần 76.000 người đi làm cho thấy, tỷ lệ nghỉ việc tại các doanh nghiệp Việt Nam tăng liên tục những năm qua: năm 2017 là 19,1%, năm 2018 là 20,5% và năm 2019 là 24%. Trước tình hình đó, doanh nghiệp cần tìm những giải pháp mới, hiệu quả hơn để giữ chân người lao động, củng cố nguồn nhân lực nhằm đảm bảo sự ổn định và phát triển trong tương lai.\r\n\r\nĐầu tư vào con người\r\n\r\nTrong nền kinh tế đầy cạnh tranh hiện nay, nguồn nhân lực tài năng, chất lượng cao được xem là yếu tố quyết định sự phát triển của mỗi doanh nghiệp. Để có đội ngũ nhân sự có chuyên môn vững vàng và nhiệt huyết cống hiến, doanh nghiệp cần những cách thức mới mẻ để thu hút và giữ chân nhân tài trong bối cảnh mới.\r\n\r\nGiám đốc một doanh nghiệp thương mại điện tử chia sẻ, dù thị trường nhân lực rất sôi động và đông đảo ứng viên, song doanh nghiệp luôn mong muốn nhân viên làm việc lâu dài. Bởi mỗi khi một nhân viên nghỉ việc, doanh nghiệp sẽ mất 15-20% lương của vị trí đó để tìm được một người thay thế. Nếu là nhân sự giỏi, ở cấp quản lý trung hoặc cao, tổn thất này còn lớn hơn nhiều.\r\n\r\nThực tế, doanh nghiệp có nhiều cách thức để phát triển nguồn nhân lực đáp ứng mục tiêu tăng trưởng. Chẳng hạn, Công ty TNHH Samsung Electronics Việt Nam chú trọng thiết lập môi trường làm việc an toàn và thoải mái cho nhân viên. Xưởng sản xuất luôn được giữ sạch sẽ, thoáng mát, ở khắp các xưởng đều có khu vực nghỉ dành cho nhân viên. Bên ngoài có hệ thống cây xanh, khu vực đi dạo và công viên, tạo không gian thoáng mát và rộng mở.\r\n\r\nCòn Techcombank, ngân hàng thương mại cổ phần lớn với đôi ngũ nhân sự hơn 7.000 người, là đơn vị đi đầu trong đào tạo, phát triển nhân viên, tạo điều kiện để mỗi thành viên có thể vượt trội mỗi ngày. Cán bộ nhân viên ở mọi vị trí đều được khuyến khích phát triển theo lộ trình nghề nghiệp rõ ràng. Nhân sự làm việc tốt tại Techcombank được nhận lương thưởng xứng đáng và chế độ đãi ngộ nổi bật.\r\n\r\nTechcombank được đánh giá sở hữu nguồn nhân lực mạnh, chất lượng cao hàng đầu trong ngành. Năm 2019, nhà băng này trở thành ngân hàng được nhân viên yêu mến nhất, top 2 nhà tuyển dụng được yêu thích nhất trong ngành tài chính - ngân hàng, theo khảo sát của CareerBuilder phối hợp với Insight Asia thực hiện.\r\n\r\nGói bảo hiểm \"Vững tâm cống hiến\" - giải pháp giữ nhân tài\r\n\r\nCác chuyên gia nhận định, mỗi doanh nghiệp tùy vào quy mô, nguồn lực và mục tiêu phát triển của mình sẽ có những cách thức cụ thể để thu hút và giữ chân nhân tài. Hiện nay, cách thức được đánh giá là phù hợp với doanh nghiệp ở mọi quy mô, đồng thời đáp ứng mong muốn của số đông người lao động là gói bảo hiểm nhóm do doanh nghiệp mua cho nhân viên. Với chi phí phù hợp, doanh nghiệp có thể gia tăng sự gắn kết của nhân viên, trên cơ sở cùng chung lợi ích cũng như chia sẻ khó khăn.\r\n\r\nGần đây, gói bảo hiểm nhân thọ \"Vững tâm cống hiến\" do Techcombank và Manulife hợp tác thiết kế là một lựa chọn đem lại nhiều lợi ích cho các doanh nghiệp mong muốn thu hút và giữ chân nhân tài.\r\n\r\nTheo bà Hoàng Thị Hồng Minh, Giám đốc Giải pháp Bảo hiểm và Dịch vụ, ngân hàng Techcombank, từ thực tế nhu cầu của doanh nghiệp và người lao động, hai bên đã kết hợp thiết kế nên gói bảo hiểm này, chú trọng đưa ra những quyền lợi đáp ứng những mong mỏi của người lao động, từ đó an tâm gắn bó và tập trung hơn cho công việc, gia tăng hiệu suất cho doanh nghiệp. Các doanh nghiệp khi tham gia bảo hiểm nhân thọ còn tạo được lợi thế cạnh tranh, tăng uy tín trên thị trường.\r\n\r\n\"Gói bảo hiểm \'Vững tâm cống hiến\' được đánh giá là vượt trội về quyền lợi và ưu đãi về chi phí, đặc biệt cho khách hàng Techcombank\", bà Hoàng Thị Hồng Minh nói.\r\n\r\nKhi tham gia gói bảo hiểm này, nhân viên sẽ có quyền lợi tích lũy, có nguồn thu nhập bổ sung bên cạnh thu nhập hàng tháng, từ đó, an tâm và hứng khởi làm việc, có thêm động lực để phát huy sáng tạo, nâng cao hiệu quả công việc.\r\n\r\nNổi bật, với gói bảo hiểm này, nhân viên càng làm việc lâu dài, quyền lợi sẽ càng tăng thêm sau 5 năm. Theo thời gian, chế độ phúc lợi này sẽ càng củng cố mức độ gắn bó của nhân viên với doanh nghiệp. Ở độ tuổi về hưu, người lao động cũng có thể an tâm bởi đã tích lũy nguồn thu nhập đáng kể để tận hưởng thời gian rảnh rỗi, chăm sóc sức khỏe hoặc chia sẻ với người thân.\r\n\r\nBên cạnh đó, gói bảo hiểm còn mang đến quyền lợi bảo vệ với những hỗ trợ tối ưu, giúp bảo vệ an toàn, tránh cho nhân viên những rủi ro tài chính nếu không may gặp phải những sự cố bất ngờ trong cuộc sống. Điều này không chỉ mang đến sự an tâm cho nhân viên mà còn thể hiện sự quan tâm, đồng hành và chia sẻ của doanh nghiệp với lực lượng lao động trong lúc thuận lợi cũng như khó khăn', 'Anh Khôi', '2020-07-05 00:00:00', 'Tai Chinh/Ngan Hang Dien Tu/images-1593968258533.jpg', NULL, NULL, NULL, 1, NULL);
+(36, 5, 4, NULL, 10, 'Techcombank;doanh nghiệp;Ngân hàng', 'Techcombank và giải pháp giúp doanh nghiệp giữ nhân tài', 'techcombank-va-giai-phap-giup-doanh-nghiep-giu-nhan-tai', 'Techcombank được đánh giá sở hữu nguồn nhân lực mạnh, chất lượng cao hàng đầu trong ngành. Năm 2019, nhà băng này trở thành ngân hàng được nhân viên yêu mến nhất, top 2 nhà tuyển dụng được yêu thích ...', '\r\nTechcombank được đánh giá sở hữu nguồn nhân lực mạnh, chất lượng cao hàng đầu trong ngành. Năm 2019, nhà băng này trở thành ngân hàng được nhân viên yêu mến nhất, top 2 nhà tuyển dụng được yêu thích nhất trong ngành tài chính - ngân hàng, theo khảo sát của CareerBuilder phối hợp với Insight Asia thực hiện.\r\ntechcombank va giai phap giup doanh nghiep giu nhan tai\r\nTechcombank được đánh giá là đang sở hữu nguồn nhân lực mạnh\r\nTechcombank và Manulife thiết kế gói bảo hiểm dành cho người lao động, tạo sự an tâm, gắn bó và tập trung hơn cho công việc, tăng hiệu suất của doanh nghiệp.\r\n\r\nKhảo sát do Anphabe thực hiện cuối năm ngoái với gần 76.000 người đi làm cho thấy, tỷ lệ nghỉ việc tại các doanh nghiệp Việt Nam tăng liên tục những năm qua: năm 2017 là 19,1%, năm 2018 là 20,5% và năm 2019 là 24%. Trước tình hình đó, doanh nghiệp cần tìm những giải pháp mới, hiệu quả hơn để giữ chân người lao động, củng cố nguồn nhân lực nhằm đảm bảo sự ổn định và phát triển trong tương lai.\r\n\r\nĐầu tư vào con người\r\n\r\nTrong nền kinh tế đầy cạnh tranh hiện nay, nguồn nhân lực tài năng, chất lượng cao được xem là yếu tố quyết định sự phát triển của mỗi doanh nghiệp. Để có đội ngũ nhân sự có chuyên môn vững vàng và nhiệt huyết cống hiến, doanh nghiệp cần những cách thức mới mẻ để thu hút và giữ chân nhân tài trong bối cảnh mới.\r\n\r\nGiám đốc một doanh nghiệp thương mại điện tử chia sẻ, dù thị trường nhân lực rất sôi động và đông đảo ứng viên, song doanh nghiệp luôn mong muốn nhân viên làm việc lâu dài. Bởi mỗi khi một nhân viên nghỉ việc, doanh nghiệp sẽ mất 15-20% lương của vị trí đó để tìm được một người thay thế. Nếu là nhân sự giỏi, ở cấp quản lý trung hoặc cao, tổn thất này còn lớn hơn nhiều.\r\n\r\nThực tế, doanh nghiệp có nhiều cách thức để phát triển nguồn nhân lực đáp ứng mục tiêu tăng trưởng. Chẳng hạn, Công ty TNHH Samsung Electronics Việt Nam chú trọng thiết lập môi trường làm việc an toàn và thoải mái cho nhân viên. Xưởng sản xuất luôn được giữ sạch sẽ, thoáng mát, ở khắp các xưởng đều có khu vực nghỉ dành cho nhân viên. Bên ngoài có hệ thống cây xanh, khu vực đi dạo và công viên, tạo không gian thoáng mát và rộng mở.\r\n\r\nCòn Techcombank, ngân hàng thương mại cổ phần lớn với đôi ngũ nhân sự hơn 7.000 người, là đơn vị đi đầu trong đào tạo, phát triển nhân viên, tạo điều kiện để mỗi thành viên có thể vượt trội mỗi ngày. Cán bộ nhân viên ở mọi vị trí đều được khuyến khích phát triển theo lộ trình nghề nghiệp rõ ràng. Nhân sự làm việc tốt tại Techcombank được nhận lương thưởng xứng đáng và chế độ đãi ngộ nổi bật.\r\n\r\nTechcombank được đánh giá sở hữu nguồn nhân lực mạnh, chất lượng cao hàng đầu trong ngành. Năm 2019, nhà băng này trở thành ngân hàng được nhân viên yêu mến nhất, top 2 nhà tuyển dụng được yêu thích nhất trong ngành tài chính - ngân hàng, theo khảo sát của CareerBuilder phối hợp với Insight Asia thực hiện.\r\n\r\nGói bảo hiểm \"Vững tâm cống hiến\" - giải pháp giữ nhân tài\r\n\r\nCác chuyên gia nhận định, mỗi doanh nghiệp tùy vào quy mô, nguồn lực và mục tiêu phát triển của mình sẽ có những cách thức cụ thể để thu hút và giữ chân nhân tài. Hiện nay, cách thức được đánh giá là phù hợp với doanh nghiệp ở mọi quy mô, đồng thời đáp ứng mong muốn của số đông người lao động là gói bảo hiểm nhóm do doanh nghiệp mua cho nhân viên. Với chi phí phù hợp, doanh nghiệp có thể gia tăng sự gắn kết của nhân viên, trên cơ sở cùng chung lợi ích cũng như chia sẻ khó khăn.\r\n\r\nGần đây, gói bảo hiểm nhân thọ \"Vững tâm cống hiến\" do Techcombank và Manulife hợp tác thiết kế là một lựa chọn đem lại nhiều lợi ích cho các doanh nghiệp mong muốn thu hút và giữ chân nhân tài.\r\n\r\nTheo bà Hoàng Thị Hồng Minh, Giám đốc Giải pháp Bảo hiểm và Dịch vụ, ngân hàng Techcombank, từ thực tế nhu cầu của doanh nghiệp và người lao động, hai bên đã kết hợp thiết kế nên gói bảo hiểm này, chú trọng đưa ra những quyền lợi đáp ứng những mong mỏi của người lao động, từ đó an tâm gắn bó và tập trung hơn cho công việc, gia tăng hiệu suất cho doanh nghiệp. Các doanh nghiệp khi tham gia bảo hiểm nhân thọ còn tạo được lợi thế cạnh tranh, tăng uy tín trên thị trường.\r\n\r\n\"Gói bảo hiểm \'Vững tâm cống hiến\' được đánh giá là vượt trội về quyền lợi và ưu đãi về chi phí, đặc biệt cho khách hàng Techcombank\", bà Hoàng Thị Hồng Minh nói.\r\n\r\nKhi tham gia gói bảo hiểm này, nhân viên sẽ có quyền lợi tích lũy, có nguồn thu nhập bổ sung bên cạnh thu nhập hàng tháng, từ đó, an tâm và hứng khởi làm việc, có thêm động lực để phát huy sáng tạo, nâng cao hiệu quả công việc.\r\n\r\nNổi bật, với gói bảo hiểm này, nhân viên càng làm việc lâu dài, quyền lợi sẽ càng tăng thêm sau 5 năm. Theo thời gian, chế độ phúc lợi này sẽ càng củng cố mức độ gắn bó của nhân viên với doanh nghiệp. Ở độ tuổi về hưu, người lao động cũng có thể an tâm bởi đã tích lũy nguồn thu nhập đáng kể để tận hưởng thời gian rảnh rỗi, chăm sóc sức khỏe hoặc chia sẻ với người thân.\r\n\r\nBên cạnh đó, gói bảo hiểm còn mang đến quyền lợi bảo vệ với những hỗ trợ tối ưu, giúp bảo vệ an toàn, tránh cho nhân viên những rủi ro tài chính nếu không may gặp phải những sự cố bất ngờ trong cuộc sống. Điều này không chỉ mang đến sự an tâm cho nhân viên mà còn thể hiện sự quan tâm, đồng hành và chia sẻ của doanh nghiệp với lực lượng lao động trong lúc thuận lợi cũng như khó khăn', 'Anh Khôi', '2020-07-05 00:00:00', 'Tai Chinh/Ngan Hang Dien Tu/images-1593968258533.jpg', NULL, NULL, NULL, 1, NULL),
+(37, 8, 2, NULL, NULL, 'hị trường chứng khoán; thị trường chứng khoán hôm nay; Chứng khoán; chứng khoán hôm nay 10/7; ', 'Chứng khoán phiên sáng 10/7: Tâm lý thận trọng, các chỉ số quay đầu điều chỉnh', 'chung-khoan-phien-sang-107-tam-ly-than-trong-cac-chi-so-quay-dau-dieu-chinh', 'Dưới tác động tiêu cực từ chứng khoán Mỹ đêm qua, thị trường trong nước bước vào phiên giao dịch cuối tuần với tâm lý thận trọng, áp lực bán chốt lời gia tăng khiến các chỉ số quay đầu điều chỉnh. Tuy vậy, chỉ số VN-Index diễn biến giằng co và rung lắc nhẹ quanh mốc tham chiếu nhờ lực bán không quá lớn.', '<p style=\"text-align: justify;\">Trong rổ VN30, sắc đỏ áp đảo với 20 cổ phiếu giao dịch dưới giá tham chiếu, 6 mã tăng giá và 4 mã giữ giá không đổi. Trong đó, cổ phiếu EIB giảm mạnh nhất 0,8%, theo sau là NVL (0,5%), ROS (0,3%), HDB (0,7%)...</p>\r\n<p style=\"text-align: justify;\">Diễn biến trái chiều, cổ phieus SAB ghi nhận mức tăng giá tốt 4,2%, hiện là mã đóng góp nhiều điểm tăng nhất cho thị trường. Bên cạnh đó, cổ phiếu CTD tăng 1,6%, POW (1,2%),...</p>\r\n<p style=\"text-align: justify;\">Họ Vingroup ghi nhận duy nhất cổ phiếu VIC tăng 0,5% trong khi VHM và VRE lần lượt giảm giá 0,4% và 0,5%.</p>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"MASTERCMS_TPL_TABLE\" style=\"width: 100%;\">  	<tbody>  		<tr>  			<td><img src=\"https://kinhtechungkhoan.vn/stores/news_dataimages/tannt/072020/10/11/in_article/1258_thi_trYYng_ck_TBCKVN_144.jpg?rt=20200710124104\" class=\"__img_mastercms mastercms_lazyload\" alt=\"chung khoan phien sang 107 tam ly than trong cac chi so quay dau dieu chinh\" border=\"0\" style=\"max-width: 100%; padding: 0px; margin: 0px; width: 100%;\" title=\"Chứng khoán phiên sáng 10/7: Tâm lý thận trọng, các chỉ số quay đầu điều chỉnh\"></td>  		</tr>  		<tr>  			<td>Hình minh họa</td>  		</tr>  	</tbody>  </table>\r\n<p style=\"text-align: justify;\">Đáng chú ý, nhóm khu công nghiệp khởi sắc với tất cả cổ phiếu giao dịch trên tham chiếu. Trong đó, tăng mạnh nhất là cổ phiếu SJS (3,3%), theo sau là TIP (2,3%), ITA (2,3%). Cùng với đó, các mã SNZ, KBC, SZL đều ghi nhận mức tăng từ trên 1%. Các mã còn lại như PXL, NTC, SIP diễn biến tích cực.</p>\r\n<p style=\"text-align: justify;\">Nhóm ngân hàng diễn biến tiêu cực với hầu hết cổ phiếu chìm trong sắc đỏ. Theo đó, loạt mã vốn hóa vừa và lớn đều ghi nhận mức giảm đáng kể. Cụ thể, cổ phiếu VCB giảm 0,8%, CTG (0,4%), BID (0,6%), ACB (1,2%), VPB (0,2%)...</p>\r\n<p style=\"text-align: justify;\">Đáng chú ý, duy nhất \"tân binh\" BVB của Ngân hàng Bản Việt tăng kịch trần lên 16.100 đồng/cp sau hai phiên lên sàn. Ngoài ra, một số mã khác giữ giá tham chiếu như LPB, BSB, TPB.</p>\r\n<p style=\"text-align: justify;\"><strong>Tại thời điểm 10h45,</strong> chỉ số VN-Index tăng 0,29 điểm (0,03%) lên 876,75 điểm, HNX-Index giảm 0,38% còn 115,72 điểm, UPCoM-Index tăng 0,16% lên 57,25 điểm.</p>\r\n<p style=\"text-align: justify;\">Về cuối phiên sáng, lực bán tiếp tục tăng cao khiến các cổ phiếu như SAB thu hẹp đà tăng còn 2,4% lên 210.000 đồng/cp, VHM giảm 1,4%, TCB giảm 1,4%, VCB, BID, HDB… đều mất trên 1%.</p>\r\n<p style=\"text-align: justify;\">Nhóm các cổ phiếu phòng thủ như y tế, điện, nước giao dịch không mấy tích cực, trong đó, TRA giảm 3,1% xuống 52.300 đồng/cp, DHG giảm 1%, HND, TDM, BWE, PC1… đều giảm giá.</p>\r\n<p style=\"text-align: justify;\">Các cổ phiếu ACB giảm 1,6% xuống 23.900 đồng/cp, SHB giảm 0,8%, CEO giảm 3,5%, MBS giảm 2%... là những nhân tố khiến HNX-Index duy trì đà giảm.</p>\r\n<p style=\"text-align: justify;\">Trong khi đó, “tân binh” BVB tăng trần lên 16.100 đồng/cp, MML tăng 1,2%, SEA, KLB, VTP, VTR… là động lực giúp chỉ số UPCoM-Index giữ được sắc xanh.</p>\r\n<p style=\"text-align: justify;\"><strong>Tạm dừng phiên sáng,</strong> chỉ số VN-Index dừng ở mức 873,14 điểm, giảm 3,32 điểm (-0,38%). Toàn sàn có 128 mã tăng, 224 mã giảm và 51 mã đứng giá; HNX-Index giảm 0,7 điểm (-0,6%) xuống 115,46 điểm. Toàn sàn có 50 mã tăng, 73 mã giảm và 51 mã đứng giá; UPCoM-Index tăng 0,05 điểm (0,09%) lên 57,21 điểm.</p>\r\n', 'Tân An', '2020-07-10 04:10:12', 'Chung Khoan/Nhip Dap Thi Truong/ndtt_01.jpg', 0, 121, NULL, 1, 0),
+(38, 17, 2, NULL, NULL, 'Đấu giá đất; đấu giá; đấu giá quyền sử dụng đất; quyền sử dụng đất; công ty đấu giá; tài sản đấu giá;', 'Đấu giá quyền sử dụng đất tại quận Hoàng Mai, Hà Nội', 'dau-gia-quyen-su-dung-dat-tai-quan-hoang-mai-ha-noi', 'Ngày 17/7/2020, đấu giá quyền sử dụng đất tại quận Hoàng Mai, TP. Hà Nội.', '<p style=\"text-align: justify;\"><em>Công ty Đấu giá Hợp danh Việt Á thông báo bán đấu giá tài sản lần 7 vào ngày 17/7/2020 do Công ty TNHH MTV Quản lý nợ và Khai thác tài sản Ngân hàng Nông nghiệp và Phát triển nông thôn Việt Nam ủy quyền như sau:</em></p>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"MASTERCMS_TPL_TABLE\" style=\"width: 100%;\">  	<tbody>  		<tr>  			<td><img src=\"https://kinhtechungkhoan.vn/stores/news_dataimages/diepquynh/062020/20/01/in_article/4836_YgqsdY_206.jpg?rt=20200709164016\" class=\"__img_mastercms mastercms_lazyload\" alt=\"dau gia quyen su dung dat tai quan hoang mai ha noi\" border=\"0\" style=\"max-width: 100%; padding: 0px; margin: 0px; width: 100%;\" title=\"Đấu giá quyền sử dụng đất tại quận Hoàng Mai, Hà Nội\"></td>  		</tr>  		<tr>  			<td><em>Đấu giá quyền sử dụng đất tại quận Hoàng Mai, Hà Nội</em></td>  		</tr>  	</tbody>  </table>\r\n<p style=\"text-align: justify;\"><strong>1. Tài sản bán đấu giá:</strong> Toàn bộ giá trị quyền sử dụng đất và tài sản gắn liền với đất thuộc thửa đất số 2(2); tờ bản đồ số 14; diện tích: 100 m2; hình thức sử dụng: Riêng 100 m2, chung 0m2; mục đích sử dụng: Đất ở tại đô thị; thời hạn sử dụng: Lâu dài; tại địa chỉ: Phường Định Công, quận Hoàng Mai, TP. Hà Nội (nay là số nhà 119, ngõ 230 Định Công Thượng, phường Định Công, quận Hoàng Mai, TP. Hà Nội) theo giấy chứng nhận quyền sử dụng đất quyền sở hữu nhà ở và tài sản khác gắn liền với đất số BĐ 106789, số vào sổ cấp GCN: CH00643/HĐ: 2325/996 do UBND quận Hoàng Mai, TP. Hà Nội cấp ngày 02/12/2010.</p>\r\n<p style=\"text-align: justify;\">Giá khởi điểm: 4.115.000.000 đồng (bằng chữ: Bốn tỷ, một trăm mười lăm triệu đồng).</p>\r\n<p style=\"text-align: justify;\">Tiền đặt trước: 411.500.000 đồng (bằng chữ: Bốn trăm mười một triệu, năm trăm nghìn đồng).</p>\r\n<p style=\"text-align: justify;\">Tiền phí hồ sơ tham gia đấu giá: 500.000 đồng/hồ sơ.</p>\r\n<p style=\"text-align: justify;\"><strong>2. Đơn vị tổ chức đấu giá:</strong> Công ty Đấu giá Hợp danh Việt Á. Địa chỉ: Phòng 304, số 88 Phố Phạm Ngọc Thạch, phường Trung Tự, quận Đống Đa, TP. Hà Nội).</p>\r\n<p style=\"text-align: justify;\"><strong>3. Bên có tài sản đấu giá: </strong>Công ty TNHH MTV Quản lý nợ và Khai thác tài sản Ngân hàng Nông nghiệp và Phát triển nông thôn Việt Nam. Địa chỉ: Tầng 5, Tòa nhà C3, số 194 đường Giải Phóng, phường Phương Liệt, quận Thanh Xuân, thành phố Hà Nội.</p>\r\n<p style=\"text-align: justify;\"><strong>4. Thời gian, địa điểm xem tài sản:</strong> Ngày 13/07/2020 và ngày 14/07/2020 tại địa điểm tài sản.</p>\r\n<p style=\"text-align: justify;\"><strong>5. Thời gian, địa điểm, điều kiện, cách thức tham gia đấu giá:</strong> Mọi cá nhân, tổ chức đủ điều kiện theo luật định mua và nộp hồ sơ từ ngày thông báo bán đấu giá đến trước 16 giờ 00, ngày 16/07/2020 tại Văn phòng - Công ty Đấu giá Hợp danh Việt Á.</p>\r\n<p style=\"text-align: justify;\"><strong>6. Thời gian thu tiền đặt trước: </strong>Đến 16 giờ 00, ngày 16/07/2020.</p>\r\n<p style=\"text-align: justify;\">Tiền đặt trước nộp vào tài khoản của Công ty TNHH MTV Quản lý nợ và Khai thác tài sản Ngân hàng Nông nghiệp và Phát triển nông thôn Việt Nam. Tài khoản số: 1460-201034155 tại Agribank – Chi nhánh Nam Hà Nội.</p>\r\n<p style=\"text-align: justify;\"><strong>7. Thời gian, địa điểm tổ chức đấu giá: </strong>Vào hồi 13 giờ 30 phút, ngày 17/07/2020 tại Phòng Đấu giá - Công ty Đấu giá Hợp danh Việt Á. Địa chỉ: Phòng 304 số 88 Phố Phạm Ngọc Thạch, phường Trung Tự, quận Đống Đa, TP. Hà Nội.</p>\r\n<p style=\"text-align: justify;\">Thông tin chi tiết xin vui lòng liên hệ: Công ty Đấu giá Hợp danh Việt Á. Địa chỉ: P304 số 88 Phố Phạm Ngọc Thạch, phường Trung Tự, quận Đống Đa, TP. Hà Nội. Tel: 024.37965198; Fax: 024.37965199.</p>\r\n', 'Diệp Quỳnh', '2020-07-10 03:01:01', 'Doanh Nghiep/Dau Gia Dau Thau/dgdt_01.jpg', 0, 121, NULL, 1, 0),
+(39, 18, 2, NULL, NULL, 'có nên mua vàng; mua vàng lúc này có muộn; Giá vàng; vàng SJC; Mirae Asset Việt Nam; đầu tư; tài chính;', 'Mua vàng lúc này có muộn?', 'mua-vang-luc-nay-co-muon', 'Lãi suất tiết kiệm giảm, chứng khoán đang \"ru ngủ\" nên nhiều nhà đầu tư bắt đầu nghĩ tới vàng, nhất là khi nó liên tiếp lập đỉnh.', '<p style=\"text-align: justify;\">Bà Thảo (quận Thủ Đức, TP HCM) là một trong những nhà đầu tư như vậy. Bà đang có danh mục cổ phiếu hơn 400 triệu. Nhờ bắt đáy cổ phiếu hàng không và dầu khí đúng lúc VN-Index xuống vùng trũng 660 điểm, từ một nhà đầu tư non kinh nghiệm và không người dẫn dắt, bà đang lãi khoảng 20%.</p>\r\n<p style=\"text-align: justify;\">Nhưng gần đây thị trường không còn hứng khởi, rơi vào trạng thái ru ngủ, giằng co nên bà băn khoăn, hoặc tái cơ cấu danh mục để chọn những cổ phiếu có tiềm năng dài hạn hoặc chốt lời để chuyển sang đầu tư vàng. Giá vàng vừa lập đỉnh trên 50 triệu đồng. Bà còn tính đến việc tất toán một khoản tiết kiệm online kỳ hạn 6 tháng để lấy 200 triệu mua vàng.</p>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"MASTERCMS_TPL_TABLE\" style=\"width: 100%;\">  	<tbody>  		<tr>  			<td><img src=\"https://kinhtechungkhoan.vn/stores/news_dataimages/ngoclam/072020/09/11/4419_photo1594080027267-15940800272701409766217-crop-15940800902302128546108.jpg?rt=20200709115407\" class=\"__img_mastercms mastercms_lazyload\" alt=\"mua vang luc nay co muon\" border=\"0\" style=\"max-width: 100%; padding: 0px; margin: 0px; width: 100%;\" title=\"Mua vàng lúc này có muộn?\"></td>  		</tr>  		<tr>  			<td><em>Mua vàng lúc này liệu có phải là đã muộn</em></td>  		</tr>  	</tbody>  </table>\r\n<p style=\"text-align: justify;\">Giám đốc môi giới hội sở của Công ty Chứng khoán Mirae Asset Việt Nam – Huỳnh Minh Tuấn cho rằng hiệu suất sinh lời của chứng khoán và vàng hiện nay khá tương đồng. Tuy nhiên, việc đầu tư vàng ở đỉnh nên được cân nhắc thận trọng bởi giá vàng thế giới có thể nhích lên 1.900 USD trong quý này nhưng tiến đến 2.000-3.000 USD một ounce như dự báo của các tổ chức nước ngoài thì khá xa và phụ thuộc nhiều yếu tố khác.</p>\r\n<p style=\"text-align: justify;\">Đồng quan điểm, ông Trần Thanh Hải - Chủ tịch HĐQT Công ty cổ phần Vàng bạc đá quý SJC Phú Thọ, cũng cho rằng lướt sóng vàng bây giờ như cầm con dao hai lưỡi.</p>\r\n<p style=\"text-align: justify;\">Thanh khoản tốt và chống lạm phát hữu hiệu được xem là ưu điểm nổi trội nhất của kim loại quý. Nhưng vàng có một số khuyết điểm như cần vốn lớn nhưng không sinh ra dòng tiền đều đặn và chi phí bảo quản cao. Vàng không có thị trường cạnh tranh hoàn hảo (nơi mà người bán không kiểm soát và chi phối giá cả hàng hoá) nên chênh lệch giá mua với bán lên đến 500.000-600.000 đồng một lượng, tức 1% và cao hơn cổ phiếu với trái phiếu. Giá giao dịch mỗi phiên cũng không có biên độ dao động cận trên và cận dưới như chứng khoán.</p>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"MASTERCMS_TPL_TABLE\" style=\"width: 100%;\">  	<tbody>  		<tr>  			<td style=\"text-align: justify;\"><img src=\"https://kinhtechungkhoan.vn/stores/news_dataimages/ngoclam/072020/09/11/4011_107415986_288175042391130_5563242059778300969_n.png?rt=20200709115407\" class=\"__img_mastercms mastercms_lazyload\" alt=\"mua vang luc nay co muon\" border=\"0\" style=\"max-width: 100%; padding: 0px; margin: 0px; width: 100%;\" title=\"Mua vàng lúc này có muộn?\"></td>  		</tr>  		<tr>  			<td style=\"text-align: justify;\">&nbsp;</td>  		</tr>  	</tbody>  </table>\r\n<p style=\"text-align: justify;\">Từ đầu năm đến nay, vàng tăng 20% và xác lập mặt bằng giá mới trong khi các trợ lực vẫn còn rất nhiều. Với kịch bản bi quan là giá đảo chiều khi sức khoẻ nền kinh tế Mỹ trở lại như trước dịch và vaccine được nghiên cứu thành công thì một cú lao dốc thẳng đứng vẫn gần như không thể xảy ra.</p>\r\n<p style=\"text-align: justify;\">Chuyên gia này lấy ví dụ, giá vàng lần lượt tăng 26% và 36% vào 2010 và 2011 lên vùng 1.700-1.900 USD một ounce trước khi giảm dần xuống vùng 1.000-1.100 USD vào 2016. Điều này có thể hiểu rằng quãng thời gian để vàng giảm sâu, mất đến 20-30% phải kéo dài ít nhất 5 năm.</p>\r\n<p style=\"text-align: justify;\">\"Hiện tại, vàng có thể trên dưới 50 triệu một lượng nhưng viễn cảnh mất ngay vài ba triệu chắc chắn không có\", ông Hải nói, đồng thời dự báo đà tăng có thể kéo dài thêm 1-2 tháng tới.</p>\r\n<p style=\"text-align: justify;\">Riêng về trường hợp của bà Thảo, người đang băn khoăn giữa chứng khoán và vàng, Giám đốc môi giới hội sở của Công ty Chứng khoán Mirae Asset Việt Nam Huỳnh Minh Tuấn, cho rằng tỷ suất sinh lời 20% là lý tưởng, thậm chí vượt xa nhiều quỹ đầu chuyên nghiệp. Do đó, nếu đã trên kỳ vọng ban đầu, ông nói tốt nhất là chốt lời để bảo toàn thành quả khi thị trường chưa phân hoá rõ xu hướng.</p>\r\n<p style=\"text-align: justify;\">Ông Tuấn đánh giá, chứng khoán có thể đi lên trong những tháng cuối năm khi tốc độ phục hồi của kinh tế trong nước nhanh hơn thế giới. Hoạt động sản xuất dần trở lại bình thường trước dịch, dòng vốn từ nước ngoài đang sẵn sàng cập bến Việt Nam là những tín hiệu tích cực đối với thị trường chứng khoán. Dư địa tăng trưởng của nhiều cổ phiếu vẫn còn. Hơn nữa, đây là lớp tài sản vượt trội nhất nếu xét trong chu kỳ 10-30 năm.</p>\r\n<p style=\"text-align: justify;\">Vì thế, giảm tỷ trọng cổ phiếu còn 30-50%, giữ tiền mặt chờ tín hiệu rõ ràng hơn của giá vàng (ít nhất là chạm vùng 1.850 USD) là phương án được các chuyên gia khuyến khích trong trường hợp của bà Thảo.</p>\r\n<p style=\"text-align: justify;\">Ông Tuấn bổ sung, đầu tư tài chính tiềm ẩn nhiều rủi ro nên không được bỏ trứng vào một rổ mà cần trang bị một kênh phòng thủ chắc chắn. Việc giữ một hoặc chia nhỏ các khoản tiền gửi ngân hàng là cần thiết để nếu thua lỗ từ chứng khoán hoặc vàng thì luôn còn một trụ đỡ về tâm lý.</p>\r\n', 'Anh Khôi', '2020-07-09 09:10:10', 'Kien Thuc Dau Tu/Cam Nang Dau Tu/cndt_01.jpg', 1, 1211, NULL, 1, 0),
+(40, 19, 2, NULL, NULL, 'Nguyễn Tiến Thành; trà; An Nam; trà Việt; Ước mơ; giảng viên đại học;', 'Giảng viên đại học với ước mơ mang trà Việt Nam ra thế giới', 'giang-vien-dai-hoc-voi-uoc-mo-mang-tra-viet-nam-ra-the-gioi\r\n', 'Anh Nguyễn Tiến Thành (SN 1986), hiện đang là giảng viên một trường Đại học tại Hà Nội nhưng luôn mang một ước mơ cháy bỏng là mang trà Việt Nam ra thế giới.  \r\n', '<p style=\"text-align: justify;\"><span style=\"font-size:16px;\"><strong>Ước mơ mang trà Việt Nam ra thế giới</strong></span></p>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Niềm đam mê đến với trà của anh Nguyễn Tiến Thành xuất phát từ ngày còn là du học sinh ở Anh Quốc cách đây hơn 10 năm. Nước Anh là một nước có nền văn hóa trà đặc sắc và dành cho các giới quý tộc Hoàng gia với phong cách uống trà rất khác biệt. Với niềm đam mê đó, anh Thành còn tìm hiểu thêm về văn hóa trà ở các nước trên thế giới như Trung Quốc, Nhật Bản, Ấn Độ, Thổ Nhĩ Kì.</span></p>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"MASTERCMS_TPL_TABLE\" style=\"width: 100%;\">  	<tbody>  		<tr>  			<td><img src=\"https://kinhtechungkhoan.vn/stores/news_dataimages/quynhtrang/072020/09/08/in_article/3018_Untitled.png?rt=20200709085220\" class=\"__img_mastercms mastercms_lazyload\" alt=\"giang vien dai hoc voi uoc mo mang tra viet nam ra the gioi\" border=\"0\" style=\"max-width: 100%; padding: 0px; margin: 0px; width: 100%;\" title=\"Giảng viên đại học với ước mơ mang trà Việt Nam ra thế giới\"></td>  		</tr>  		<tr>  			<td><span style=\"font-size:16px;\">Anh Nguyễn Tiến Thành</span></td>  		</tr>  	</tbody>  </table>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Quá trình du học tại Anh, anh Thành làm thêm bồi bàn tại một nhà hàng của người Việt, mỗi khi dùng bữa xong, khách nước ngoài thường hay gọi “Chinese tea” (trà Trung Quốc) để tráng miệng. “Tôi đặt ra câu hỏi là tại sao cứ phải là ‘Chinese tea’ mà không phải là ‘Vietnamese tea’? Lúc đó, tôi đã nghĩ đến chuyện, sau này có cơ hội sẽ đưa trà Việt Nam ra thế giới”, anh Thành nhận định.</span></p>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Với mong muốn mỗi khi thực khách quốc tế dùng bữa xong sẽ tráng miệng bằng trà Việt, anh Thành đã trở về nước và bắt đầu thực hiện ước mơ của mình.</span></p>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\"><strong>Bước đầu tìm hiểu và xây dựng thương hiệu</strong></span></p>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Khi trở về nước, anh Thành trở thành giảng viên của một trường đại học và đồng thời kinh doanh về lĩnh vực&nbsp; thiết bị y tế. Cuốn theo những bận rộn của công việc, ước mơ từ ngày còn du học bị mai một đi. Dần dần, khi đã ổn định giữa công việc và gia đình, anh Thành có thời gian để ý hơn đến nền văn hóa uống trà của Việt Nam và nhận ra được rất nhiều điều thú vị.</span></p>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"MASTERCMS_TPL_TABLE\" style=\"width: 100%;\">  	<tbody>  		<tr>  			<td><img src=\"https://kinhtechungkhoan.vn/stores/news_dataimages/quynhtrang/072020/09/08/in_article/2851_90349251_640431923182030_9000504023496785920_n.jpg?rt=20200709085220\" class=\"__img_mastercms mastercms_lazyload\" alt=\"giang vien dai hoc voi uoc mo mang tra viet nam ra the gioi\" border=\"0\" style=\"max-width: 100%; padding: 0px; margin: 0px; width: 100%;\" title=\"Giảng viên đại học với ước mơ mang trà Việt Nam ra thế giới\"></td>  		</tr>  		<tr>  			<td>  			<p>Anh Thành cùng con gái tại vườn trà nguyên liệu của An Nam (Phổ Yên, Thái Nguyên)</p>  			</td>  		</tr>  	</tbody>  </table>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Đối với người Việt Nam, uống trà không chỉ là thưởng thức mà còn để nâng cao sức khỏe, thậm chí có những người uống trà để chữa bệnh. Từ đó, anh Thành tìm hiểu thêm về dược tính của các loại thảo mộc tự nhiên có thể dùng làm trà. Nhờ có sự hậu thuẫn từ phía gia đình có truyền thống làm ngành y, anh Thành có cơ hội để tìm hiểu sâu hơn về sự tác động của thảo dược tới sức khỏe cho con người.</span></p>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Ở Việt Nam có rất nhiều dược liệu quý, thậm chí nhiều người Việt Nam không biết đến sự tồn tại của nó nhưng vô cùng tốt cho sức khỏe mà lại bị nước ngoài thu mua hết. Trong khi đó, người Việt đang sử dụng các loại dược liệu rác thải từ Trung Quốc đem về. Họ đã có những kỹ thuật để tách hết các chất bổ và chất dinh dưỡng ra chỉ còn lại phần vỏ cho người Việt dùng.</span></p>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\"><strong>Loại trà mang đến vị hài hòa ra đời</strong></span></p>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Tìm hiểu thêm về các dược liệu quý của Việt Nam, đi sâu hơn về chúng, anh Thành quyết định khởi nghiệp xây dựng lên thương hiệu trà An Nam cách đây 3 năm.</span></p>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"MASTERCMS_TPL_TABLE\" style=\"width: 100%;\">  	<tbody>  		<tr>  			<td><img src=\"https://kinhtechungkhoan.vn/stores/news_dataimages/quynhtrang/072020/09/08/in_article/2847_IMG_6524.jpg?rt=20200709085220\" class=\"__img_mastercms mastercms_lazyload\" alt=\"giang vien dai hoc voi uoc mo mang tra viet nam ra the gioi\" border=\"0\" style=\"max-width: 100%; padding: 0px; margin: 0px; width: 100%;\" title=\"Giảng viên đại học với ước mơ mang trà Việt Nam ra thế giới\"></td>  		</tr>  		<tr>  			<td>Ảnh Trà đậu đen gạo lức - Một sản phẩm được phối trộn bằng nguyên liệu thuần Việt tự nhiên theo nguyên tắc \"quân-&nbsp; thần - tá-&nbsp; sứ\" với tỉ lệ chính xác tạo ra hương vị rất thơm ngon và tốt cho sức khoẻ</td>  		</tr>  	</tbody>  </table>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Với sứ mệnh đem sản phẩm dược trà tốt cho sức khỏe người Việt, với nguyên liệu thuần Việt, anh Thành mang đến phương thức đóng gói trà rất đặc biệt. Cách phối trộn các công thức theo nguyên tắc của Đông y truyền thống “quân – thần – tá – sứ” thuận theo “Âm – Dương” để tận dụng được tối đa dược tính của từng nguyên liệu, sẽ tạo ra một vị hài hòa.</span></p>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">“Hãy tạo dựng lên một công thức trà mà đến một đứa trẻ cũng có thể uống được”, anh Thành nhận định. Không chỉ dành cho người lớn, An Nam trà còn phát triển dòng trà dành cho trẻ để trị chứng táo bón, nóng trong. Đối tượng mà An Nam hướng đến chăm sóc là người già, phụ nữ và trẻ em để đảm bảo sức khỏe một cách tốt nhất cho họ.</span></p>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"MASTERCMS_TPL_TABLE\" style=\"width: 100%;\">  	<tbody>  		<tr>  			<td><img src=\"https://kinhtechungkhoan.vn/stores/news_dataimages/tannt/072020/09/08/in_article/5147_Thanh.jpg?rt=20200709085220\" class=\"__img_mastercms mastercms_lazyload\" alt=\"giang vien dai hoc voi uoc mo mang tra viet nam ra the gioi\" border=\"0\" style=\"max-width: 100%; padding: 0px; margin: 0px; width: 100%;\" title=\"Giảng viên đại học với ước mơ mang trà Việt Nam ra thế giới\"></td>  		</tr>  		<tr>  			<td>Anh Thành mang sản phẩm trà thảo mộc của An Nam tới Paris, Pháp</td>  		</tr>  	</tbody>  </table>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Điều đặc biệt của thương hiệu trà An Nam là sử dụng túi lọc kim tự tháp Yamanaka của Nhật với vỏ trong suốt, nguyên liệu được giữ nguyên hình dáng từng bông hoa, chiếc lá để những người thưởng trà biết được mình đang uống loại trà gì, được kết hợp bởi những nguyên liệu nào.</span></p>\r\n<p style=\"text-align: justify;\"><span style=\"font-size:16px;\">Sứ mệnh của An N trà đặt ra là: “Sử dụng dược liệu thuần Việt để tạo ra sản phẩm trà chăm sóc sức khoẻ cho người Việt”. Lý giải về việc đặt tên thương hiệu là An Nam, anh Thành cho biết: “Với sứ mệnh xây dựng sản phẩm thuần Việt và dành cho người Việt, tên An Nam phù hợp nhất để đặt cho thương hiệu. Đây là một trong số những quốc hiệu của Việt Nam trong lịch sử, tên người nước ngoài cũng có thể đọc được. Tôi sử dụng tên An Nam như một cách để thể hiện lòng tự hào dân tộc”.</span></p>\r\n<table align=\"left\" class=\"__MB_template_x\">  	<tbody>  		<tr>  			<td class=\"__RE_PLACE_CONTENT\"><strong>Lời khuyên dành cho các bạn khởi nghiệp:</strong>    			<p>Sẵn sàng đối mặt với khó khăn;</p>    			<p>Nên nghĩ ra sản phẩm, giải pháp hay dịch vụ để phù hợp với khách hàng;</p>    			<p>Tìm hiểu đối thủ cạnh tranh;</p>    			<p>Đưa ra các sản phẩm có tính vượt trội, khác biệt;</p>    			<p>Tìm hiểu những người thầy dẫn dắt để tỷ lệ rủi ro giảm đi và quãng thời gian vất vả rút ngắn hơn;</p>    			<p>Kiên trì nhưng không mù quáng với đam mê của mình nếu cảm thấy không ổn hãy dừng lại.</p>  			</td>  		</tr>  	</tbody>  </table>', 'Nguyễn Trang\r\n', '2020-07-08 07:13:08', 'Kien Thuc Dau Tu/Khoi Nghiep/kn_01.png', 0, 200, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `article_status`
+-- Cấu trúc bảng cho bảng `article_status`
 --
 
-CREATE TABLE `article_status` (
-  `asts_id` int(11) NOT NULL,
-  `asts_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `article_status`;
+CREATE TABLE IF NOT EXISTS `article_status` (
+  `asts_id` int(11) NOT NULL AUTO_INCREMENT,
+  `asts_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`asts_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `article_status`
+-- Đang đổ dữ liệu cho bảng `article_status`
 --
 
 INSERT INTO `article_status` (`asts_id`, `asts_name`) VALUES
@@ -165,22 +175,24 @@ INSERT INTO `article_status` (`asts_id`, `asts_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
-CREATE TABLE `categories` (
-  `ID` int(3) NOT NULL,
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `ID` int(3) NOT NULL AUTO_INCREMENT,
   `tc_ID` int(11) DEFAULT NULL,
   `c_Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `c_alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `c_images` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `c_Large` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `tc_alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `path` text COLLATE utf8_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `path` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
 INSERT INTO `categories` (`ID`, `tc_ID`, `c_Name`, `c_alias`, `c_images`, `c_Large`, `tc_alias`, `path`) VALUES
@@ -198,20 +210,22 @@ INSERT INTO `categories` (`ID`, `tc_ID`, `c_Name`, `c_alias`, `c_images`, `c_Lar
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- Cấu trúc bảng cho bảng `comment`
 --
 
-CREATE TABLE `comment` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE IF NOT EXISTS `comment` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ID_Account` int(11) DEFAULT NULL,
   `ID_Article` int(11) DEFAULT NULL,
   `readerName` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Content` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `comment`
+-- Đang đổ dữ liệu cho bảng `comment`
 --
 
 INSERT INTO `comment` (`ID`, `ID_Account`, `ID_Article`, `readerName`, `Content`, `created_at`) VALUES
@@ -240,16 +254,18 @@ INSERT INTO `comment` (`ID`, `ID_Account`, `ID_Article`, `readerName`, `Content`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role_account`
+-- Cấu trúc bảng cho bảng `role_account`
 --
 
-CREATE TABLE `role_account` (
-  `ID` int(11) NOT NULL,
-  `Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `role_account`;
+CREATE TABLE IF NOT EXISTS `role_account` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `role_account`
+-- Đang đổ dữ liệu cho bảng `role_account`
 --
 
 INSERT INTO `role_account` (`ID`, `Name`) VALUES
@@ -261,30 +277,34 @@ INSERT INTO `role_account` (`ID`, `Name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `social_provider`
+-- Cấu trúc bảng cho bảng `social_provider`
 --
 
-CREATE TABLE `social_provider` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `social_provider`;
+CREATE TABLE IF NOT EXISTS `social_provider` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `provider_id` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `provider` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'tên các mxh mà mình login',
-  `created_at` timestamp NULL DEFAULT NULL
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tag`
+-- Cấu trúc bảng cho bảng `tag`
 --
 
-CREATE TABLE `tag` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE IF NOT EXISTS `tag` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tg_alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `tg_alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `tag`
+-- Đang đổ dữ liệu cho bảng `tag`
 --
 
 INSERT INTO `tag` (`ID`, `Name`, `tg_alias`) VALUES
@@ -322,16 +342,19 @@ INSERT INTO `tag` (`ID`, `Name`, `tg_alias`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tag_article`
+-- Cấu trúc bảng cho bảng `tag_article`
 --
 
-CREATE TABLE `tag_article` (
+DROP TABLE IF EXISTS `tag_article`;
+CREATE TABLE IF NOT EXISTS `tag_article` (
   `id_article` int(11) NOT NULL,
-  `id_tag` int(11) NOT NULL
+  `id_tag` int(11) NOT NULL,
+  KEY `fk_a_id` (`id_article`),
+  KEY `fk_t_id` (`id_tag`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `tag_article`
+-- Đang đổ dữ liệu cho bảng `tag_article`
 --
 
 INSERT INTO `tag_article` (`id_article`, `id_tag`) VALUES
@@ -363,23 +386,29 @@ INSERT INTO `tag_article` (`id_article`, `id_tag`) VALUES
 (27, 27),
 (28, 3),
 (30, 18),
-(31, 16);
+(31, 16),
+(37, 3),
+(38, 9),
+(39, 18),
+(40, 12);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `type_catelgories`
+-- Cấu trúc bảng cho bảng `type_catelgories`
 --
 
-CREATE TABLE `type_catelgories` (
-  `ID` int(3) NOT NULL,
+DROP TABLE IF EXISTS `type_catelgories`;
+CREATE TABLE IF NOT EXISTS `type_catelgories` (
+  `ID` int(3) NOT NULL AUTO_INCREMENT,
   `tc_Name` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `images` text COLLATE utf8_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `images` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `type_catelgories`
+-- Đang đổ dữ liệu cho bảng `type_catelgories`
 --
 
 INSERT INTO `type_catelgories` (`ID`, `tc_Name`, `alias`, `images`) VALUES
@@ -389,135 +418,20 @@ INSERT INTO `type_catelgories` (`ID`, `tc_Name`, `alias`, `images`) VALUES
 (4, 'Kiến Thức Đầu Tư', 'kien-thuc-dau-tu', 'https://i.pinimg.com/originals/16/9c/11/169c11293f5c08a325ee1bbc8a0d4cb8.gif');
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `account`
+-- Chỉ mục cho bảng `article`
 --
-ALTER TABLE `account`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `article`
---
-ALTER TABLE `article`
-  ADD PRIMARY KEY (`id`);
 ALTER TABLE `article` ADD FULLTEXT KEY `title` (`title`,`abstract`,`content`,`tag`,`author`);
 
 --
--- Indexes for table `article_status`
---
-ALTER TABLE `article_status`
-  ADD PRIMARY KEY (`asts_id`);
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `role_account`
---
-ALTER TABLE `role_account`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `social_provider`
---
-ALTER TABLE `social_provider`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `tag`
---
-ALTER TABLE `tag`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `tag_article`
---
-ALTER TABLE `tag_article`
-  ADD KEY `fk_a_id` (`id_article`),
-  ADD KEY `fk_t_id` (`id_tag`);
-
---
--- Indexes for table `type_catelgories`
---
-ALTER TABLE `type_catelgories`
-  ADD PRIMARY KEY (`ID`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `account`
---
-ALTER TABLE `account`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT for table `article`
---
-ALTER TABLE `article`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
--- AUTO_INCREMENT for table `article_status`
---
-ALTER TABLE `article_status`
-  MODIFY `asts_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `comment`
---
-ALTER TABLE `comment`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
-
---
--- AUTO_INCREMENT for table `role_account`
---
-ALTER TABLE `role_account`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `social_provider`
---
-ALTER TABLE `social_provider`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tag`
---
-ALTER TABLE `tag`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
-
---
--- AUTO_INCREMENT for table `type_catelgories`
---
-ALTER TABLE `type_catelgories`
-  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `tag_article`
+-- Các ràng buộc cho bảng `tag_article`
 --
 ALTER TABLE `tag_article`
   ADD CONSTRAINT `fk_a_id` FOREIGN KEY (`id_article`) REFERENCES `article` (`id`),
