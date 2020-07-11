@@ -6,7 +6,6 @@
             $("#id").val( $row.find("#id_modal").text());
         });
     });
-
     $('#frmmodal').on('submit', function (e) {
             e.preventDefault();
             validate();
@@ -48,13 +47,13 @@
                 <td>Đã được duyệt chờ xuất bản</td>
                 <td>{{public_date}}</td>
                 <td>
-                    <a class="btn btn-info btn-sm" href="/account/advantage/3/category/{{c_ID}}/{{id}}" role="button" title="Xem">
+                    <a id="try" class="btn btn-info" href="/account/advantage/3/category/{{c_ID}}/{{id}}" role="button" title="Xem">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </a>
                     <!-- Button trigger modal -->
-                    <button type="button"{{#if duocxb}} {{else}}disabled {{/if}}  class="xuatban btn btn-primary" data-toggle="modal" title="Xuất bản" data-target="#exampleModal">
+                    <a {{#if duocxb}} {{else}}disabled {{/if}}  class="xuatban btn btn-success" data-toggle="modal" title="Xuất bản" data-target="#exampleModal">
                         <i class="fa fa-check-square" aria-hidden="true"></i>
-                    </button>
+                    </a>
                 </td>
             </tr>
         {{/each}}

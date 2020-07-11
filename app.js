@@ -17,6 +17,8 @@ app.use('/categories', require('./routes/categories.route'));
 app.use('/tags', require('./routes/tag.route'));
 app.use('/admin', require('./routes/admin.route'));
 app.use('/admin/article', require('./routes/admin/admin_article'));
+app.use('/admin/article', require('./routes/admin/admin_article'));
+app.use('/admin/user', require('./routes/admin/admin_users'));
 
 app.use(function (req, res) {
     res.render('404');

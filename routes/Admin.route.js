@@ -198,11 +198,6 @@ router.post('/categories/update', restrict, async function (req, res) {
      }
 })
 
-//quản lý user
-router.get('/user', restrict, (req, res) => {
-     var user = req.session.authUser;
-     user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined" ? res.render('vwAccount/vwAdvantage/admin/user/list', { layout: 'mainAdmin.hbs' }) : res.render('403');
-});
 
 
 module.exports = router;

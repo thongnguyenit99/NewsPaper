@@ -92,7 +92,8 @@ router.post('/login',async function (req, res) {
     url="/";
   }
   if(req.session.authUser.r_ID == 4){
-      return res.redirect('/admin');
+    const urladmin = req.query.retUrl || '/admin';
+      return res.redirect(urladmin);
   }else{
       return res.redirect(url);
   }
@@ -137,7 +138,8 @@ router.get('/advantage', restrict,function(req, res){
     return res.redirect('/account/advantage/3');
   }
   if(req.session.authUser.r_ID == 4){
-    return res.redirect('/admin');
+    const url = req.query.retUrl || '/admin';
+    return res.redirect(url);
   }
 
   res.redirect('/');
