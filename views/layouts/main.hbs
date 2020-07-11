@@ -13,28 +13,31 @@
 
 
     <link href="/css/index.css" rel="stylesheet">
+
     <link href="/css/login.css" rel="stylesheet">
     <link href="/css/register.css" rel="stylesheet">
 {{{_sections.css}}}
 </head>
 
 <body>
-    <div id="header">
+    <div id="header" >
         <!--logout -->
         <form id="frmLogout" action="/account/logout" method="POST"></form>
         <div id="quick-contact">
             <ul class="col-sm-12 col-md-12 col-xs-12">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-5 col-md-6 col-xs-12 ">
-                            <li class="quick-call"><a href="tel:0345870xxx">0345.870.xxx </a></li>
-                            <li class="quick-email"><a href="mailto:cskh@deploy99.vn">cskh@deploy99.vn</a></li>
+                        <div class="col-sm-12 col-md-6 col-xs-12 ">
+                            <div class="row">
+                           <li class="quick-call col-sm-3 col-md-3 col-xs-12"><a href="tel:0345870xxx">0345.870.xxx </a></li>
+                            <li class="quick-email col-sm-3 col-md-3 col-xs-12"><a href="mailto:cskh@deploy99.vn">cskh@deploy99.vn</a></li>
+                            </div>
                         </div>
-                        <div class="col-sm-5 col-md-6 col-xs-12 ">
+                        <div class="col-sm-12 col-md-6 col-xs-12 ">
                             {{#if lcIsAuthenticated}}
                             <li style="float: right;  width: auto;">
                                 <!-- Nếu mà có session tài khoản đã đk thì hiện lên mục này.Còn không thì ẩn (tức logout ồi hay chưa đăng nhập) -->
-                                <div class="btn-group">
+                                <div class="btn-group col-sm-12 col-md-6 col-xs-12">
                                     <button type="button" style="height: 40px;margin-top:-1px"
                                         class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
@@ -63,12 +66,16 @@
                                 </div>
                             </li>
                             {{else}}
-                            <li class="quick-login"><a href="/account/login"><i class="fa fa-user-circle"
-                                        aria-hidden="true"></i> Đăng
-                                    nhập</a></li>
-                            <li class="quick-register"><a href="/account/register"><i class="fa fa-user-plus"
+                            <div class="row">
+                                <li class="quick-login col-sm-12 col-md-3 col-xs-12">
+                                   <a href="/account/login"><i class="fa fa-user-circle" aria-hidden="true"></i> Đăng nhập</a>
+                                </li>
+                               <li class="quick-register col-sm-12 col-md-3 col-xs-12"><a href="/account/register"><i class="fa fa-user-plus"
                                         aria-hidden="true"></i>
-                                    Đăng ký</a></li>
+                                    Đăng ký</a>
+                                </li>
+                           
+                            </div>
                             {{/if}}
                         </div>
                     </div>
@@ -80,7 +87,7 @@
         <div class="header-container">
             <div class="header-top">
                 <div class="container">
-                    <div class="row">
+                    <div class="row col-sm-12 col-md-12 col-xs-12">
                         <div class="col-sm-4 col-md-3 col-xs-12">
                             <!-- Header Logo -->
                             <div class="logo">
@@ -95,18 +102,20 @@
                             <!-- End Header Logo -->
                         </div>
 
-                        <div class="col-sm-4 col-md-5 col-xs-12 mt-4">
+                        <div class="col-sm-12 col-md-5 col-xs-12 mt-4">
                             <form class="form-inline search-form ml-auto mr-5" method="POST" id="search-form"
                                 action="/article/search">
-                                <div class="form-group mr-2">
+                                <div class="row">
+                                <div class="form-group mr-1">
                                     <input type="text" class="form-control" name="key" placeholder="Từ khóa tìm kiếm..">
                                 </div>
-                                <button  type="submit" class="btn btn-dark " id="search-btn">
+                                <div>
+                                <button  type="submit"  class="btn btn-dark" id="search-btn ">
                                     <i class="fa fa-search center-right"></i>
-                                </button>
+                                </button></div></div>
                             </form>
                         </div>
-                        <div class="col-md-4 col-xs-12 mt-4">
+                        <div class="col-md-4 col-xs-12 col-sm-4 mt-4">
                             <p id="deploy99"></p>
                         </div>
                     </div>
@@ -116,40 +125,48 @@
         </div>
     </div>
 
-    <div id="menu">
-    
-        <ul class="col-sm-12 col-md-12 col-xs-12 shadow p-1 ">
-            <div class="container">
-                <div class="col-sm-4 col-md-12 col-xs-8">
-                    <li><a href="/" id="home"><i class="fa fa-home" aria-hidden="true"></i><span
-                                class="sr-only ">(current)</span> Trang Chủ</a>
+    <nav class="navbar navbar-expand-xl navbar-dark " style="background-color: #162245;">
+        <div class="container">
+            <button class="navbar-toggler d-xl-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+                aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav">
+                    <li class="nav-item" >
+                        <a class="nav-link" style="color: white;" href="/"><i class="fa fa-home"
+                                aria-hidden="true"></i> Trang Chủ<span class="sr-only">(current)</span></a>
                     </li>
                     {{#each lcCats}}
-                    <li>
-                        <a href="/categories/{{alias}}">{{tc_Name}}&nbsp; <i class="fa fa-angle-down text-primary"
-                                aria-hidden="true"></i></a>
-                        <ul class="sub-menu ">
+                    <li class="nav-item">
+                        <a class="nav-link cat" style="color: white;" href="/categories/{{alias}}"
+                            id="navbarDropdown" role="button"  aria-haspopup="true"
+                            aria-expanded="false">
+                            {{tc_Name}} &nbsp;<i class="fa fa-angle-down text-primary"></i>
+                        </a>
+                        <ul class="dropdown">
                             {{#each categories}}
-                            <li>
-                                <a href="/categories/{{tc_alias}}/{{c_alias}}">{{c_Name}}</a>
-                            </li>
+                           <li class="nav-item"> <a  href="/categories/{{tc_alias}}/{{c_alias}}">{{c_Name}}</a></li>
                             {{/each}}
                         </ul>
                     </li>
                     {{/each}}
-                    <li><a href="/lien-he" id="contact"> Liên Hệ</a>
+                    <li class="nav-item"><a href="/lien-he" class="nav-link" style="color: white;" id="contact"> Liên Hệ</a>
                     </li>
-                </div>
+                </ul>
             </div>
-        </ul>
     
-    </div>
+        </div>
+    </nav>
     {{{body}}}
     <div class="jumbotron text-center mb-0" id="footer">
         © Copyright 2020, All rights reserved. Design by The deploy99
         <a id="back-to-top" style="float: right;" href="#" class="btn btn-info btn-md back-to-top" role="button"><i
                 class="fa fa-eject"></i></a>
     </div>
+
+
+    <!-- menu -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -163,6 +180,8 @@
         var dateTime = date + ',Cập nhật lúc ' + time + ' GMT+7';
         document.getElementById("deploy99").innerHTML = dateTime;
     </script>
+    <script type="text/javascript" src="./js/jquery.flexisel.js"></script>
+    <script type="text/javascript" src="./js/jquery.marquee.js"></script>
     {{{_sections.js}}}
 </body>
 
