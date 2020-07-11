@@ -143,7 +143,7 @@ router.post('/categories/add', restrict, async function (req, res) {
           var entity = {
                ...req.body, c_Large,}
                const addCat = await catModel.insertCat(entity);
-               res.redirect('/categories/add');
+               res.redirect('/admin/categories/add');
                //console.log(addCat);
      }
      else {
