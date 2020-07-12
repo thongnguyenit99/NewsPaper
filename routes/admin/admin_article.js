@@ -142,7 +142,7 @@ router.post('/edit/:id', upload, restrict, restrictadmin, async function (req, r
         var tam = await accountModles.getArticle(id_article);
         await accountModles.patch_article(data, {id:id_article});
         fs.unlinkSync(`public/article/${tam[0].images}`);// xóa ảnh cũ 
-        res.redirect(req.headers.referer);
+        res.redirect('/admin/article');
     }else{
         var tam = await accountModles.getArticle(id_article);
         if(tam[0].c_ID != req.body.c_ID){
@@ -152,7 +152,7 @@ router.post('/edit/:id', upload, restrict, restrictadmin, async function (req, r
             req.body.images = arr_path_img_category[0].path + nameimgold;
         }
         await accountModles.patch_article(req.body, {id:id_article});
-        res.redirect(req.headers.referer);
+        res.redirect('/admin/article');
     }
  
 });

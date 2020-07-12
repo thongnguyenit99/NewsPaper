@@ -1,4 +1,36 @@
+{{#section 'css'}}
+<script src="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"></script>
+{{/section}}
 {{#section 'js'}}
+
+
+
+<script>
+    $(document).ready(function() {
+     
+    // Cấu hình các nhãn phân trang
+    $('#BangTTBai').dataTable( {
+        "language": {
+        "sProcessing":   "Đang xử lý...",
+        "sLengthMenu":   "Xem _MENU_ mục",
+        "sZeroRecords":  "Không tìm thấy dòng nào phù hợp",
+        "sInfo":         "Đang xem _START_ - _END_ trong _TOTAL_ mục",
+        "sInfoEmpty":    "Đang xem 0 đến 0 trong tổng số 0 mục",
+        "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+        "sInfoPostFix":  "",
+        "sSearch":       "Tìm:",
+        "sUrl":          "",
+        "oPaginate": {
+            "sFirst":    "Đầu",
+            "sPrevious": "Trước",
+            "sNext":     "Tiếp",
+            "sLast":     "Cuối"
+            }
+        }
+    } );
+         
+    } ); 
+  </script>
 <script>
     $(document).ready(function () {
         $("#BangTTBai").on("click", ".xuatban", function (event) {
@@ -26,12 +58,15 @@
         })
     }
 </script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
 
 {{/section}}
 <div class="container justify-content-sm-center">
     <h3 style="text-align: center;" class="mb-5 text-danger">DANH SÁCH BÀI BÁO</h3>
     <table class="table table-hover table-striped table-responsive"  id="BangTTBai">
-        <a class="btn btn-outline-success mb-2 " style="float:left;" href="/admin/article/add" role="button">
+        <a class="btn btn-outline-success mb-2" style="float:left;margin-top: -5%;" href="/admin/article/add" role="button">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Thêm bài
         </a>
@@ -40,7 +75,7 @@
                 <th>STT</th>
                 <th style="min-width:150px;">Chuyên mục</th>
                 <th style="min-width:150px;">Trạng thái</th>
-                <th style="max-width:500px;">Tiêu đề</th>
+                <th style="max-width:550px;">Tiêu đề</th>
                 <th style="min-width:150px;">Thao tác</th>
             </tr>
         </thead>
@@ -50,7 +85,7 @@
                 <td id="id_modal">{{id}}</td>
                 <td>{{c_Name}}</td>
                 <td>{{asts_name}}</td>
-                <td>{{title}}</td>
+                <td style="max-width:550px;">{{title}}</td>
                 <td>
                     <div class="row">
                         <a class="btn btn-warning btn-sm mr-2" href="/admin/article/edit/{{id}}" role="button"
