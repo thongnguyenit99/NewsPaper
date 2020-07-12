@@ -13,5 +13,8 @@ module.exports = {
         const rows = await db.load(`select count(*) as total FROM tag_article ta ,article a,${TBL_tag} t
         WHERE ta.id_article=a.id and a.sts_id=2 and t.ID=ta.id_tag and t.Name = '${name}'`);
         return rows[0].total;
-    }
+    },
+    delTag: function (id) {
+        return db.del(`delete from ${TBL_tag} where ?`, id);
+    },
 }

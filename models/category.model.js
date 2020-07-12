@@ -6,7 +6,7 @@ module.exports = {
         return db.load(`SELECT * FROM ${TBL_cat} c JOIN type_catelgories tc on tc.ID=c.tc_ID`);
     },
     getall: function () {
-        return db.load(`SELECT * FROM ${TBL_cat} `);
+        return db.load(`SELECT * FROM ${TBL_cat} where c_isActive =1`);
     },
     getByCatId: (id) => {
         return db.load(`select * from ${TBL_cat} where tc_ID=${id}`);
@@ -74,6 +74,9 @@ module.exports = {
         }
         delete entity.ID;
         return db.update(TBL_cat, entity, condition);
+    },
+    delChild: function (id) {
+        return db.del(`delete from ${TBL_cat} where ?`, id);
     },
 
 
