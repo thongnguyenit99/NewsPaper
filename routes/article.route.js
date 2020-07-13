@@ -62,26 +62,32 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
         
     ]);
     if(list.length > 0 && list[0].isPremium != null){
+        // nếu ko phải là bài viết premium
         if(list[0].isPremium  == 0){
             isnopre = true;
-        }else{// 1
+        }else{// bai premium
             if(req.session.authUser){
                 if(req.session.authUser.premium == 1){
                     var row = await accountModel.singleByUserName(req.session.authUser.username);
                     date_create_pre = new Date(`${row[0].date_create_premium}`);
                     var datenow = new Date(Date.now());
-                    diffTime = (Math.abs(datenow - date_create_pre))/1000;//giay
-                    if(diffTime > row[0].time_premium){
+                    diffTime = (datenow - date_create_pre)/1000;//giay
+                    if(diffTime > 0){
+                        if(diffTime > row[0].time_premium){
+                            var entity = {
+                                premium: 0,
+                                date_create_premium: null,
+                                time_premium: 0,
+                            };
+                            await accountModel.patch_account(entity, {username: req.session.authUser.username});
+                            req.session.authUser.premium = 0;
+                            req.session.authUser.date_create_premium = null;
+                            req.session.authUser.time_premium = 0;
+                            isnopre = false;
+                        }
+                    }
+                    else{
                         isnopre = false;
-                        var entity = {
-                            premium: 0,
-                            date_create_premium: null,
-                            time_premium: 0,
-                        };
-                        await accountModel.patch_account(entity, {username: req.session.authUser.username});
-                        req.session.authUser.premium = 0;
-                        req.session.authUser.date_create_premium = null;
-                        req.session.authUser.time_premium = 0;
                     }
                 }
                 else{

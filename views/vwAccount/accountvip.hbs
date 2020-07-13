@@ -155,10 +155,12 @@
                 return false;
             }
             $.getJSON(`/account/profile/vip/is-available`, function (data) {
-                if(data) {
+                if(data == "true") {
                     $('#frmvip').off('submit').submit();
-                } else {
-                    alert('Tài Khoản vẫn còn vip không cần nạp thêm đâu ạ. ahihi đồ...');
+                } else if (data == "false") {
+                    alert('Tài Khoản vẫn còn vip không cần nạp thêm đâu ạ.');
+                }else{
+                    alert(data);
                 }
             })
         }
@@ -167,7 +169,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class=" col-lg-6 col-md-8">
-            <div class="card p-3" style="margin-top: 35px;">
+            <div class="card p-3" style="margin-top: 55px;">
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <h2 class="heading text-center">Chọn Hình Thức thanh toán</h2>

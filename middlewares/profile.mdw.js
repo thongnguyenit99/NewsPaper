@@ -1,6 +1,6 @@
 const express = require('express');
 const path  = require('path');
-const accountModles = require('../models/_account.model.js');
+const accountModles = require('../models/_account.model');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const validUrl = require('valid-url');
@@ -32,29 +32,38 @@ module.exports = function (router) {
                 var date_create_pre = row[0].date_create_premium;
                 date_create_pre = new Date(`${date_create_pre}`);
                 var datenow = new Date(Date.now());
-                diffTime = (Math.abs(datenow - date_create_pre))/1000;//giay
-                if(diffTime > row[0].time_premium){// hết hạn thì phải cập nhật lại
-                    var entity = {
-                        premium: 0,
-                        date_create_premium: null,
-                        time_premium: 0,
-                    };
-                    await accountModles.patch_account(entity, {username: req.session.authUser.username});
-                    req.session.authUser.premium = 0;
-                    req.session.authUser.date_create_premium = null;
-                    req.session.authUser.time_premium = 0;
+                diffTime = (datenow - date_create_pre)/1000;//giay
+                if(diffTime > 0){
+                    if(diffTime > row[0].time_premium){// hết hạn thì phải cập nhật lại
+                        var entity = {
+                            premium: 0,
+                            date_create_premium: null,
+                            time_premium: 0,
+                        };
+                        await accountModles.patch_account(entity, {username: req.session.authUser.username});
+                        req.session.authUser.premium = 0;
+                        req.session.authUser.date_create_premium = null;
+                        req.session.authUser.time_premium = 0;
+                    }
                 }
             }
              //lay du lieu
              var row = await accountModles.singleByUserName(req.session.authUser.username);
              row.forEach(function(value){
+                 if(value.dob !=""){
+                    value.dob = moment(req.body.dob, 'YYYY/MM/DD').format('DD-MM-YYYY');
+                }
                 if(value.premium == 0){
                     value.vip = true;
                     value.typeaccount = "Tài khoản thường.";
                 }
                 else{
                     value.vip = false;
-                    value.typeaccount = "Tài khoản vip. Còn " + Math.ceil((row[0].time_premium- diffTime)/60) + " Phút.";
+                    if(diffTime < 0){
+                        value.typeaccount = "TK Vip bắt đầu từ ngày: " + moment(row[0].date_create_premium , 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY HH:mm:ss');
+                    }else{
+                        value.typeaccount = "Tài khoản vip. Còn " + Math.ceil((row[0].time_premium- diffTime)/60) + " Phút.";
+                    }
                 }
                 if(value.Image == "" || value.Image == null){
                     value.Image = "default-avatar-male.png";
@@ -155,12 +164,34 @@ module.exports = function (router) {
     })
     //check tài khoản vip
     router.get('/profile/vip/is-available', async function (req, res) {
-        const user = await accountModles.singleByUserName(req.session.authUser.username);
-        if (typeof user != "undefined" && user != null && user.length != null && user.length > 0) {
-          if(user[0].premium == 0)
-            return res.json(true);
+        if(req.session.authUser.premium == 1){
+            var row = await accountModles.singleByUserName(req.session.authUser.username);
+            date_create_pre = new Date(`${row[0].date_create_premium}`);
+            var datenow = new Date(Date.now());
+            diffTime = (datenow - date_create_pre)/1000;//giay
+            // diffTime âm là ngày hiện tại bé hơn dương là lớn hơn bao nhiêu ..
+            if(diffTime > 0){
+                if(diffTime > row[0].time_premium){
+                    var entity = {
+                        premium: 0,
+                        date_create_premium: null,
+                        time_premium: 0,
+                    };
+                    await accountModel.patch_account(entity, {username: req.session.authUser.username});
+                    req.session.authUser.premium = 0;
+                    req.session.authUser.date_create_premium = null;
+                    req.session.authUser.time_premium = 0;
+                    res.json("true");
+                }else{//vân còn vip
+                    res.json("false");
+                }
+            }
+            else{// chưa đến ngày vip
+                res.json("Không thể nạp vip. tài khoản bạn bắt đầu là tài khoản vip từ ngày: " + moment(row[0].date_create_premium , 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY HH:mm:ss'));
+            }
         }
-      
-        res.json(false);
-      })
+        else{// 0
+            res.json("true");
+        }
+    })
 }

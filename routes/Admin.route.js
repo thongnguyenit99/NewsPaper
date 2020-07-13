@@ -24,7 +24,7 @@ router.get('/', restrict, restrictadmin, (req, res) => {
       res.render('vwAccount/vwAdvantage/admin/home', { layout: 'mainAdmin.hbs' }) //: res.render('403');
 });
 
-router.get('/logout', restrict, async function (req, res) {
+router.post('/logout', restrict, async function (req, res) {
      req.session.isAuthenticated = false;
      req.session.authUser = null;
      res.redirect(req.headers.referer);

@@ -2,12 +2,24 @@ const express = require('express');
 const restrict = require("../../middlewares/auth.mdw");
 const restrictadmin = require("../../middlewares/restrictadmin.mdw");
 const moment = require('moment');
-var fs = require('fs');
 const mkdirp = require('mkdirp');
+const bcrypt = require('bcrypt');
+const accountModles = require('../../models/_account.model');
 const adminusermodel = require("../../models/adminusers.model");
 const router = express.Router();
 const validUrl = require('valid-url');
-
+const fs = require('fs');
+const multer  = require('multer');
+const path  = require('path');
+var path_img="";
+const saltRounds = 12;
+const storage = multer.diskStorage({
+  destination: './Public/img/profile/',
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now()+path.extname(file.originalname))
+  }
+})
+const upload = multer({ storage: storage }).single('Image');
 
 router.get('/', restrict, restrictadmin, async (req, res) => {
     var choose = req.query.value || "all";
@@ -41,6 +53,8 @@ router.get('/', restrict, restrictadmin, async (req, res) => {
 router.get('/detail', restrict, restrictadmin, async (req, res) => {
     var id = req.query.id;
     row = await adminusermodel.getaccountbyID(id);
+    roleacc = await adminusermodel.getallRoldeAccount();
+    typecategory = await adminusermodel.getalltypecategory();
     row.forEach(function(value){
         value.DOB = moment(value.DOB, 'YYYY/MM/DD').format('DD-MM-YYYY');
         value.cre_Date = moment(value.cre_Date, 'YYYY/MM/DD').format('DD-MM-YYYY');
@@ -65,11 +79,68 @@ router.get('/detail', restrict, restrictadmin, async (req, res) => {
             value.url = false;
         }
         });
+    roleacc.forEach(function(value){
+        if(row[0].r_ID == value.ID) value.selected = true;
+        else value.selected = false;
+    })
+    typecategory.forEach(function(value){
+        if(row[0].tc_ID == value.ID) value.selected = true;
+        else value.selected = false;
+    })
        if(row[0].time_premium ==  null){
             row[0].time_premium = 0;
        }
-    res.render("vwAccount/vwAdvantage/admin/user/detail", { layout: 'mainAdmin.hbs', row : row[0]});
+    res.render("vwAccount/vwAdvantage/admin/user/detail", { layout: 'mainAdmin.hbs', row : row[0], roleacc, typecategory});
 })
+//add
+router.get('/add', restrict, restrictadmin, async (req, res) => {
+    roleacc = await adminusermodel.getallRoldeAccount();
+    typecategory = await adminusermodel.getalltypecategory();
+    res.render("vwAccount/vwAdvantage/admin/user/add", { layout: 'mainAdmin.hbs', roleacc, typecategory});
+})
+router.get('/add/is-available', async function (req, res) {
+    const user = await accountModles.singleByUserName(req.query.user);
+    if (typeof user != "undefined" && user != null && user.length != null && user.length > 0) {
+      return res.json(true);
+    }
+  
+    res.json(false);
+  })
+router.get('/add/is-available-email', async function (req, res) {
+    const user = await accountModles.singleByEmail(req.query.email);
+    if (typeof user != "undefined" && user != null && user.length != null && user.length > 0) {
+      return res.json(true);
+    }
+  
+    res.json(false);
+  })
+
+router.post('/add', restrict, upload, async function(req, res){
+    req.body.dob = moment(req.body.dob, 'DD-MM-YYYY').format('YYYY/MM/DD');
+    delete req.body.cf_password;
+    if(req.body.tc_ID == ""){
+        delete req.body.tc_ID;
+    }
+    req.body.cre_Date = moment(req.body.cre_Date, 'DD-MM-YYYY').format('YYYY/MM/DD');
+    req.body.password = bcrypt.hashSync(req.body.password, saltRounds);
+    if(req.body.premium){
+        req.body.premium = 1;
+        req.body.date_create_premium = moment(req.body.date_create_premium, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    }
+    else{
+        req.body.premium = 0;
+        delete req.body.date_create_premium;
+        req.body.time_premium = 0;
+    }
+    if(req.file){
+        const data = {...req.body, Image: req.file.filename};
+        await accountModles.addNewAccount(data);
+        res.redirect(req.headers.referer);
+    }else{
+        await accountModles.addNewAccount(req.body);
+        res.redirect(req.headers.referer);
+    }
+});
 
 //xoa
 router.post('/', restrict, restrictadmin, async (req, res) => {

@@ -32,7 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
     <script>
-        if(Date.parse("{{{dob}}}")){
+        if("{{{dob}}}" != ""){
             $('#dob').datetimepicker({
                 format: 'd/m/Y',
                 timepicker: false,
@@ -143,8 +143,8 @@
                 return false;
             }
             if(passrd.length != ""){ 
-                if(passrd.length < 6 ){
-                alert('Mật khẩu phải lơn hơn 5 ký tự');
+                if(passrd.length < 8 ){
+                alert('Mật khẩu phải từ 8 ký tự');
                 return false;
                 }
                 if(passrd.length > 24 ){
