@@ -51,32 +51,36 @@ module.exports = {
     viewest: function () {
         return db.load(`select * from ${TBL_article} a join categories c on a.c_ID=c.ID  join account ac 
         on a.writerID=ac.ID
-        where isActive=1 AND  a.sts_id=2 order by views DESC limit 10`)
+        where a.isActive=1 AND  a.sts_id=2 order by views DESC limit 10`)
     },
     //top 10 categories
     top10_chungkhoan: function () {
-        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
-        on a.writerID=ac.ID
-            WHERE a.c_ID=1 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1) UNION
-             (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
-        on a.writerID=ac.ID
-                 WHERE a.c_ID=2 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID 
+            WHERE a.c_ID=1 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1) 
+            UNION (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID
+                 WHERE a.c_ID=2 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1)
+             UNION (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID
+                 WHERE a.c_ID=8 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
     },
     top10_doanhnghiep: function () {
-        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
-        on a.writerID=ac.ID
-            WHERE a.c_ID=3 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1) UNION
-             (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
-        on a.writerID=ac.ID
-                 WHERE a.c_ID=4 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID 
+            WHERE a.c_ID=3 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1) 
+            UNION (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID
+                 WHERE a.c_ID=4 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1)
+             UNION (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID
+                 WHERE a.c_ID=17 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
     },
     top10_taichinh: function () {
-        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
-        on a.writerID=ac.ID
-            WHERE a.c_ID=5 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1) UNION
-             (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac 
-        on a.writerID=ac.ID
-                 WHERE a.c_ID=6 and a.isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID 
+            WHERE a.c_ID=5 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1) 
+            UNION (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID
+                 WHERE a.c_ID=6 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
+    },
+    top10_kienthucdautu: function () {
+        return db.load(`(SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID 
+            WHERE a.c_ID=18 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1) 
+            UNION (SELECT * FROM article a join categories c on a.c_ID=c.ID join account ac on a.writerID=ac.ID
+                 WHERE a.c_ID=19 and a.isActive=1 and c.c_isActive=1 ORDER BY a.public_date DESC LIMIT 1)`);
     },
     detailById: function (Id) {
         return db.load(`select * from ${TBL_article} where id = ${Id}`);
