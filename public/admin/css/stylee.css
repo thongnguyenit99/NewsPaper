@@ -13,3 +13,6 @@
  .addcat{
    margin-left: 15%;
  }
+ span.validate {
+    color: red;
+}
