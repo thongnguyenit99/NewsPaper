@@ -33,7 +33,7 @@
         <h4>Chỉnh sửa chuyên mục</h4>
     </div>
     <div class="card-body">
-        <form method="POST" id="frmUpdateCat" enctype="multipart/form-data">
+        <form method="POST" id="frmUpdateCat" action="/admin/categories/updateCat" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="txtID">STT</label>
                 <input type="text" class="form-control" id="txtID" name="ID" readonly value="{{this.cats.ID}}">
@@ -61,10 +61,7 @@
             <a class="btn btn-success" href="/admin/categories" role="button" title="Trở về danh sách">
                 <i class="fa fa-backward" aria-hidden="true"></i>
             </a>
-            {{!-- <button type="submit" class="btn btn-danger" title="Xóa chuyên mục" formaction="/admin/categories/delCat">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </button> --}}
-            <button type="submit" id="btnUpdateCat" title="Lưu chuyên mục" class="btn btn-primary" formaction="/admin/categories/updateCat">
+            <button type="submit" id="btnUpdateCat" title="Lưu chuyên mục" class="btn btn-primary" >
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Lưu
             </button>
