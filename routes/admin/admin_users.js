@@ -40,7 +40,7 @@ router.get('/', restrict, restrictadmin, async (req, res) => {
         }
         if (validUrl.isUri(value.Image)){
             value.url = true;
-        } 
+        }
         else {
             path_img = value.Image;
             value.url = false;

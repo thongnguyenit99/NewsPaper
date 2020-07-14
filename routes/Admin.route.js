@@ -201,7 +201,16 @@ router.post('/categories/update', upload.single('c_images'), restrictadmin, rest
                await catModel.updateCat(entity);
                console.log(entity);
                res.redirect('/admin/categories');
+     }
+     else if (req.file === undefined) {
+          var entity = {
+               ...req.body,
+               /// images: req.file.filename
           }
+          await catModel.updateCat(entity);
+          console.log(entity);
+          res.redirect('/admin/categories');
+     }
      else {
           res.render('500');
      }
@@ -239,6 +248,15 @@ router.post('/categories/updateCat', upload.single('images'), restrictadmin, res
                await tpCatModel.updateCat(entity);
                console.log(entity);
                res.redirect('/admin/categories');
+     }
+     else if (req.file===undefined) {
+          var entity = {
+               ...req.body,
+              /// images: req.file.filename
+          }
+          await tpCatModel.updateCat(entity);
+          console.log(entity);
+          res.redirect('/admin/categories');
      }
      else {
           res.render('500');
