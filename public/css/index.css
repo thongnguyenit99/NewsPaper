@@ -469,3 +469,18 @@ ul li ul.dropdown li {
                 margin-top: 2%;
             }
 
+.viewTop10{
+    border: 1px solid gainsboro;
+}
+.ck,.dn,.tc,.ktdt{
+    border-bottom: 1px solid rgb(240, 240, 240);
+    margin-bottom: 5%;
+
+}
+.viewTop10 p {
+   font-size: 14.6px;
+}
+.datepublic p {
+font-size: 15px;
+margin-bottom: -2%;
+}
