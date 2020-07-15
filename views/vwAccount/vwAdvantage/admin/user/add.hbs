@@ -195,6 +195,10 @@
                     alert("Thời gian tồn tại tài khoản vip không được trỗng.");
                     return false;
                 }
+                if(parseFloat(time_premium) < 0){
+                    alert("Thời gian tồn tại tài khoản vip không được là số âm.");
+                    return false;
+                }
             }
             if(r_ID == 2 || r_ID == 4){
                 if(pseudonym == ""){

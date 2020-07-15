@@ -138,12 +138,9 @@ router.get('/categories/details/:conId', restrict, async function (req, res) {
 // xử lý thêm chuyên mục con
 router.post('/categories/add', upload.single('c_images'), restrictadmin, restrict, async function (req, res) {
      if (req.file) {
-     var row = await catModel.getByCatId(req.body.tc_ID);
-          var path = row[0].path;
-          path = path.split('/');
-          path = path[0] + "/" + req.body.c_Name + "/";
-          req.body.path = path;
-          mkdirp.sync('public/article/'+ path)
+     var row = await catModel.getBytypeCatId(req.body.tc_ID);
+          mkdirp.sync('public/article/'+ row[0].tc_Name + "/" + req.body.c_Name);
+          req.body.path = row[0].tc_Name + "/" + req.body.c_Name + "/";
           c_Large = req.body.tc_ID
           if (c_Large == 1) {
                c_Large = 'Chứng Khoán'
@@ -199,7 +196,7 @@ router.post('/categories/update', upload.single('c_images'), restrictadmin, rest
                     c_images:req.file.filename
               }
                await catModel.updateCat(entity);
-               console.log(entity);
+               //console.log(entity);
                res.redirect('/admin/categories');
      }
      else if (req.file === undefined) {
@@ -208,7 +205,7 @@ router.post('/categories/update', upload.single('c_images'), restrictadmin, rest
                /// images: req.file.filename
           }
           await catModel.updateCat(entity);
-          console.log(entity);
+          //console.log(entity);
           res.redirect('/admin/categories');
      }
      else {
@@ -224,6 +221,7 @@ router.post('/categories/addCat', upload.single('images'),  restrict, restrictad
                images: req.file.filename,
                tc_isActive: 1
           }
+          mkdirp.sync('public/article/'+ req.body.tc_Name);
           const addCat = await tpCatModel.insertCat(entity);
           res.redirect('/admin/categories/addCat');
          // console.log(entity)
@@ -246,7 +244,7 @@ router.post('/categories/updateCat', upload.single('images'), restrictadmin, res
                     images: req.file.filename
                }
                await tpCatModel.updateCat(entity);
-               console.log(entity);
+               //console.log(entity);
                res.redirect('/admin/categories');
      }
      else if (req.file===undefined) {
@@ -255,7 +253,7 @@ router.post('/categories/updateCat', upload.single('images'), restrictadmin, res
               /// images: req.file.filename
           }
           await tpCatModel.updateCat(entity);
-          console.log(entity);
+          //console.log(entity);
           res.redirect('/admin/categories');
      }
      else {

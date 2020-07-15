@@ -5,8 +5,14 @@ module.exports = {
     singleByUserName: function (username) {
         return db.load(`select * from ${TABLE_account} where username= N'${username}'`);
     },
+    singleByUserNameID: function (username, id) {
+        return db.load(`select * from ${TABLE_account} where username= N'${username}' and ID != ${id}`);
+    },
     singleByEmail: function (email) {
         return db.load(`select * from ${TABLE_account} where email='${email}'`);
+    },
+    singleByEmailID: function (email, id) {
+        return db.load(`select * from ${TABLE_account} where email='${email}' and ID != ${id}`);
     },
     addNewAccount: function (entity) {
         return db.insert(TABLE_account, entity);

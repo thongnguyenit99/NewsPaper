@@ -165,11 +165,22 @@
                 alert("Ngày sinh không được rỗng.");
                 return false;
             }
+            var temp= "";
+            $.getJSON(`/account/profile/is-available-email?email=${Email}`, function (data) {
+                temp = data;
+                if (data) {
+                    alert('Email mới sửa đã tồn tại.');
+                    return false;
+                }
+            })
             $.getJSON(`/account/profile/is-available?user=${user}`, function (data) {
                 if (!data) {
-                    $('#frmprofile').off('submit').submit();
+                    if(temp === false){
+                       $('#frmprofile').off('submit').submit();
+                        return false;
+                    }
                 } else {
-                    alert('Tên đăng nhập đã tồn tại.');
+                    alert('Tên đăng nhập mới sửa đã tồn tại.');
                 }
             })
         }

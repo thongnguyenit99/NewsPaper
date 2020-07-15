@@ -8,6 +8,9 @@ module.exports = {
     getall: function () {
         return db.load(`SELECT * FROM ${TBL_cat} where c_isActive =1`);
     },
+    getBytypeCatId: (id) => {
+        return db.load(`select * from type_catelgories where ID=${id}`);
+    },
     getByCatId: (id) => {
         return db.load(`select * from ${TBL_cat} where tc_ID=${id}`);
     }
@@ -78,6 +81,7 @@ module.exports = {
     delChild: function (id) {
         return db.del(`delete from ${TBL_cat} where ?`, id);
     },
+
 
 
 

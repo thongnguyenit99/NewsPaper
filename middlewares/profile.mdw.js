@@ -108,7 +108,7 @@ module.exports = function (router) {
             //cập nhật ảnh mói thì xóa ảnh cũ, "" là link ảnh online ko quan tâm
             if(path_img !=""){
                 if(path_img != "default-avatar-male.png"){// ko xóa ảnh mạc định
-                fs.unlinkSync('Public/img/profile/'+ path_img);
+                fs.unlinkSync('public/img/profile/'+ path_img);
                 path_img=req.file.filename;
                 }
             }
@@ -123,14 +123,24 @@ module.exports = function (router) {
         res.redirect('/account/profile');
     });
     
+    //check email đã tồn tại
+    router.get('/profile/is-available-email', async function (req, res) {
+        if(req.query.email.toLowerCase() != req.session.req.session.authUser.Email.toLowerCase()){
+            const email = await accountModles.singleByEmail(req.query.email);
+            if (typeof email != "undefined" && email != null && email.length != null && email.length > 0) {
+                return res.json(true);
+            }
+        }
+        res.json(false);
+      })
     
     //check username moi sua đa ton tại
     router.get('/profile/is-available', async function (req, res) {
         if(req.query.user.toLowerCase() != req.session.req.session.authUser.username.toLowerCase()){
-        const user = await accountModles.singleByUserName(req.query.user);
-        if (typeof user != "undefined" && user != null && user.length != null && user.length > 0) {
-            return res.json(true);
-        }
+            const user = await accountModles.singleByUserName(req.query.user);
+            if (typeof user != "undefined" && user != null && user.length != null && user.length > 0) {
+                return res.json(true);
+            }
         }
         res.json(false);
     })
