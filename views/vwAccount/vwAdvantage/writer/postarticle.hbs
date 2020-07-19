@@ -1,5 +1,5 @@
 {{#section 'css'}}
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
 {{/section}}
 <div class="container-fluid" style=" margin-top:-25px; 
             background-image: url('https://blog.visme.co/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-08.jpg');
@@ -27,9 +27,8 @@
             </div>
             <div class="form-group">
                 <label style="font-weight: bold; font-size: 18px">Ảnh đại điện(bài viết):</label><br>
-                <!--<input name="images" id="images" type="file" multiple  accept="image/*">-->
                 <div class="file-loading">
-                    <input id="images" name="images" value="{{row.images}}" type="file" accept="image/*" multiple>
+                    <input id="images" name="images" value="{{row.images}}" type="file" accept="image/*">
                 </div>
             </div>
             <div class="form-group">
@@ -69,10 +68,12 @@
         </form>
     </div>
 {{#section 'js'}}
-    <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
+
+<script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.2/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
+
     <script>
         if("{{{row.images}}}" != ""){
             $('#images').fileinput({
@@ -102,6 +103,35 @@
             toolbar: [
             'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
             ],
+            image_title: true, 
+            // enable automatic uploads of images represented by blob or data URIs
+            automatic_uploads: true,
+            // add custom filepicker only to Image dialog
+            file_picker_types: 'image',
+            file_picker_callback: function(cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+
+                input.onchange = function() {
+                var file = this.files[0];
+                var reader = new FileReader();
+                
+                reader.onload = function () {
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+
+                    // call the callback and populate the Title field with the file name
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
+                };
+                
+                input.click();
+            }
         });
     </script>
     <script>
