@@ -28,9 +28,35 @@ module.exports = function(router) {
 
     // load danh sách bài viết nháp
     router.get('/advantage/3/category/:c_id', restrict, async function(req, res) {
-        const listdraft = await articleModel.alldraft(req.params.c_id);
+
+        const page = +req.query.page || 1;
+        if (page < 0) page = 1;
+        const offset = (page - 1) * config.pagination.limit;
+
+        const [listdraft, total] = await Promise.all([
+            articleModel.alldraft(req.params.c_id, config.pagination.limit, offset),
+            articleModel.demListDraft(req.params.c_id)
+        ]);
+        // tính số trang
+        const nPages = Math.ceil(total / config.pagination.limit);
+        const page_items = [];
+        // duyệt số trang và  tính 
+        for (let i = 1; i <= nPages; i++) {
+            const item = {
+                value: i,
+                isActive: i === page
+            }
+            page_items.push(item);
+        }
+
+        //const listdraft = await articleModel.alldraft(req.params.c_id);
         res.render('vwAccount/vwAdvantage/editor/listdraft', {
             listdraft,
+            page_items,
+            prev_value: page - 1,
+            next_value: page + 1,
+            can_go_prev: page > 1,
+            can_go_next: page < nPages,
             helpers: {
                 format_DOB: function(date) {
                     return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
