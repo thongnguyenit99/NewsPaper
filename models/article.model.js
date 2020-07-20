@@ -11,6 +11,9 @@ module.exports = {
         return db.load(`select * from ${TBL_article} a ,categories c,article_status at
          where a.c_ID=c.ID and a.sts_id=at.asts_id`);
     },
+    getarticlebyID: function(id) {
+        return db.load(`select * from ${TBL_article} where id=${id}`);
+    },
     // 10 newest article
     newest: function() {
         return db.load(`select * from ${TBL_article} a join categories c on a.c_ID=c.ID

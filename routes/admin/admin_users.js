@@ -59,7 +59,7 @@ router.get('/detail', restrict, restrictadmin, async (req, res) => {
         value.DOB = moment(value.DOB, 'YYYY/MM/DD').format('DD-MM-YYYY');
         value.cre_Date = moment(value.cre_Date, 'YYYY/MM/DD').format('DD-MM-YYYY');
         if(value.date_create_premium !="0000-00-00 00:00:00"){
-           value.date_create_premium = moment(value.date_create_premium, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+           value.date_create_premium = moment(value.date_create_premium, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm:ss');
         }else{
             value.date_create_premium="";
         }
