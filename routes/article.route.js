@@ -13,65 +13,72 @@ const fs = require('fs');
 const download = require('download');
 var path = require('path');
 //create tao file pdf
-router.get('/generatepdf', async function (req, res) {
+router.get('/generatepdf', async function(req, res) {
     var row = await articleModel.getarticlebyID(req.query.id);
     row[0].public_date = moment(row[0].public_date, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm:ss');
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     var img = "<img src= '/article" + `${row[0].images}' style="margin-bottom:10px; width:auto" alt="anh dai dien" >`;
     //console.log(img);
-    const HTMLContent = 
-                        `<h2>${row[0].title}</h2> ` +
-                        `<div>Ngày đăng: ${row[0].public_date}</div>` + 
-                        img +
-                        `${row[0].content}`;
+    const HTMLContent =
+        `<h2>${row[0].title}</h2> ` +
+        `<div>Ngày đăng: ${row[0].public_date}</div>` +
+        img +
+        `${row[0].content}`;
     await page.setContent(HTMLContent);
-    await page.pdf({path: `public/pdf/${req.query.id}.pdf`, format: 'A4', printBackground: true });
-   
+    await page.pdf({ path: `public/pdf/${req.query.id}.pdf`, format: 'A4', printBackground: true });
+
     await browser.close();
-  
+
     //res.json(false);
 });
 // download pdf
-router.get('/download', async function (req, res) {
+router.get('/download', async function(req, res) {
     const id = req.query.id;
-    if(req.session.authUser){
-        if(req.session.authUser.premium == 1){
-            //res.download(__dirname,`/public/pdf/${id}.pdf`);
+    if (req.session.authUser) {
+        if (req.session.authUser.premium == 1) {
+
             var file = path.join(__dirname);
-            file = `..\\NewsPaper\\public\\pdf\\${id}.pdf`;
-            res.download(file, function (err) {
-            });
+            file = file.split('\\');
+            i = 0;
+            var path_file = "";
+            while (i < file.length - 1) {
+                path_file += file[i] + "\\";
+                i++;
+            }
+            path_file += `public\\pdf\\${id}.pdf`;
+
+            res.download(path_file, function(err) {});
         }
-    }else{
+    } else {
         res.json(false);
     }
 })
 
 
 // get list article
-router.get('/danh-sach-bai-viet', async (req, res) => {
+router.get('/danh-sach-bai-viet', async(req, res) => {
     const list = await articleModel.all();
     res.render('vwArticle/list', {
         layout: 'main.hbs',
         list,
         helpers: {
-            format_DOB: function (date) {
+            format_DOB: function(date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY,h:mm:ss');
             },
-            splitTitle: function (tag) {
+            splitTitle: function(tag) {
                 for (var i = 0; i < tag.length; i++) {
                     var t = tag.split(';');
                     return t[0];
                 }
             },
-            splitTitle1: function (tag) {
+            splitTitle1: function(tag) {
                 for (var i = 0; i < tag.length; i++) {
                     var t = tag.split(';');
                     return t[1];
                 }
             },
-            splitTitle2: function (tag) {
+            splitTitle2: function(tag) {
                 for (var i = 0; i < tag.length; i++) {
                     var t = tag.split(';');
                     return t[2];
@@ -82,7 +89,7 @@ router.get('/danh-sach-bai-viet', async (req, res) => {
     });
 })
 
-router.get('/:c_alias/:id/:title', async function (req, res) {
+router.get('/:c_alias/:id/:title', async function(req, res) {
     var isnopre = true;
     const today = moment().format('YYYY-MM-DD'); // lấy ngày hiện tại
     var isAbleToView;
@@ -91,58 +98,56 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
     const nameChildCat = req.params.c_alias;
     const id = req.params.id;
     var user = req.session.authUser;
-    var articleEntity ;
-    
+    var articleEntity;
+
     // bỏ vào đây chạy song song
     const [list, list5Art_same, opinion, category] = await Promise.all([
         articleModel.detailByTitle(title),
         articleModel.ArtSameCat(nameChildCat),
         comModel.getByArticle(title),
         articleModel.getNameCategorybya_ID(id)
-       // comModel.getId_article(id),
-        
+        // comModel.getId_article(id),
+
     ]);
-    if(list.length > 0 && list[0].isPremium != null){
+    if (list.length > 0 && list[0].isPremium != null) {
         // nếu ko phải là bài viết premium
-        if(list[0].isPremium  == 0){
+        if (list[0].isPremium == 0) {
             isnopre = true;
-        }else{// bai premium
-            if(req.session.authUser){
-                if(req.session.authUser.premium == 1){
+        } else { // bai premium
+            if (req.session.authUser) {
+                if (req.session.authUser.premium == 1) {
                     var row = await accountModel.singleByUserName(req.session.authUser.username);
                     date_create_pre = new Date(`${row[0].date_create_premium}`);
                     var datenow = new Date(Date.now());
-                    diffTime = (datenow - date_create_pre)/1000;//giay
-                    if(diffTime > 0){
-                        if(diffTime > row[0].time_premium){
+                    diffTime = (datenow - date_create_pre) / 1000; //giay
+                    if (diffTime > 0) {
+                        if (diffTime > row[0].time_premium) {
                             var entity = {
                                 premium: 0,
                                 date_create_premium: null,
                                 time_premium: 0,
                             };
-                            await accountModel.patch_account(entity, {username: req.session.authUser.username});
+                            await accountModel.patch_account(entity, { username: req.session.authUser.username });
                             req.session.authUser.premium = 0;
                             req.session.authUser.date_create_premium = null;
                             req.session.authUser.time_premium = 0;
                             isnopre = false;
                         }
-                    }
-                    else{
+                    } else {
                         isnopre = false;
                     }
-                }
-                else{
+                } else {
                     isnopre = false;
                 }
-            }else{
+            } else {
                 isnopre = false;
             }
         }
     }
     //console.log((isnopre));
-    if(req.session.authUser){
+    if (req.session.authUser) {
         r_id = req.session.authUser.r_ID;
-    }else{
+    } else {
         r_id = 0;
     }
     res.render('vwArticle/details', {
@@ -154,24 +159,24 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
         list5Art_same,
         opinion,
         cat: category[0],
-       // get,
+        // get,
         helpers: {
-            format_DOB: function (date) {
+            format_DOB: function(date) {
                 return moment(date, 'YYYY/MM/DD').format('h:mm | DD-MM-YYYY');
             },
-            splitTitle: function (tag) {
+            splitTitle: function(tag) {
                 for (var i = 0; i < tag.length; i++) {
                     var t = tag.split(';');
                     return t[0];
                 }
             },
-            splitTitle1: function (tag) {
+            splitTitle1: function(tag) {
                 for (var i = 0; i < tag.length; i++) {
                     var t = tag.split(';');
                     return t[1];
                 }
             },
-            splitTitle2: function (tag) {
+            splitTitle2: function(tag) {
                 for (var i = 0; i < tag.length; i++) {
                     var t = tag.split(';');
                     return t[2];
@@ -181,7 +186,7 @@ router.get('/:c_alias/:id/:title', async function (req, res) {
     });
 })
 
-router.get('/is-available_comment', async function (req, res) {
+router.get('/is-available_comment', async function(req, res) {
     var obj = {
         readerName: req.query.readerName,
         ID_Account: req.session.authUser.ID,
@@ -190,10 +195,10 @@ router.get('/is-available_comment', async function (req, res) {
         created_at: moment().format('YYYY-MM-DD')
     }
     var result = await comModel.insertComment(obj);
-    if(result){
+    if (result) {
         return res.json(true);
     }
     res.json(false);
-  })
+})
 
 module.exports = router;
