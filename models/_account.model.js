@@ -32,6 +32,9 @@ module.exports = {
     getCategorybyID: function(id){
         return db.load(`SELECT * FROM categories where ID= ${id}`);
     },
+	getNameCategorybya_ID: function(id) {
+        return db.load(`SELECT * FROM article, categories WHERE article.id=${id} and article.c_ID = categories.ID`);
+    },
     addNewArticle: function (entity) {
         return db.insert('article', entity);
     },
