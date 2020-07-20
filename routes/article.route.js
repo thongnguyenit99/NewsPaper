@@ -33,26 +33,19 @@ router.get('/generatepdf', async function(req, res) {
     //res.json(false);
 });
 // download pdf
-router.get('/download', async function(req, res) {
+router.get('/download',  function(req, res) {
     const id = req.query.id;
-    if (req.session.authUser) {
-        if (req.session.authUser.premium == 1) {
-
-            var file = path.join(__dirname);
-            file = file.split('\\');
-            i = 0;
-            var path_file = "";
-            while (i < file.length - 1) {
-                path_file += file[i] + "\\";
-                i++;
-            }
-            path_file += `public\\pdf\\${id}.pdf`;
-
-            res.download(path_file, function(err) {});
-        }
-    } else {
-        res.json(false);
+    var file = path.join(__dirname);
+    file = file.split('\\');
+    i = 0;
+    var path_file = "";
+    while (i < file.length - 1) {
+        path_file += file[i] + "\\";
+        i++;
     }
+    path_file += `public\\pdf\\${id}.pdf`;
+    console.log(path_file);
+    res.download(path_file, `${id}.pdf`);
 })
 
 
