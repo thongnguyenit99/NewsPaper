@@ -11,6 +11,9 @@ module.exports = {
         return db.load(`select * from ${TBL_article} a ,categories c,article_status at
          where a.c_ID=c.ID and a.sts_id=at.asts_id`);
     },
+    getarticlebyID: function (id) {
+        return db.load(`select * from ${TBL_article} where id=${id}`);
+    },
     // 10 newest article
     newest: function () {
         return db.load(`select * from ${TBL_article} a join categories c on a.c_ID=c.ID
@@ -93,6 +96,9 @@ module.exports = {
     detailByTitle: function (title) {
         return db.load(`select * from ${TBL_article}  a join tag_article ta on a.id=ta.id_article JOIN tag t on ta.id_tag=t.ID
          where title_alias = '${title}' and sts_id=2`);
+    },
+    getNameCategorybya_ID: function (Id) {
+        return db.load(`SELECT categories.c_Name FROM article, categories WHERE article.c_ID = categories.ID and article.id = ${Id}`);
     },
     allSearch: function (key) {
         return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID
