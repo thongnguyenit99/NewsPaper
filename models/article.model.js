@@ -9,7 +9,7 @@ module.exports = {
     },
     getAll: function() {
         return db.load(`select * from ${TBL_article} a ,categories c,article_status at
-         where a.c_ID=c.ID and a.sts_id=at.asts_id`);
+         where a.c_ID=c.ID and a.sts_id=at.asts_id and a.isActive=1`);
     },
     getarticlebyID: function(id) {
         return db.load(`select * from ${TBL_article} where id=${id}`);
@@ -102,7 +102,7 @@ module.exports = {
     },
     allSearch: function(key) {
         return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID
-         WHERE  a.sts_id=2 AND MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
+         WHERE  a.sts_id=2 AND MATCH(title,abstract,content) AGAINST('${key}')`);
     },
     alldraft: function(c_id, limit, offset) {
         return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and sts_id = 4 limit ${limit} offset ${offset}`);
@@ -131,10 +131,10 @@ module.exports = {
     },
     // lấy dữ liệu và phân trang theo dữ liệu
     pageByCat: function(key, limit, offset) {
-        return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}') limit ${limit} offset ${offset}`);
+        return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content) AGAINST('${key}') limit ${limit} offset ${offset}`);
     },
     countByCat: async function(key) {
-        const rows = await db.load(`select count(*) as total from ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content,tag,author) AGAINST('${key}')`);
+        const rows = await db.load(`select count(*) as total from ${TBL_article} a join categories c on a.c_ID= c.ID WHERE MATCH(title,abstract,content) AGAINST('${key}')`);
         return rows[0].total;
     },
     getArticleByStatusC_IDandPulic_date: function(e_id) {
