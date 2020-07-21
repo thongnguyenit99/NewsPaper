@@ -32,7 +32,7 @@
          
     } ); 
   </script>
-  <script>
+<script>
     $(document).ready(function () {
         $("#BangTTBai").on("click", ".delBai", function (event) {
             var $row = $(this).closest("tr");
@@ -49,6 +49,7 @@
             $("#id").val($row.find("#id_modal").text());
         });
     });
+
 
     $('#frmmodal').on('submit', function (e) {
         e.preventDefault();
@@ -105,7 +106,8 @@
                             title="Chỉnh sửa">
                             <i class="fa fa-edit" aria-hidden="true"></i>
                         </a>
-                        <a class="btn btn-primary btn-sm"href="/admin/article/details/{{id}}"
+                        <a class="btn btn-primary btn-sm"
+                            href="/admin/article/details/{{id}}"
                             role="button"
                             title="Chi tiết">
                             <i class="fas fa-info-circle"></i>
@@ -127,7 +129,8 @@
                             <i class="fa fa-check-square" aria-hidden="true"></i>
                         </button>
                         {{/if}}
-                        <a class="btn btn-danger btn-sm mr-2 delBai" style="margin-left: 5%;"
+                        <a class="btn btn-danger btn-sm mr-2 delBai"
+                            style="margin-left: 5%;"
                             href="javascript;;" role="button"
                             title="Xóa bài viết" data-toggle="modal"
                             data-target="#exampleModal1">
@@ -138,10 +141,7 @@
             </tr>
             {{/each}}
         </tbody>
-
-    </table>
-</div>
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -169,11 +169,14 @@
                     data-dismiss="modal">Thoát</button>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
+</div>
+    </table>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Xuất Bản</h5>
@@ -221,5 +224,5 @@
                         data-dismiss="modal">Close</button>
                 </div>
             </div>
-        </div>
-    </div
+    </div>
+</div
