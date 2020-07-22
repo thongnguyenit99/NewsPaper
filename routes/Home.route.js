@@ -5,44 +5,43 @@ const config = require('../config/config.json');
 const router = express.Router();
 
 router.get('/lien-he', (req, res) => {
-  res.render('about');
+    res.render('about');
 })
 
-router.get('/', async function (req, res) {
-  const newlist = await articleModel.newest();
-  const bestlist1 = await articleModel.bestnew1();
-  const bestlist2 = await articleModel.bestnew2();
-  const bestlist3 = await articleModel.bestnew3();
-  const viewestlist = await articleModel.viewest();
-  const top10_chungkhoan = await articleModel.top10_chungkhoan();
-  const top10_doanhnghiep = await articleModel.top10_doanhnghiep();
-  const top10_taichinh = await articleModel.top10_taichinh();
-  const top10_kienthucdautu = await articleModel.top10_kienthucdautu();
-  res.render('home', {
-    newlist,
-    bestlist1,
-    bestlist2,
-    bestlist3,
-    viewestlist,
-    top10_chungkhoan,
-    top10_doanhnghiep,
-    top10_taichinh,
-    top10_kienthucdautu,
-    helpers: {
-      format_DOB: function (date) {
-        //console.log(moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY'));
-        return moment(date, 'YYYY/MM/DD').format('h:mm | DD-MM-YYYY');
-      }
-    }
-  })
+router.get('/', async function(req, res) {
+    const newlist = await articleModel.newest();
+    const bestlist1 = await articleModel.bestnew1();
+    const bestlist2 = await articleModel.bestnew2();
+    const bestlist3 = await articleModel.bestnew3();
+    const viewestlist = await articleModel.viewest();
+    const top10_chungkhoan = await articleModel.top10_chungkhoan();
+    const top10_doanhnghiep = await articleModel.top10_doanhnghiep();
+    const top10_taichinh = await articleModel.top10_taichinh();
+    const top10_kienthucdautu = await articleModel.top10_kienthucdautu();
+    res.render('home', {
+        newlist,
+        bestlist1,
+        bestlist2,
+        bestlist3,
+        viewestlist,
+        top10_chungkhoan,
+        top10_doanhnghiep,
+        top10_taichinh,
+        top10_kienthucdautu,
+        helpers: {
+            format_DOB: function(date) {
+                //console.log(moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY'));
+                return moment(date, 'YYYY/MM/DD').format('h:mm | DD-MM-YYYY');
+            }
+        }
+    })
 
 })
-router.post('/article/search', async function (req, res) {
-  const key = req.body.key;
-  const k = key.split(' ').join('-');
-  res.redirect('/article/search/' + k)
+router.post('/article/search', async function(req, res) {
+    const key = req.body.key;
+    const k = key.split(' ').join('-');
+    res.redirect('/article/search/' + k)
 })
-
 
 router.get('/article/search/:key', async function (req, res) {
   var key = req.params.key;
@@ -92,23 +91,22 @@ router.get('/article/search/:key', async function (req, res) {
       splitTitle: function (tag) {
         for (var i = 0; i < tag.length; i++) {
           var t = tag.split(';');
-
-          return t[0];
+                    return t[0];
         }
-      },
-      splitTitle1: function (tag) {
-        for (var i = 0; i < tag.length; i++) {
-          var t = tag.split(';');
-          return t[1];
+            },
+            splitTitle1: function(tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[1];
+                }
+            },
+            splitTitle2: function(tag) {
+                for (var i = 0; i < tag.length; i++) {
+                    var t = tag.split(';');
+                    return t[2];
+                }
+            }
         }
-      },
-      splitTitle2: function (tag) {
-        for (var i = 0; i < tag.length; i++) {
-          var t = tag.split(';');
-          return t[2];
-        }
-      }
-    }
-  });
+    });
 })
 module.exports = router;

@@ -33,8 +33,8 @@ router.get('/generatepdf', async function(req, res) {
     //res.json(false);
 });
 // download pdf
-router.get('/download', async function(req, res) {
-    id= req.query.id;
+router.get('/download',  function(req, res) {
+    const id = req.query.id;
     var file = path.join(__dirname);
     file = file.split('\\');
     i = 0;
