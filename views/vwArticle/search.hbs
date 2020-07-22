@@ -1,6 +1,11 @@
+{{#section 'js'}}
+    <script>
+    </script>
+{{/section}}
 <div class="container" id="content">
     <div class="row mt-5">
         <div class="col-12" id="byCat-article">
+            
             {{#each list}}
             <div class="d-flex mt-5">
                 <div class="row no-gutters align-items-strech">
@@ -36,11 +41,10 @@
                 </div>
             </div>
             {{/each}}
-            
             <nav aria-label="..." style="float: right;margin-top:10px">
                 <ul class="pagination">
                     <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
-                    <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+                    <a class="page-link" href="http://localhost:3000/article/search?key={{key}}&page={{prev_value}}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                     </li>
@@ -54,18 +58,17 @@
                     </li>
                     {{else}}
                     <li class="page-item {{#if isDisabled}}disabled{{/if}}">
-                    <a class="page-link" href="?page={{value}}">{{value}}</a>
+                    <a class="page-link" id="thea" href="http://localhost:3000/article/search?key={{getkey}}&page={{value}}" >{{value}}</a>
                     </li>
                     {{/if}}
                     {{/each}}
                     <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
-                    <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+                    <a class="page-link" href="http://localhost:3000/article/search?key={{key}}&page={{next_value}}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                     </li>
                 </ul>
             </nav>
-
-        </div> <!-- col-8-->
+        </div> 
     </div>
 </div>

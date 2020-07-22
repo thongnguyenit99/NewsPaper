@@ -104,19 +104,19 @@
                         </div>
 
                         <div class="col-sm-12 col-md-5 col-xs-12 mt-4">
-                            <form class="form-inline search-form ml-auto mr-5" method="POST" id="search-form"
-                                action="/article/search">
+                            <!--<form class="form-inline search-form ml-auto mr-5" method="POST" id="search-form"
+                                action="/article/search"> -->
                                 <div class="row">
                                     <div class="form-group mr-1">
                                         <input type="text" class="form-control" name="key" id="key"
                                             placeholder="Từ khóa tìm kiếm..">
                                     </div>
                                     <div>
-                                        <button type="submit" class="btn btn-dark" id="search-btn ">
+                                        <button type="submit" class="btn btn-dark" onclick="validatesearch()">
                                             <i class="fa fa-search center-right"></i>
                                         </button></div>
                                 </div>
-                            </form>
+                            <!--</form>-->
                         </div>
                         <div class="col-md-4 col-xs-12 col-sm-4 mt-4">
                             <p id="deploy99"></p>
@@ -187,17 +187,13 @@
     <script type="text/javascript" src="./js/jquery.flexisel.js"></script>
     <script type="text/javascript" src="./js/jquery.marquee.js"></script>
     <script>
-        $('#search-form').on('submit', function (e) {
-            e.preventDefault();
-            validatesearch();
-        })
         function validatesearch(){
             const key = $('#key').val();
             if(key == ""){
                 alert("từ khóa tìm kiếm không được rỗng.");
-                return false;
+            }else{
+                location.replace("http://localhost:3000/article/search?key=" + key);
             }
-            $('#search-form').off('submit').submit(); $('#search-form').off('submit').submit();
         }
     </script>
     {{{_sections.js}}}
