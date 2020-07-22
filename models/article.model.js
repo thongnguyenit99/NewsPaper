@@ -130,11 +130,22 @@ module.exports = {
         return db.insert(TBL_article, entity);
     },
     // lấy dữ liệu và phân trang theo dữ liệu
+    pageByCatPre: function(key, limit, offset) {
+        return db.load(`SELECT * FROM ${TBL_article} a, categories c WHERE  a.c_ID = c.ID and a.isPremium = 1 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}') limit ${limit} offset ${offset}`);
+    },
     pageByCat: function(key, limit, offset) {
         return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE a.isActive=1 AND MATCH(title,abstract,content) AGAINST('${key}') limit ${limit} offset ${offset}`);
     },
     countByCat: async function(key) {
         const rows = await db.load(`select count(*) as total from ${TBL_article} a join categories c on a.c_ID= c.ID WHERE a.isActive=1 AND MATCH(title,abstract,content) AGAINST('${key}')`);
+        return db.load(`SELECT * FROM ${TBL_article} a, categories c WHERE  a.c_ID = c.ID and a.isPremium = 0 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}') limit ${limit} offset ${offset}`);
+    },
+    countByCatpre: async function(key) {
+        const rows = await db.load(`select count(*) as total FROM ${TBL_article} a, categories c WHERE a.c_ID = c.ID and a.isPremium = 1 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}')`);
+        return rows[0].total;
+    },
+    countByCat: async function(key) {
+        const rows = await db.load(`select count(*) as total FROM ${TBL_article} a, categories c WHERE a.c_ID = c.ID and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}')`);
         return rows[0].total;
     },
     getArticleByStatusC_IDandPulic_date: function(e_id) {

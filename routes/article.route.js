@@ -44,7 +44,6 @@ router.get('/download',  function(req, res) {
         i++;
     }
     path_file += `public\\pdf\\${id}.pdf`;
-    console.log(path_file);
     res.download(path_file, `${id}.pdf`);
 })
 

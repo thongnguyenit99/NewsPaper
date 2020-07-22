@@ -108,7 +108,7 @@
                                 action="/article/search">
                                 <div class="row">
                                     <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="key"
+                                        <input type="text" class="form-control" name="key" id="key"
                                             placeholder="Từ khóa tìm kiếm..">
                                     </div>
                                     <div>
@@ -186,6 +186,20 @@
     </script>
     <script type="text/javascript" src="./js/jquery.flexisel.js"></script>
     <script type="text/javascript" src="./js/jquery.marquee.js"></script>
+    <script>
+        $('#search-form').on('submit', function (e) {
+            e.preventDefault();
+            validatesearch();
+        })
+        function validatesearch(){
+            const key = $('#key').val();
+            if(key == ""){
+                alert("từ khóa tìm kiếm không được rỗng.");
+                return false;
+            }
+            $('#search-form').off('submit').submit(); $('#search-form').off('submit').submit();
+        }
+    </script>
     {{{_sections.js}}}
 </body>
 
