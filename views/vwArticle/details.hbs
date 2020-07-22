@@ -76,15 +76,15 @@
 
 </script>
 <script>
-    if("{{{premium}}}" == "1"){
+     if("{{{premium}}}" == "1"){
         $.getJSON(`/article/generatepdf?id={{{id}}}`, function (data) {})
     }
     function myFunction(){
-         $.getJSON(`/article/download?id={{{id}}}`, function (data) {
-            if(data || data == false){
-                alert("Vui lòng nâng cấp tài khoản vip để có thể tải xuống.");
-            }
-         })
+        if("{{{isnopre}}}" === "true"){
+            window.open(`/article/download?id={{{id}}}`);
+        }else{
+            alert("vui lòng nạp vip để tải.");
+        }
     }
 </script>
 {{/section}}
@@ -157,7 +157,7 @@
                  name="readerName"    placeholder="Tên của bạn">
                 <textarea class="form-control mb-3" rows="2" id="txtComment"
                   name="Content"  placeholder="Bạn nghĩ gì về tin này?"></textarea>
-                <button type="submit" class="btn btn-primary" id="comment-btn">Gửi bình luận</button>
+                <button {{#unless isnopre }} disabled {{/unless}} type="submit" class="btn btn-primary" id="comment-btn">Gửi bình luận</button>
             </div>
             </form>
             <div class="comment-list">
