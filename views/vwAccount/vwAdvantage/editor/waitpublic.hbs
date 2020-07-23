@@ -1,6 +1,12 @@
 {{#section 'css'}}
 <script src="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"></script>
 <style>
+    .disable_a{
+            color: currentColor;
+            opacity: 0.5;
+            text-decoration: none;
+            pointer-events: none;
+        }
 .dataTables_filter{
     float: right;
 }
@@ -14,7 +20,6 @@
 {{#section 'js'}}
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
- 
   <script>
     $(document).ready(function() {
      
@@ -71,6 +76,16 @@
 {{/section}}
 <div class="container">
     <h3 style="text-align: center;  margin-top: 12%;" class="mb-3">Danh Sách Bài Viết</h3>
+      <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Xem Theo
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/account/advantage/3/watingforpublic?value=1">Tất cả</a>
+    <a class="dropdown-item" href="/account/advantage/3/watingforpublic?value=2">Chưa đến ngày xuất bản</a>
+    <a class="dropdown-item" href="/account/advantage/3/watingforpublic?value=3">Đến ngày xuất bản</a>
+  </div>
+</div>
     <table class="table table-bordered text-center" id="BangTTSanPham">
     <thead>
         <tr>
@@ -93,7 +108,7 @@
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </a>
                     <!-- Button trigger modal -->
-                    <a {{#if duocxb}} {{else}}disabled {{/if}}  class="xuatban btn btn-success" data-toggle="modal" title="Xuất bản" data-target="#exampleModal">
+                    <a class="xuatban btn btn-success {{#if duocxb}} {{else}}disable_a {{/if}}" data-toggle="modal" title="Xuất bản" data-target="#exampleModal">
                         <i class="fa fa-check-square" aria-hidden="true"></i>
                     </a>
                 </td>

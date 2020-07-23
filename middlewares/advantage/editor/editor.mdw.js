@@ -166,14 +166,29 @@ module.exports = function(router) {
 
     // chờ xuất bản
     router.get('/advantage/3/watingforpublic', restrict, async function(req, res) {
-        var rows = await articleModel.getArticleByStatusC_IDandPulic_date(req.session.authUser.ID);
+        var temp = req.query.value || 1;
+        if(temp == 1){
+            var rows = await articleModel.getArticletrue(req.session.authUser.ID);
+        }else if(temp ==2){
+            var rows = await articleModel.getArticleByStatusC_IDandPulic_date_Flase(req.session.authUser.ID);
+        }else{
+            var rows = await articleModel.getArticleByStatusC_IDandPulic_date(req.session.authUser.ID);
+        }
+        
         var today = moment.utc(new Date(), 'YYYY-MM-DD[T]HH:mm[Z]');
         //datetime hien tai
         var datenow = new Date(Date.now());
         rows.forEach(function(value) {
             var public_date = moment.utc(value.public_date, 'YYYY-MM-DD[T]HH:mm[Z]');
             value.public_date = moment(value.public_date, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm:ss');
-            value.duocxb = today.isAfter(public_date);
+            if(temp == 3){
+                value.duocxb = true;
+            }
+            if(temp == 2){
+                value.duocxb = false;
+            }else{
+                value.duocxb = today.isAfter(public_date);   
+            }
         });
         res.render('vwAccount/vwAdvantage/editor/waitpublic', {
             rows,
