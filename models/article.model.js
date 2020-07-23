@@ -131,28 +131,36 @@ module.exports = {
     },
     // lấy dữ liệu và phân trang theo dữ liệu
     pageByCatPre: function(key, limit, offset) {
-        return db.load(`SELECT * FROM ${TBL_article} a, categories c WHERE  a.c_ID = c.ID and a.isPremium = 1 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}') limit ${limit} offset ${offset}`);
+        return db.load(`SELECT * FROM ${TBL_article} a, categories c WHERE  a.c_ID = c.ID and a.sts_id = 2 and a.isPremium = 1 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}') limit ${limit} offset ${offset}`);
     },
     pageByCat_temp: function(key) {
-        return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE a.isActive=1 and a.isPremium = 0 AND MATCH(title,abstract,content) AGAINST('${key}')`);
+        return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE a.isActive=1 and a.sts_id = 2 and a.isPremium = 0 AND MATCH(title,abstract,content) AGAINST('${key}')`);
     },
     pageByCat: function(key, limit, offset) {
-        return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE a.isActive=1 and a.isPremium = 0 AND MATCH(title,abstract,content) AGAINST('${key}') limit ${limit} offset ${offset}`);
+        return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID= c.ID WHERE a.isActive=1 and a.sts_id = 2  and a.isPremium = 0 AND MATCH(title,abstract,content) AGAINST('${key}') limit ${limit} offset ${offset}`);
     },
-    countByCat: async function(key) {
+    /*countByCat: async function(key) {
         const rows = await db.load(`select count(*) as total from ${TBL_article} a join categories c on a.c_ID= c.ID WHERE a.isActive=1 AND MATCH(title,abstract,content) AGAINST('${key}')`);
         return db.load(`SELECT * FROM ${TBL_article} a, categories c WHERE  a.c_ID = c.ID and a.isPremium = 0 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}') limit ${limit} offset ${offset}`);
-    },
+    },*/
     countByCatpre: async function(key) {
-        const rows = await db.load(`select count(*) as total FROM ${TBL_article} a, categories c WHERE a.c_ID = c.ID and a.isPremium = 1 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}')`);
+        const rows = await db.load(`select count(*) as total FROM ${TBL_article} a, categories c WHERE a.c_ID = c.ID and a.sts_id = 2 and a.isPremium = 1 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}')`);
         return rows[0].total;
     },
     countByCat: async function(key) {
-        const rows = await db.load(`select count(*) as total FROM ${TBL_article} a, categories c WHERE a.c_ID = c.ID and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}')`);
+        const rows = await db.load(`select count(*) as total FROM ${TBL_article} a, categories c WHERE a.c_ID = c.ID  and a.sts_id = 2 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}')`);
         return rows[0].total;
     },
     getArticleByStatusC_IDandPulic_date: function(e_id) {
-        return db.load(`SELECT * FROM article WHERE sts_id = 1 AND e_id = ${e_id}`);
+        return db.load(`SELECT * FROM article WHERE sts_id = 1 and e_id = ${e_id} and isActive = 1
+        and (TIMESTAMPDIFF(second,NOW(), public_date)) <= 0`);
+    },
+    getArticleByStatusC_IDandPulic_date_Flase: function(e_id) {
+        return db.load(`SELECT * FROM article WHERE sts_id = 1 and e_id = ${e_id} and isActive = 1
+        and (TIMESTAMPDIFF(second,NOW(), public_date)) > 0`);
+    },
+    getArticletrue: function(e_id) {
+        return db.load(`SELECT * FROM article WHERE sts_id = 1 and isActive = 1 AND e_id = ${e_id}`);
     },
     addNewTagArticle: function(entity) {
         return db.insert('tag_article', entity);
@@ -166,6 +174,4 @@ module.exports = {
         }
         return db.del(`delete from tag_article where ?`, condition2), db.del(`delete from comment where ?`, condition2), db.del(`delete from ${TBL_article} where ?`, condition1);
     },
-
-
 }

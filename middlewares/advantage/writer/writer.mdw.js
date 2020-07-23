@@ -53,6 +53,7 @@ module.exports = function (router) {
     router.post('/advantage/2/write', restrict, upload, async function(req, res){
         //add update dùng chung 1 form
         var id_article = req.body.id_article;
+        req.body.isActive = 1;
         delete req.body.url_img;
         delete req.body.id_article;
         req.body.sts_id=4;
