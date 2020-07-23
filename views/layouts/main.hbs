@@ -13,7 +13,8 @@
 
 
     <link href="/css/index.css" rel="stylesheet">
-
+    <link href="/css/btn_top.css" rel="stylesheet">
+    
     <link href="/css/login.css" rel="stylesheet">
     <link href="/css/register.css" rel="stylesheet">
     {{{_sections.css}}}
@@ -165,10 +166,9 @@
     {{{body}}}
     <div class="jumbotron text-center mb-0" id="footer">
         © Copyright 2020, All rights reserved. Design by The deploy99
-        <a id="back-to-top" style="float: right;" href="#" class="btn btn-info btn-md back-to-top" role="button"><i
-                class="fa fa-eject"></i></a>
+        
     </div>
-
+    <a id="on_top" class="on_top" href="#top" style="display: block;"><i class="fa-arrow-circle-up fa"></i></a>
 
     <!-- menu -->
 
@@ -185,6 +185,7 @@
         document.getElementById("deploy99").innerHTML = dateTime;
     </script>
     <script type="text/javascript" src="./js/jquery.flexisel.js"></script>
+    <script type="text/javascript" src="./js/btn_top.js"></script>
     <script type="text/javascript" src="./js/jquery.marquee.js"></script>
     <script>
         function validatesearch(){
