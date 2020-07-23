@@ -21,7 +21,7 @@ const upload = multer({ storage });
 
 
 router.get('/', restrict, restrictadmin, (req, res) => {
-      res.render('vwAccount/vwAdvantage/admin/home', { layout: 'mainAdmin.hbs' }) //: res.render('403');
+      res.render('vwAccount/vwAdvantage/admin/home', { layout: 'mainAdmin.hbs' ,title:'Trang chủ Quản Trị Viên'}) //: res.render('403');
 });
 
 router.post('/logout', restrict, async function (req, res) {
@@ -42,7 +42,7 @@ router.get('/categories', restrict, async (req, res) => {
                tpCatModel.getAll(),
                catModel.getall()]);
 
-          res.render('vwAccount/vwAdvantage/admin/categories/list', { typeCat, Cat, layout: 'mainAdmin.hbs' })
+          res.render('vwAccount/vwAdvantage/admin/categories/list', { typeCat, Cat, layout: 'mainAdmin.hbs', title: 'Quản Lý Chuyên Mục' })
      }
      else {
           res.render('403');
@@ -55,7 +55,7 @@ router.get('/categories/add', restrict, async (req, res) => {
           const [typeCat, Cat] = await Promise.all([
                tpCatModel.getAll(),
                catModel.getall()]);
-          res.render('vwAccount/vwAdvantage/admin/categories/add', { typeCat, Cat, layout: 'mainAdmin.hbs' })
+          res.render('vwAccount/vwAdvantage/admin/categories/add', { typeCat, Cat, layout: 'mainAdmin.hbs', title: 'Thêm chuyên mục' })
      }
      else {
           res.render('403');
@@ -65,7 +65,7 @@ router.get('/categories/add', restrict, async (req, res) => {
 router.get('/categories/addCat', restrict,restrictadmin, async (req, res) => {
           const [typeCat] = await Promise.all([
                tpCatModel.getAll()]);
-          res.render('vwAccount/vwAdvantage/admin/categories/addCat', { typeCat, layout: 'mainAdmin.hbs' })
+     res.render('vwAccount/vwAdvantage/admin/categories/addCat', { typeCat, layout: 'mainAdmin.hbs', title: 'Thêm Loại Chuyên Mục' })
 });
 // Hiển thị chyên mục con theo chuyên mục cha (chi tiết chuyên mục cha)
 router.get('/categories/:alias', restrict, async function (req, res) {
@@ -78,6 +78,7 @@ router.get('/categories/:alias', restrict, async function (req, res) {
           }
           const list = await catModel.getByCat(req.params.alias);
           res.render('vwAccount/vwAdvantage/admin/categories/byCat', {
+               title: list[0].tc_Name,
                list,
                empty: list.length === 0,
                layout: 'mainAdmin.hbs'
@@ -97,7 +98,7 @@ router.get('/categories/editCat/:id', restrict, restrictadmin,async (req, res) =
           const cats = rows[0];
 
           res.render('vwAccount/vwAdvantage/admin/categories/editCat', {
-               cats, layout: 'mainAdmin.hbs'
+               cats, layout: 'mainAdmin.hbs', title: 'Chỉnh Sửa: ' + cats.tc_Name,
           })
 });
 // chỉnh sửa chuyên mục con theo id
@@ -112,7 +113,7 @@ router.get('/categories/edit/:id', restrict, async (req, res) => {
           const cats = rows[0];
 
           res.render('vwAccount/vwAdvantage/admin/categories/edit', {
-               cats, layout: 'mainAdmin.hbs'
+               cats, layout: 'mainAdmin.hbs', title: 'Chỉnh Sửa: ' + cats.c_Name,
           })
      }
      else {
@@ -125,6 +126,7 @@ router.get('/categories/details/:conId', restrict, async function (req, res) {
      if (user.r_ID === 4 && user !== "undefined" && user !== null && user.r_ID !== null && user.r_ID !== "undefined") {
           const list = await catModel.detailById(req.params.conId);
           res.render('vwAccount/vwAdvantage/admin/categories/details', {
+               title: list[0].c_Name,
                list,
                empty: list.length === 0,
                layout: 'mainAdmin.hbs',

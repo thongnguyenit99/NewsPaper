@@ -11,17 +11,18 @@ const router = express.Router();
 // hiển thị trang danh sách
 router.get('/', restrict, restrictadmin,async (req, res) => {
     const list = await tagModel.getAll();
-    res.render('vwAccount/vwAdvantage/admin/tag/list', { list,layout: 'mainAdmin.hbs' })
+    res.render('vwAccount/vwAdvantage/admin/tag/list', { list, layout: 'mainAdmin.hbs', title: 'Quản Lý Nhãn' })
 });
 // hiển thị trang thêm
 router.get('/add', restrict, restrictadmin,(req, res) => {
-    res.render('vwAccount/vwAdvantage/admin/tag/add', {  layout: 'mainAdmin.hbs' })
+    res.render('vwAccount/vwAdvantage/admin/tag/add', { layout: 'mainAdmin.hbs', title: 'Thêm Nhãn' })
 });
 // hiển thị trang chi tiết
 router.get('/details/:id', restrict, restrictadmin, async(req, res) => {
     const list = await tagModel.detailById(req.params.id);
     const single = await tagModel.single(req.params.id);
     res.render('vwAccount/vwAdvantage/admin/tag/details', {
+        title: 'Chi Tiết Nhãn',
         list,
         single,
         empty: list.length === 0,
@@ -37,7 +38,7 @@ router.get('/edit/:id', restrict, restrictadmin, async (req, res) => {
     const tags = rows[0];
 
     res.render('vwAccount/vwAdvantage/admin/tag/edit', {
-        tags, layout: 'mainAdmin.hbs'
+        tags, layout: 'mainAdmin.hbs', title: 'Chỉnh Sửa Nhãn'
     })
 });
 // xử lý thêm  tag

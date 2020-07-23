@@ -46,7 +46,7 @@ router.get('/', restrict, restrictadmin, async (req, res) => {
             value.url = false;
         }
     });
-    res.render('vwAccount/vwAdvantage/admin/user/list', { layout: 'mainAdmin.hbs', rows });
+    res.render('vwAccount/vwAdvantage/admin/user/list', { layout: 'mainAdmin.hbs', rows, title: 'Quản Lý Tài Khoản' });
 });
 
 //detail
@@ -89,7 +89,7 @@ router.get('/detail', restrict, restrictadmin, async (req, res) => {
        if(row[0].time_premium ==  null){
             row[0].time_premium = 0;
        }
-    res.render("vwAccount/vwAdvantage/admin/user/detail", { layout: 'mainAdmin.hbs', row : row[0], roleacc, typecategory});
+    res.render("vwAccount/vwAdvantage/admin/user/detail", { layout: 'mainAdmin.hbs', row: row[0], roleacc, typecategory, title: row[0].username});
 })
 //edit
 router.get('/edit', restrict, restrictadmin, async (req, res) => {
@@ -132,7 +132,7 @@ router.get('/edit', restrict, restrictadmin, async (req, res) => {
        if(row[0].time_premium ==  null){
             row[0].time_premium = 0;
     }
-    res.render("vwAccount/vwAdvantage/admin/user/edit", { layout: 'mainAdmin.hbs', row : row[0], roleacc, typecategory});
+    res.render("vwAccount/vwAdvantage/admin/user/edit", { layout: 'mainAdmin.hbs', row: row[0], roleacc, typecategory, title: 'Chỉnh Sửa Tài Khoản: ' + row[0].username});
 })
 router.post('/edit', restrict, restrictadmin, upload, async (req, res) => {
     var id = req.body.ID;
@@ -196,7 +196,7 @@ router.get('/edit/is-available-email', async function (req, res) {
 router.get('/add', restrict, restrictadmin, async (req, res) => {
     roleacc = await adminusermodel.getallRoldeAccount();
     typecategory = await adminusermodel.getalltypecategory();
-    res.render("vwAccount/vwAdvantage/admin/user/add", { layout: 'mainAdmin.hbs', roleacc, typecategory});
+    res.render("vwAccount/vwAdvantage/admin/user/add", { layout: 'mainAdmin.hbs', roleacc, typecategory, title: 'Thêm Tài Tài Khoản'});
 })
 router.get('/add/is-available', async function (req, res) {
     const user = await accountModles.singleByUserName(req.query.user);

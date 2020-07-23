@@ -19,7 +19,7 @@ require('../middlewares/advantage/editor/editor.mdw')(router);
 
 //sign up
 router.get('/register', function (req, res) {
-  res.render('vwAccount/register');
+  res.render('vwAccount/register', { title: 'Đăng Ký'});
 })
 
 function getDatime(){
@@ -70,9 +70,9 @@ router.get('/register/is-available-email', async function (req, res) {
 // sign in
 router.get('/login', function (req, res) {
   if ( typeof req.cookies['username'] !== 'undefined'){
-      res.render('vwAccount/login', {username: req.cookies['username'], password:req.cookies['password']});
+    res.render('vwAccount/login', { username: req.cookies['username'], password: req.cookies['password'], title: 'Đăng Nhập'});
  }else{
-    res.render('vwAccount/login', {username:"", password:""});
+    res.render('vwAccount/login', { username: "", password: "", title: 'Đăng Nhập'});
   }
 })
 

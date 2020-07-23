@@ -44,6 +44,7 @@ function getDatime() {
 router.get('/', restrict, restrictadmin, async(req, res) => {
     const list = await articleModel.getAll();
     res.render('vwAccount/vwAdvantage/admin/article/list', {
+        title: 'Quản Lý Bài Viết',
         list,
         layout: 'mainAdmin.hbs',
         helpers: {
@@ -63,7 +64,7 @@ router.get('/', restrict, restrictadmin, async(req, res) => {
 router.get('/add', restrict, restrictadmin, async function(req, res) {
     var category = await accountModles.getCategory();
     var witer = await accountModles.getWrite();
-    res.render('vwAccount/vwAdvantage/admin/article/add', { category, witer, layout: 'mainAdmin.hbs' })
+    res.render('vwAccount/vwAdvantage/admin/article/add', { category, witer, layout: 'mainAdmin.hbs', title: 'Thêm Bài Viết' })
 
 });
 
@@ -84,6 +85,7 @@ router.post('/add', restrict, restrictadmin, upload, async function(req, res) {
 router.get('/details/:id', restrict, restrictadmin, async function(req, res) {
     const detai = await articleModel.draft(req.params.id);
     res.render('vwAccount/vwAdvantage/admin/article/details', {
+        title: detai[0].title,
         detai,
         layout: 'mainAdmin.hbs',
         helpers: {
@@ -124,6 +126,7 @@ router.get('/edit/:id', restrict, restrictadmin, async function(req, res) {
         }
     });
     res.render('vwAccount/vwAdvantage/admin/article/edit', {
+        title: 'Chỉnh Sửa: ' + articles[0].title,
         layout: 'mainAdmin.hbs',
         category,
         row: articles[0]

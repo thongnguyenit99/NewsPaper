@@ -27,6 +27,7 @@ router.get('/:alias', async function (req, res) {
     }
 
     res.render('vwArticle/byCat', {
+        title:  'Theo Loại Chuyên Mục' ,
         listArticle,
         page_items,
         prev_value: page - 1,
@@ -83,6 +84,7 @@ router.get('/:alias/:c_alias', async function (req, res) {
 
    // const listArticle = await catModel.loadByChild(req.params.alias, req.params.c_alias);
     res.render('vwArticle/byChild', {
+        title: 'Theo Chuyên Mục',
         listArticle,
         page_items,
         prev_value: page - 1,

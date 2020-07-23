@@ -83,8 +83,8 @@ module.exports = function (router) {
                 }
              });
              if(row.length > 0){
-             res.render('vwAccount/profile', {
-                 Email: row[0].Email, username: row[0].username, typeaccount: row[0].typeaccount, dob: moment(row[0].DOB, 'YYYY/MM/DD').format('DD-MM-YYYY'),
+                 res.render('vwAccount/profile', {
+                title: 'Thông Tin Tài Khoản',Email: row[0].Email, username: row[0].username, typeaccount: row[0].typeaccount, dob: moment(row[0].DOB, 'YYYY/MM/DD').format('DD-MM-YYYY'),
                   writer: row[0].writer, pseudonym: row[0].pseudonym, Image: row[0].Image, url: row[0].url, vip: row[0].vip });
              }else{
              res.render('500');

@@ -33,7 +33,7 @@ module.exports = function (router) {
     router.get('/advantage/2', restrict, async function(req, res){
         if(req.session.authUser.r_ID == 2){
             var rows = await accountModles.getalltypecategory();
-            res.render('vwAccount/vwAdvantage/writer/home', {layout: 'mainWriter.hbs', rows});
+            res.render('vwAccount/vwAdvantage/writer/home', { layout: 'mainWriter.hbs', rows, title: 'Trang Chủ Phóng Viên'});
         }else{
             res.redirect('/');
         }
@@ -44,7 +44,7 @@ module.exports = function (router) {
         var id = req.query.type;
         var category = await accountModles.getCategorybytcID(id);
         if(category.length > 0){
-        res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: 'mainWriter.hbs', category});
+            res.render('vwAccount/vwAdvantage/writer/postarticle', { layout: 'mainWriter.hbs', category, title:'Đăng Bài: '+ category[0].c_Large});
         }
         else{
             res.render('500', {layout: 'mainWriter.hbs'});
@@ -89,7 +89,7 @@ module.exports = function (router) {
 
     // chi tiết bài báo
     router.get('/advantage/2/newspaper', restrict, async function(req, res){
-        res.render('vwAccount/vwAdvantage/writer/newspaper', {layout: 'mainWriter.hbs'});
+        res.render('vwAccount/vwAdvantage/writer/newspaper', {layout: 'mainWriter.hbs',title:'Trạng Thái Bài Viết'});
     })
     router.get('/advantage/2/newspaper/tablenewspaper', restrict, async function(req, res){
         var statusid = req.query.type;
@@ -105,7 +105,8 @@ module.exports = function (router) {
         }*/
         // không có nút sửa
         if(statusid == 1 || statusid == 2){
-            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {layout: 'mainWriter.hbs', rows,statusid,
+            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {
+                layout: 'mainWriter.hbs', rows, statusid, title: 'Trạng Thái Bài Viết',
                 helpers: {
                     isedit: function (status_id){
                       if(status_id == 3 || status_id == 4){
@@ -116,7 +117,8 @@ module.exports = function (router) {
                 }
             });
         }else if(statusid == 3 || statusid == 4){ 
-            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {layout: 'mainWriter.hbs', rows, statusid,
+            res.render('vwAccount/vwAdvantage/writer/tablenewspaper', {
+                layout: 'mainWriter.hbs', rows, statusid, title: 'Trạng Thái Bài Viết',
                 helpers: {
                     isedit: function (status_id){
                       if(status_id == 3 || status_id == 4){
@@ -147,11 +149,11 @@ module.exports = function (router) {
         });
         if(isedit == 'true'){
             res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: 'mainWriter.hbs', id, isedit,
-                row: articles[0], category
+                row: articles[0], category, title: articles[0].title
             });
         }else{
             res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: 'mainWriter.hbs', id, 
-                row: articles[0], category
+                row: articles[0], category, title: articles[0].title
             });
         }
     })

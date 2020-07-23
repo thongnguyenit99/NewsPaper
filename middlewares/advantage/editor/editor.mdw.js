@@ -12,6 +12,7 @@ module.exports = function(router) {
         if (req.session.authUser.r_ID == 3) {
             return res.render('vwAccount/vwAdvantage/editor/home', {
                 layout: 'mainEditor.hbs',
+                title:'Trang Chủ Biên Tập Viên',
                 helpers: {
                     check_pemission: function(value) {
                         if (value == req.session.authUser.tc_ID) {
@@ -51,6 +52,7 @@ module.exports = function(router) {
 
         //const listdraft = await articleModel.alldraft(req.params.c_id);
         res.render('vwAccount/vwAdvantage/editor/listdraft', {
+            title: 'Danh Sách Bài Chưa Duyệt',
             listdraft,
             page_items,
             prev_value: page - 1,
@@ -115,6 +117,7 @@ module.exports = function(router) {
             }
         });
         res.render('vwAccount/vwAdvantage/editor/draft', {
+            title: _draft[0].title ,
             _draft,
             category,
             articledraft,
@@ -176,6 +179,7 @@ module.exports = function(router) {
             value.duocxb = today.isAfter(public_date);
         });
         res.render('vwAccount/vwAdvantage/editor/waitpublic', {
+            title:'Danh Sách Chờ Xuất Bản',
             rows,
             layout: 'mainEditor.hbs',
             helpers: {
@@ -212,6 +216,7 @@ module.exports = function(router) {
     router.get('/advantage/3/refuse', restrict, async function(req, res) {
         var rows = await articleModel.getallaricledefusebyeditor(req.session.authUser.ID);
         res.render('vwAccount/vwAdvantage/editor/refuse', {
+            title: 'Danh Sách Từ Chối Duyệt',
             rows,
             layout: 'mainEditor.hbs',
             helpers: {

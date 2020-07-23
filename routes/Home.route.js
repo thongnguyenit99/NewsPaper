@@ -5,7 +5,7 @@ const config = require('../config/config.json');
 const router = express.Router();
 
 router.get('/lien-he', (req, res) => {
-    res.render('about');
+  res.render('about', { title: 'Liên Hệ',});
 })
 
 router.get('/', async function(req, res) {
@@ -28,6 +28,7 @@ router.get('/', async function(req, res) {
         top10_doanhnghiep,
         top10_taichinh,
         top10_kienthucdautu,
+        title: 'Trang Chủ',
         helpers: {
             format_DOB: function(date) {
                 //console.log(moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY'));
@@ -133,6 +134,7 @@ router.get('/article/search', async function (req, res) {
   }  
   var list = listpre.concat(listnor);
   res.render('vwArticle/search', {
+    title: 'Tìm Kiếm Bài Viết ',
     list,
     key: k,
     page_items,
