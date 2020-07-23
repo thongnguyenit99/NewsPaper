@@ -54,6 +54,7 @@ router.get('/danh-sach-bai-viet', async(req, res) => {
     res.render('vwArticle/list', {
         layout: 'main.hbs',
         list,
+        title: 'Danh Sách Bài Viết',
         helpers: {
             format_DOB: function(date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY,h:mm:ss');
@@ -95,7 +96,7 @@ router.get('/:c_alias/:id/:title', async function(req, res) {
     // bỏ vào đây chạy song song
     const [list, list5Art_same, opinion, category] = await Promise.all([
         articleModel.detailByTitle(title),
-        articleModel.ArtSameCat(nameChildCat),
+        articleModel.ArtSameCat(nameChildCat,title),
         comModel.getByArticle(title),
         articleModel.getNameCategorybya_ID(id)
         // comModel.getId_article(id),
@@ -143,6 +144,7 @@ router.get('/:c_alias/:id/:title', async function(req, res) {
         r_id = 0;
     }
     res.render('vwArticle/details', {
+        title: list[0].title,
         r_id,
         id,
         isnopre,

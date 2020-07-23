@@ -92,9 +92,9 @@ module.exports = {
         return db.load(`select * from ${TBL_article} where id = ${Id}`);
     },
     // get 5 articles same categories
-    ArtSameCat: function(c_alias) {
+    ArtSameCat: function(c_alias,title) {
         return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID=c.ID
-            WHERE c.c_alias='${c_alias}' and a.isActive=1 and sts_id=2 ORDER BY rand() LIMIT 5`)
+            WHERE c.c_alias='${c_alias}' and a.isActive=1 and sts_id=2 and a.title_alias!='${title}'  ORDER BY rand() LIMIT 5`)
     },
     detailByTitle: function(title) {
         return db.load(`select * from ${TBL_article}  a join tag_article ta on a.id=ta.id_article JOIN tag t on ta.id_tag=t.ID
