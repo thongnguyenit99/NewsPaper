@@ -99,13 +99,16 @@ router.get('/:c_alias/:id/:title', async function(req, res) {
 
     // bỏ vào đây chạy song song
     const [list, list5Art_same, opinion, category] = await Promise.all([
-        articleModel.detailByTitle(title),
+        articleModel.detailByTitle(title,id),
         articleModel.ArtSameCat(nameChildCat,title),
         comModel.getByArticle(title),
-        articleModel.getNameCategorybya_ID(id)
+        articleModel.getNameCategorybya_ID(id),
+       
         // comModel.getId_article(id),
 
     ]);
+    const tag = await tagModel.alltag(id)
+    console.log(tag[0].id_article);
     if (list.length > 0 && list[0].isPremium != null) {
         // nếu ko phải là bài viết premium
         if (list[0].isPremium == 0) {
@@ -148,6 +151,7 @@ router.get('/:c_alias/:id/:title', async function(req, res) {
         r_id = 0;
     }
     res.render('vwArticle/details', {
+        tag,
         title: list[0].title,
         r_id,
         id,
