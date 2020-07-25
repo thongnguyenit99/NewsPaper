@@ -96,6 +96,9 @@ module.exports = {
         return db.load(`SELECT * FROM ${TBL_article} a join categories c on a.c_ID=c.ID
             WHERE c.c_alias='${c_alias}' and a.isActive=1 and sts_id=2 and a.title_alias!='${title}'  ORDER BY rand() LIMIT 5`)
     },
+    getarticlebyID: function(id) {
+        return db.load(`select * from ${TBL_article}  where id=${id} and sts_id=2`);
+    },
     detailByTitle: function(title) {
         return db.load(`select * from ${TBL_article}  a join tag_article ta on a.id=ta.id_article JOIN tag t on ta.id_tag=t.ID
          where title_alias = '${title}' and sts_id=2`);

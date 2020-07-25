@@ -14,26 +14,27 @@ const download = require('download');
 var path = require('path');
 const {promisify} = require('util');
 
+//chỉ sao bài báo
+router.get('/pdf', async function(req, res) {
+    id = req.query.id;
+    var list = await articleModel.getarticlebyID(id);
+    res.render('vwArticle/pdf', {layout:false, list,
+        helpers: {
+            format_DOB: function(date) {
+                return moment(date, 'YYYY/MM/DD').format('h:mm | DD-MM-YYYY');
+            }
+        }
+    });
+})
 //create tao file pdf
 router.get('/generatepdf', async function(req, res) {
-    var row = await articleModel.getarticlebyID(req.query.id);
-    row[0].public_date = moment(row[0].public_date, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm:ss');
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    var img = '<img src= "/article/' + `${row[0].images}" style="margin-bottom:10px; width:auto" alt="anh dai dien" >`;
-    const HTMLContent =
-        `<h2>${row[0].title}</h2> ` +
-        `<div>Ngày đăng: ${row[0].public_date}</div>` +
-        img +
-        `${row[0].content}`;
-    
-    //await page.setContent(HTMLContent, {waitUntil: 'networkidle'});
-    await page.goto(`data:text/html,${HTMLContent}`, { waitUntil: 'networkidle0' })
+    //await page.setContent(HTMLContent);
+    await page.goto(`http://localhost:3000/article/pdf?id=${req.query.id}`);
     await page.pdf({ path: `public/pdf/${req.query.id}.pdf`, format: 'A4', printBackground: true });
 
     await browser.close();
-
-    //res.json(false);
 });
 
 // download pdf
