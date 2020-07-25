@@ -7,11 +7,11 @@ module.exports = {
     },
     getByName: (name, limit, offset) => {
         return db.load(`SELECT * FROM tag_article ta ,article a,${TBL_tag} t,categories c
-        WHERE ta.id_article=a.id and a.sts_id=2  and t.ID=ta.id_tag and c.ID=a.c_ID and t.Name like '%${name}%' limit ${limit} offset ${offset}`);
+        WHERE ta.id_article=a.id and a.sts_id=2  and t.ID=ta.id_tag and c.ID=a.c_ID and t.tg_alias ='${name}' limit ${limit} offset ${offset}`);
     },
     countByTags: async function (name) {
         const rows = await db.load(`select count(*) as total FROM tag_article ta ,article a,${TBL_tag} t
-        WHERE ta.id_article=a.id and a.sts_id=2 and t.ID=ta.id_tag and t.Name = '${name}'`);
+        WHERE ta.id_article=a.id and a.sts_id=2 and t.ID=ta.id_tag and t.tg_alias = '${name}'`);
         return rows[0].total;
     },
     detailById: (id) => {
@@ -35,4 +35,8 @@ FROM tag t join tag_article ta on t.ID=ta.id_tag JOIN article a on ta.id_article
     single: function (Id) {
         return db.load(`select * from ${TBL_tag} where ID = ${Id}`);
     },
+    alltag: function(id) {
+    return db.load(`SELECT t.*, ta.id_article from tag t join tag_article ta on t.ID=ta.id_tag WHERE ta.id_article=${id}`)    
+}
+  
 }

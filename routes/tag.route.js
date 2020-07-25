@@ -8,18 +8,16 @@ const router = express.Router();
 // getbyTags
 router.get('/:name', async function (req, res) {
     const name = req.params.name;
-
-  // giẳ sử cho 2 bài viết có chung tags hiện lên 1 trang
     const page = +req.query.page || 1;
     if (page < 0) page = 1;
-    const offset = (page - 1) * 2;
+    const offset = (page - 1) * config.pagination.limit;
     const [listArticle_tags, total] = await Promise.all([
-        tagModel.getByName(name, 2, offset),
+        tagModel.getByName(name, config.pagination.limit, offset),
         tagModel.countByTags(name)
     ]);
    
     // tính số trang
-    const nPages = Math.ceil(total / 2);
+    const nPages = Math.ceil(total / config.pagination.limit);
     const page_items = [];
     // duyệt số trang và  tính
     for (let i = 1; i <= nPages; i++) {
@@ -32,6 +30,7 @@ router.get('/:name', async function (req, res) {
 
     // const listArticle = await catModel.loadByChild(req.params.alias, req.params.c_alias);
     res.render('vwArticle/byTag', {
+        title:'Theo Nhãn: '+ listArticle_tags[0].Name,
         listArticle_tags,
         page_items,
         prev_value: page - 1,

@@ -64,7 +64,6 @@
                 str += "Ngày đăng:" + d + "</div>"; str += "</li>";
                 $("#comment-ul").append(str);
                 return false;
-                    
                 } else {
                     alert('luu db thât bại');
                     return false;
@@ -125,32 +124,14 @@
                 <i class="fas fa-file-pdf"></i>    Tải về 
                 </button>
             {{/if}}
-            <!-- Danh sách các thẻ được gắn -->
-            <h6 class="article-tags d-none d-sm-block">
-                <i class="fas fa-tags mr-2"></i>
-                <span id="thetab">
-                    
-                </span>
-                <script type="text/javascript">
-                    var str = "{{{tag}}}";
-                    str = str.split(';');
-                    var temp="";
-                    for(i = 0; i < str.length -1 ; i++){   
-                        //tạo phần tử p    
-                        var a = document.createElement("a");
-                        a.className = "badge badge-secondary";
-                        a.style=" margin-right:5px";
-                        a.href = "/tags/{{{Name}}}";
-                        a.innerText = str[i] + " x ";
+            {{/each}}
+            <br />
+            <span><i class="fas fa-tags mr-2"></i></span>
+            {{#each this.tag}}
+                    <span><a class="badge badge-secondary" href="/tags/{{tg_alias}}">{{Name}}</a></span>
+            {{/each}}
 
-                        var span = document.getElementById("thetab");
-                        //gắn p vào div
-                        span.appendChild(a)
-                    }
-                    console.log(temp);
-                </script>
-            </h6>
-{{/each}}
+  
             <!-- Khu vực bình luận -->
             <form id="frmcomment" method="POST" action="">   
             <div class="comment-section bg-light w-100 p-3 my-3">
