@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+//const port = 3000;
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 require('express-async-errors');
@@ -29,6 +29,6 @@ app.use(function (err, req, res, next) {
     res.status(500).render('500');
   })
 
-app.listen(port, () => {
-    console.log(`Server start port at http://localhost:${port}`);
+app.listen(process.env.PORT||3000, () => {
+    console.log(`Server start port at http://localhost:${process.env.PORT}`);
 })
