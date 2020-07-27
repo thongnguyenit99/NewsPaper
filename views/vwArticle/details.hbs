@@ -45,17 +45,18 @@
                 alert('Nội dung bình luận không được trống.');
                     return false;
             }
-            $.getJSON(`/article/is-available_comment?readerName=${txtName}&Content=${txtComment}&id=${id}`, function (data) {
+            $.getJSON(`/article/is-available_comment?readerName=${txtName}&Content=${txtComment}&id=${id}:null`, function (data) {
                 if (data) {
                      var day = d.getDate();
-                 var month = parseInt(d.getMonth()) + 1;
+                     var month = parseInt(d.getMonth()) + 1;
+                     var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
                 if(day < 10){
                     day = '0' + day;
                 }
                 if(month < 10){
                     month = '0' + month;
                 }
-                d = day + '-' + month  + '-' + d.getFullYear();
+                d =time +' | '+ day + '-' + month  + '-' + d.getFullYear();
                 $('#txtName').val("");
                 $('#txtComment').val("");
                 var str = '';

@@ -165,7 +165,7 @@ router.get('/:c_alias/:id/:title', async function(req, res) {
         // get,
         helpers: {
             format_DOB: function(date) {
-                return moment(date, 'YYYY/MM/DD').format('h:mm | DD-MM-YYYY');
+                return moment(date, 'YYYY/MM/DD').format('h:mm:ss | DD-MM-YYYY');
             },
             splitTitle: function(tag) {
                 for (var i = 0; i < tag.length; i++) {
@@ -195,7 +195,7 @@ router.get('/is-available_comment', async function(req, res) {
         ID_Account: req.session.authUser.ID,
         ID_Article: req.query.id,
         Content: req.query.Content,
-        created_at: moment().format('YYYY-MM-DD')
+        created_at: moment().format('YYYY-MM-DD h:mm:ss')
     }
     var result = await comModel.insertComment(obj);
     if (result) {
