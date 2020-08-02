@@ -109,7 +109,7 @@ router.get('/:c_alias/:id/:title', async function(req, res) {
 
     ]);
     const tag = await tagModel.alltag(id)
-    console.log(tag[0].id_article);
+
     if (list.length > 0 && list[0].isPremium != null) {
         // nếu ko phải là bài viết premium
         if (list[0].isPremium == 0) {

@@ -7,17 +7,31 @@ const router = express.Router();
 
 // get article byCat
 router.get('/:alias', async function (req, res) {
-    const page = +req.query.page || 1;
+    var listnor = [];
+    var page = +req.query.page || 1;
     if (page < 0) page = 1;
-    const offset = (page - 1) * config.pagination.limit;
-    const [listArticle, total] = await Promise.all([
-        catModel.pageByCat(req.params.alias, config.pagination.limit, offset),
+    var offset = (page - 1) * config.pagination.limit;
+    //console.log(offset);
+    const [listpre, total] = await Promise.all([
+        catModel.pageByCatPre(req.params.alias, config.pagination.limit, offset),
         catModel.countByCat(req.params.alias)
     ]);
+    //console.log(listpre.length);
+    var s=0;
+    if (listpre.length < 5) {
+        var countpre = await catModel.countByCatPre(req.params.alias);
+        if (offset - countpre < 0) {
+            offset = 0;            
+        } else {
+            offset = offset - countpre;
+        }
+        listnor = await catModel.pageByCat(req.params.alias, config.pagination.limit-listpre.length, offset);
+    }
+    //console.log(listnor);
     // tính số trang
     const nPages = Math.ceil(total / config.pagination.limit);
     const page_items = [];
-    // duyệt số trang và  tính
+    // duyệt số trang và  tính 
     for (let i = 1; i <= nPages; i++) {
         const item = {
             value: i,
@@ -25,10 +39,10 @@ router.get('/:alias', async function (req, res) {
         }
         page_items.push(item);
     }
-
+    var list = listpre.concat(listnor);
     res.render('vwArticle/byCat', {
-        title:  'Theo Loại Chuyên Mục' ,
-        listArticle,
+        title: 'Theo Loại Chuyên Mục',
+        list,
         page_items,
         prev_value: page - 1,
         next_value: page + 1,
@@ -82,7 +96,7 @@ router.get('/:alias/:c_alias', async function (req, res) {
         page_items.push(item);
     }
 
-   // const listArticle = await catModel.loadByChild(req.params.alias, req.params.c_alias);
+    // const listArticle = await catModel.loadByChild(req.params.alias, req.params.c_alias);
     res.render('vwArticle/byChild', {
         title: 'Theo Chuyên Mục',
         listArticle,

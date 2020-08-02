@@ -48,7 +48,7 @@ router.get('/article/search', async function (req, res) {
   var offset = (page - 1) * config.pagination.limit;
   var listpre = await articleModel.pageByCatPre(k, config.pagination.limit, offset);
   var total = await articleModel.countByCat(k);
-  if(listpre.length < 4) {
+  if(listpre.length < 5) {
     var countpre = await articleModel.countByCatpre(k);
     if(offset - countpre < 0){
       offset = 0;
