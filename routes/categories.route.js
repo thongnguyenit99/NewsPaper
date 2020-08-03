@@ -17,7 +17,6 @@ router.get('/:alias', async function (req, res) {
         catModel.countByCat(req.params.alias)
     ]);
     //console.log(listpre.length);
-    var s=0;
     if (listpre.length < 5) {
         var countpre = await catModel.countByCatPre(req.params.alias);
         if (offset - countpre < 0) {

@@ -8,14 +8,25 @@ const router = express.Router();
 // getbyTags
 router.get('/:name', async function (req, res) {
     const name = req.params.name;
-    const page = +req.query.page || 1;
+    var listnor = [];
+    var page = +req.query.page || 1;
     if (page < 0) page = 1;
-    const offset = (page - 1) * config.pagination.limit;
-    const [listArticle_tags, total] = await Promise.all([
-        tagModel.getByName(name, config.pagination.limit, offset),
+    var offset = (page - 1) * config.pagination.limit;
+    const [listArticle_tagsPre, total] = await Promise.all([
+        tagModel.getByNamePre(name, config.pagination.limit, offset),
         tagModel.countByTags(name)
     ]);
-   
+
+    if (listArticle_tagsPre.length < 5) {
+        var countpre = await tagModel.countByTagPre(name);
+        if (offset - countpre < 0) {
+            offset = 0;            
+        } else {
+            offset = offset - countpre;
+        }
+        listnor = await tagModel.getByName(name, config.pagination.limit-listArticle_tagsPre.length, offset);
+    }
+
     // tính số trang
     const nPages = Math.ceil(total / config.pagination.limit);
     const page_items = [];
@@ -27,11 +38,11 @@ router.get('/:name', async function (req, res) {
         }
         page_items.push(item);
     }
-
+    var list = listArticle_tagsPre.concat(listnor);
     // const listArticle = await catModel.loadByChild(req.params.alias, req.params.c_alias);
     res.render('vwArticle/byTag', {
-        title:'Theo Nhãn: '+ listArticle_tags[0].Name,
-        listArticle_tags,
+        title:'Theo Nhãn: '+ list[0].Name,
+        list,
         page_items,
         prev_value: page - 1,
         next_value: page + 1,
