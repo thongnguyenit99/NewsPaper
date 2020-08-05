@@ -6,50 +6,54 @@
         <p class="card-text">Không có dữ liệu.</p>
     </div>
     {{else}}
-    <div class="row mt-5">
-        <div class="col-12" id="byCat-article">
+    <div class="row d-flex mt-5">
+        {{!-- <div class="col-sm-4 col-md-12 col-xs-12" id="byCat-article"> --}}
+            <ul class="list-group list-group-flush list-group-item mb-5">
             {{#each list}}
-            <div class="d-flex mt-5">
-
-                <div class="row no-gutters align-items-strech">
-                    <div class="col-4">
-                        <div class="mb-2 img-cont1">
+                <div class="row no-gutters align-items-center  ">
+                    <div class="col-md-4 mt-5 ">
+                        <div class="img-cont ml-2 ">
                             <img src="/article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
-                                style="width: 300px;height:250px" class="card-img lazyload" alt="...">
+                                style="width: 300px;height:250px" class="card-img lazyload" >
                         </div>
                     </div>
-                    <div class="col-8">
-                        <div class="">
+                    <div class="col-md-8 mt-2 ">
+                        <div class="card-body">
                             <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_bycat">
                                 <h5 class="card-title" title="{{title}}">{{title}}</h5>
                             </a>
-                            <h6 class="card-subtitle mb-2 text-muted d-none d-sm-block">
-                                <a href="/categories/{{tc_alias}}/{{c_alias}}"
-                                    class="article-category badge badge-primary mr-3">{{c_Name}}</a>
-                                <span class="article-date">
-                                    <i class="far fa-calendar-alt mr-1"></i>
-                                    {{format_DOB public_date}}
-                                </span>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                            <a href="/categories/{{tc_alias}}/{{c_alias}}" class="article-category badge badge-primary mr-3">{{c_Name}}</a>
+                            <span class="article-date">
+                                <i class="far fa-calendar-alt mr-1"></i>
+                                {{format_DOB public_date}}
+                            </span>
                             </h6>
-                            <h6 class="article-tags d-none d-sm-block">
-                                <i class="fas fa-tags mr-2"></i>
-                                <a href="#" class="badge badge-secondary">{{splitTitle tag }}&nbsp; </a>
+                            
+                            <h6 class="card-text mb-2 text-muted">
+                                <i class="fas fa-tags "></i>
+                                <a href="/tags/{{name}}" class="badge badge-secondary">{{splitTitle tag }}&nbsp; </a>
                                 <a href="#" class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;</a>
                                 <a href="#" class="badge badge-secondary">{{splitTitle2 tag }} &nbsp;</a>
-
-
+                            
+                            
                             </h6>
-                            <div class="card-text d-none d-md-block">
+                            <div class="card-text ">
                                 {{abstract}}
-
+                            
                             </div>
+
+            
+            
                         </div>
                     </div>
+            
                 </div>
-            </div>
-            {{/each}}
+                {{/each}}
+            </ul>
+         
 
-        </div>
+        {{!-- </div> --}}
         <div class="col-12 d-flex justify-content-center mt-5">
             <nav aria-label="...">
                 <ul class="pagination">

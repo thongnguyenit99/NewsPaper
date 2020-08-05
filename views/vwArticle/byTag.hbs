@@ -9,42 +9,42 @@
     <div class="row mt-5">
         <div class="col-12" id="byTag-article">
             {{#each list}}
-            <div class="d-flex mt-5">
-
-                <div class="row no-gutters align-items-strech">
-                    <div class="col-4">
-                        <div class="mb-2 img-cont1">
-                            <img src="/article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
-                                style="width: 300px;height:250px" class="card-img lazyload" alt="...">
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="">
-                            <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_bycat">
-                                <h5 class="card-title" title="{{title}}">{{title}}</h5>
-                            </a>
-                            <h6 class="card-subtitle mb-2 text-muted d-none d-sm-block">
-                                <a href="/categories/{{tc_alias}}/{{c_alias}}"
-                                    class="article-category badge badge-primary mr-3">{{c_Name}}</a>
-                                <span class="article-date">
-                                    <i class="far fa-calendar-alt mr-1"></i>
-                                    {{format_DOB public_date}}
-                                </span>
-                            </h6>
-                            <h6 class="article-tags d-none d-sm-block">
-                                <i class="fas fa-tags mr-2"></i>
-                                <a href="#" class="badge badge-secondary">{{splitTitle tag }}&nbsp; x</a>
-                                <a href="#" class="badge badge-secondary">{{splitTitle1 tag }}&nbsp; x</a>
-                                <a href="#" class="badge badge-secondary">{{splitTitle2 tag }}&nbsp; x</a>
-
-                            </h6>
-                            <div class="card-text d-none d-md-block">
-                                {{abstract}}
-
-                            </div>
-                        </div>
+            <div class="row no-gutters align-items-center  ">
+                <div class="col-md-4 mt-5 ">
+                    <div class="img-cont ml-2 ">
+                        <img src="/article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
+                            style="width: 300px;height:250px" class="card-img lazyload">
                     </div>
                 </div>
+                <div class="col-md-8 mt-2 ">
+                    <div class="card-body">
+                        <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_bycat">
+                            <h5 class="card-title" title="{{title}}">{{title}}</h5>
+                        </a>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <a href="/categories/{{tc_alias}}/{{c_alias}}"
+                                class="article-category badge badge-primary mr-3">{{c_Name}}</a>
+                            <span class="article-date">
+                                <i class="far fa-calendar-alt mr-1"></i>
+                                {{format_DOB public_date}}
+                            </span>
+                        </h6>
+            <h6 class="card-text mb-2 text-muted">
+                {{!-- <i class="fas fa-tags "></i> --}}
+                {{!-- {{#each tag}} --}}
+                    {{!-- <a href="/tags/{{tg_alias}}" class="badge badge-secondary">{{Name }} &nbsp;</a> --}}
+                {{!-- {{/each}} --}}
+                <i class="fas fa-tags "></i>
+                <a href=" /tags/{{tg_alias}}" class="badge badge-secondary">{{splitTitle tag }}&nbsp; </a>
+                <a href="/tags/{{tg_alias}}" class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;</a>
+                <a href="/tags/{{tg_alias}}" class="badge badge-secondary">{{splitTitle2 tag }} &nbsp;</a>
+            </h6>
+                 <div class="card-text ">
+                            {{abstract}}
+                     </div>
+                    </div>
+                </div>
+            
             </div>
             {{/each}}
 
