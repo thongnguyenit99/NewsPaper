@@ -465,7 +465,7 @@ ul li:hover ul.dropdown {
 ul li ul.dropdown li {
                 display: block;
                 text-decoration: none;
-                height: 50px;
+                height: auto;
                 margin-top: 2%;
             }
 
@@ -483,4 +483,26 @@ ul li ul.dropdown li {
 .datepublic p {
 font-size: 15px;
 margin-bottom: -2%;
+}
+.breaking_news {
+    float: left;
+    padding:8px 15px 12px 30px;
+    background-color: #000;
+    position: relative;
+}
+.breaking_news:after {
+    content: '';
+    background: url(../img/dott1.png) no-repeat 0px 0px;
+    display: block;
+    width: 27px;
+    height: 60px;
+    position: absolute;
+    right: -17%;
+    top: 0%;
+    background-size: 100%;
+}
+.breaking_news h3 {
+    font-size:1.3em;
+    color: #fff;
+    margin: 0;
 }
