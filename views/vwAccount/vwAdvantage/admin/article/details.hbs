@@ -10,10 +10,11 @@
                     {{{content}}}
                 </div>
             </div>
-            <h6 class="article-tags d-none d-sm-block">
-                <a href="#" class="badge badge-secondary">{{splitTitle tag }}&nbsp; x</a>
-                <a href="#" class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;x</a>
-                <a href="#" class="badge badge-secondary">{{splitTitle2 tag }} &nbsp;x</a>
+            <h6 class="card-text mb-2 text-muted">
+                <i class="fas fa-tags "></i>
+                {{#each tags}}
+                <a href="/tags/{{tg_alias}}" class="badge badge-secondary">{{Name }} &nbsp;</a>
+                {{/each}}
             </h6>
         </div>
     </div>

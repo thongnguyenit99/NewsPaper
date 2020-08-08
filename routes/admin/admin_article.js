@@ -3,6 +3,7 @@ const restrict = require("../../middlewares/auth.mdw");
 const restrictadmin = require("../../middlewares/restrictadmin.mdw");
 const articleModel = require('../../models/article.model');
 const accountModles = require('../../models/_account.model')
+const tagModel = require('../../models/tag.model');
 const moment = require('moment');
 const multer = require('multer');
 const path = require('path');
@@ -84,9 +85,21 @@ router.post('/add', restrict, restrictadmin, upload, async function(req, res) {
 // Hiển thị trang chi tiết bài báo admin
 router.get('/details/:id', restrict, restrictadmin, async function(req, res) {
     const detai = await articleModel.draft(req.params.id);
+    for (const key in detai) {
+        tags = [];
+
+        const tag = await tagModel.alltag(detai[key].id);
+        for (const key in tag) {
+
+            tags.push(tag[key]);
+        }
+        detai[key].tags = tags;
+
+    }
     res.render('vwAccount/vwAdvantage/admin/article/details', {
         title: detai[0].title,
         detai,
+        tags,
         layout: 'mainAdmin.hbs',
         helpers: {
             splitTitle: function(tag) {
