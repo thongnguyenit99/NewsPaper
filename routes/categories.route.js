@@ -39,9 +39,21 @@ router.get('/:alias', async function (req, res) {
         page_items.push(item);
     }
     var list = listpre.concat(listnor);
+    for (const key in list) {
+        tags = [];
+
+        const tag = await tagModel.alltag(list[key].id);
+        for (const key in tag) {
+
+            tags.push(tag[key]);
+        }
+        list[key].tags = tags;
+
+    }
     res.render('vwArticle/byCat', {
         title: 'Theo Loại Chuyên Mục',
         list,
+        tags,
         page_items,
         prev_value: page - 1,
         next_value: page + 1,
@@ -50,25 +62,6 @@ router.get('/:alias', async function (req, res) {
         helpers: {
             format_DOB: function (date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
-            },
-            splitTitle: function (tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    //console.log(t + '\n');
-                    return t[0];
-                }
-            },
-            splitTitle1: function (tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[1];
-                }
-            },
-            splitTitle2: function (tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[2];
-                }
             }
         }
     });
@@ -95,10 +88,21 @@ router.get('/:alias/:c_alias', async function (req, res) {
         page_items.push(item);
     }
 
-    // const listArticle = await catModel.loadByChild(req.params.alias, req.params.c_alias);
+    for (const key in listArticle) {
+        tags = [];
+
+        const tag = await tagModel.alltag(listArticle[key].id);
+        for (const key in tag) {
+
+            tags.push(tag[key]);
+        }
+        listArticle[key].tags = tags;
+
+    }
     res.render('vwArticle/byChild', {
         title: 'Theo Chuyên Mục',
         listArticle,
+        tags,
         page_items,
         prev_value: page - 1,
         next_value: page + 1,
@@ -107,25 +111,6 @@ router.get('/:alias/:c_alias', async function (req, res) {
         helpers: {
             format_DOB: function (date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
-            },
-            splitTitle: function (tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    //console.log(t + '\n');
-                    return t[0];
-                }
-            },
-            splitTitle1: function (tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[1];
-                }
-            },
-            splitTitle2: function (tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[2];
-                }
             }
         }
     });

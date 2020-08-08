@@ -22,25 +22,17 @@
                                 {{format_DOB public_date}}
                             </span>
                         </h6>
-            
                         <h6 class="card-text mb-2 text-muted">
                             <i class="fas fa-tags "></i>
-                            <a href="/tags/{{name}}" class="badge badge-secondary">{{splitTitle tag }}&nbsp; </a>
-                            <a href="#" class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;</a>
-                            <a href="#" class="badge badge-secondary">{{splitTitle2 tag }} &nbsp;</a>
-            
-            
+                            {{#each tags}}
+                            <a href="/tags/{{tg_alias}}" class="badge badge-secondary">{{Name }} &nbsp;</a>
+                            {{/each}}
                         </h6>
                         <div class="card-text ">
                             {{abstract}}
-            
                         </div>
-            
-            
-            
                     </div>
                 </div>
-            
             </div>
             {{/each}}
 

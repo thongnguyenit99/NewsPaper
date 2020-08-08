@@ -39,10 +39,28 @@ router.get('/:name', async function (req, res) {
         page_items.push(item);
     }
     var list = listArticle_tagsPre.concat(listnor);
+
+
+    for (const key in list) {
+        tags = [];
+
+        const tag = await tagModel.alltag(list[key].id);
+        for (const key in tag) {
+
+            tags.push(tag[key]);
+        }
+        list[key].tags = tags;
+
+    }
+    // console.log(list[0].id);
+    // var ID = list[0].id
+    // const tag = await tagModel.alltag(ID)
+    // console.log(tag);
     // const listArticle = await catModel.loadByChild(req.params.alias, req.params.c_alias);
     res.render('vwArticle/byTag', {
         title:'Theo Nhãn: '+ list[0].Name,
         list,
+        tags,
         page_items,
         prev_value: page - 1,
         next_value: page + 1,
@@ -51,25 +69,6 @@ router.get('/:name', async function (req, res) {
         helpers: {
             format_DOB: function (date) {
                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
-            },
-            splitTitle: function (tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    //console.log(t + '\n');
-                    return t[0];
-                }
-            },
-            splitTitle1: function (tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[1];
-                }
-            },
-            splitTitle2: function (tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[2];
-                }
             }
         }
     });

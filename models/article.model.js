@@ -30,20 +30,20 @@ module.exports = {
         return db.load(`select ac.pseudonym , c.c_alias,a.title_alias,a.public_date,a.c_ID ,a.id,a.title,a.abstract,a.author,DATEDIFF(CURDATE(), a.public_date) AS day,a.featured,a.views,a.isActive,a.images,c.ID,c.tc_ID,c.c_Name,c.c_Large 
         from article a join categories c on a.c_ID=c.ID join account ac 
         on a.writerID=ac.ID
-        where a.isActive=1 and  a.sts_id=2 and a.featured=1 and a.c_ID=1 OR a.c_ID=2 OR a.c_ID=8 having (day>0 and day<7) order by rand() LIMIT 1`);
+        where a.isActive=1 and  a.sts_id=2 and a.featured=1 and a.c_ID=1 OR a.c_ID=2 OR a.c_ID=8 having (day>0 and day<=7) order by rand() LIMIT 1`);
     },
     bestnew2: function() {
         return db.load(`select ac.pseudonym , c.c_alias,a.title_alias,a.public_date,a.c_ID , a.id,a.title,a.abstract,a.author,DATEDIFF(CURDATE(), a.public_date) AS day,a.featured,a.views,a.isActive,a.images,c.ID,c.tc_ID,c.c_Name,c.c_Large
          from article a join categories c on a.c_ID=c.ID join account ac 
         on a.writerID=ac.ID
           where a.isActive=1 and  a.sts_id=2 and a.featured=1  and a.c_ID=3 OR a.c_ID=4 OR a.c_ID=17
-         having (day>0 and day<7) order by rand() LIMIT 1`);
+         having (day>0 and day<=7) order by rand() LIMIT 1`);
     },
     bestnew3: function() {
         return db.load(`select ac.pseudonym ,c.c_alias,a.title_alias,a.public_date,a.c_ID , a.id,a.title,a.abstract,a.author,DATEDIFF(CURDATE(), a.public_date) AS day,a.featured,a.views,a.isActive,a.images,c.ID,c.tc_ID,c.c_Name,c.c_Large 
         from article a join categories c on a.c_ID=c.ID  join account ac 
         on a.writerID=ac.ID
-        where a.isActive=1 and a.featured=1 and  a.sts_id=2 and a.c_ID=5 OR a.c_ID=6 having (day>0 and day<7)
+        where a.isActive=1 and a.featured=1 and  a.sts_id=2 and a.c_ID=5 OR a.c_ID=6 having (day>0 and day<=7)
         order by rand() LIMIT 1`);
     },
     bestnew4: function() {
@@ -150,6 +150,13 @@ module.exports = {
     countByCat: async function(key) {
         const rows = await db.load(`select count(*) as total FROM ${TBL_article} a, categories c WHERE a.c_ID = c.ID  and a.sts_id = 2 and a.isActive = 1 and MATCH(title,abstract,content) AGAINST('${key}')`);
         return rows[0].total;
+    },
+    countByAll: async function () {
+        const rows = await db.load(`select count(*) as total FROM ${TBL_article} where sts_id=2 and isActive=1`);
+        return rows[0].total;
+    },
+    pageByAll: function (limit, offset) {
+        return db.load(`select * from ${TBL_article}  where sts_id=2  limit ${limit} offset ${offset}`);
     },
     getArticleByStatusC_IDandPulic_date: function(e_id) {
         return db.load(`SELECT * FROM article WHERE sts_id = 1 and e_id = ${e_id} and isActive = 1

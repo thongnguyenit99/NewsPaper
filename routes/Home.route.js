@@ -1,5 +1,6 @@
 const express = require('express');
 const articleModel = require('../models/article.model');
+const tagModel = require('../models/tag.model');
 const moment = require('moment');
 const config = require('../config/config.json');
 const router = express.Router();
@@ -7,7 +8,7 @@ const router = express.Router();
 router.get('/lien-he', (req, res) => {
   res.render('about', { title: 'Liên Hệ',});
 })
-
+// trang chủ
 router.get('/', async function(req, res) {
     const newlist = await articleModel.newest();
     const bestlist1 = await articleModel.bestnew1();
@@ -39,6 +40,7 @@ router.get('/', async function(req, res) {
 
 })
 
+// tìm kiếm 
 router.get('/article/search', async function (req, res) {
   var key = req.query.key;
   var k = key.split('-').join(' ');
@@ -69,9 +71,21 @@ router.get('/article/search', async function (req, res) {
       page_items.push(item);
   }  
   var list = listpre.concat(listnor);
+  for (const key in list) {
+    tags = [];
+
+    const tag = await tagModel.alltag(list[key].id);
+    for (const key in tag) {
+
+      tags.push(tag[key]);
+    }
+    list[key].tags = tags;
+
+  }
   res.render('vwArticle/search', {
     title: 'Tìm Kiếm Bài Viết ',
     list,
+    tags,
     key: k,
     page_items,
     prev_value: page - 1,
@@ -87,25 +101,7 @@ router.get('/article/search', async function (req, res) {
       },
       getpage: function(){
         return page;
-    },
-      splitTitle: function (tag) {
-        for (var i = 0; i < tag.length; i++) {
-          var t = tag.split(';');
-                    return t[0];
-        }
-            },
-            splitTitle1: function(tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[1];
-                }
-            },
-            splitTitle2: function(tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[2];
-                }
-            }
+    }
         }
     });
     //res.render('vwArticle/search');

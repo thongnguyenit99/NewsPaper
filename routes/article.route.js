@@ -54,38 +54,68 @@ router.get('/download',  function(req, res) {
 
 
 // get list article
-router.get('/danh-sach-bai-viet', async(req, res) => {
-    const list = await articleModel.all();
-    res.render('vwArticle/list', {
-        layout: 'main.hbs',
-        list,
-        title: 'Danh Sách Bài Viết',
-        helpers: {
-            format_DOB: function(date) {
-                return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY,h:mm:ss');
-            },
-            splitTitle: function(tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[0];
-                }
-            },
-            splitTitle1: function(tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[1];
-                }
-            },
-            splitTitle2: function(tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[2];
-                }
-            }
-        },
+// router.get('/danh-sach-bai-viet', async(req, res) => {
+//     const list = await articleModel.all();
+//     //const tag = await tagModel.alltag(id)
+//     // var page = +req.query.page || 1;
+//     // if (page < 0) page = 1;
+//     // var offset = (page - 1) * config.pagination.limit;
+//     // const [list, total] = await Promise.all([
+//     //     articleModel.pageByAll(config.pagination.limit, offset),
+//     //     articleModel.countByAll()
+//     // ]);
 
-    });
-})
+//     // // if (list.length < 5) {
+//     // //     var countpre = await tagModel.countByTagPre(name);
+//     // //     if (offset - countpre < 0) {
+//     // //         offset = 0;
+//     // //     } else {
+//     // //         offset = offset - countpre;
+//     // //     }
+//     // // }
+
+//     // // tính số trang
+//     // const nPages = Math.ceil(total / config.pagination.limit);
+//     // const page_items = [];
+//     // // duyệt số trang và  tính
+//     // for (let i = 1; i <= nPages; i++) {
+//     //     const item = {
+//     //         value: i,
+//     //         isActive: i === page
+//     //     }
+//     //     page_items.push(item);
+//     // }
+//     res.render('vwArticle/list', {
+//         layout: 'main.hbs',
+//         list,
+//         //tag,
+//         title: 'Danh Sách Bài Viết',
+//         helpers: {
+//             format_DOB: function(date) {
+//                 return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY,h:mm:ss');
+//             },
+//             splitTitle: function(tag) {
+//                 for (var i = 0; i < tag.length; i++) {
+//                     var t = tag.split(';');
+//                     return t[0];
+//                 }
+//             },
+//             splitTitle1: function(tag) {
+//                 for (var i = 0; i < tag.length; i++) {
+//                     var t = tag.split(';');
+//                     return t[1];
+//                 }
+//             },
+//             splitTitle2: function(tag) {
+//                 for (var i = 0; i < tag.length; i++) {
+//                     var t = tag.split(';');
+//                     return t[2];
+//                 }
+//             }
+//         },
+
+//     });
+// })
 
 router.get('/:c_alias/:id/:title', async function(req, res) {
     var isnopre = true;
@@ -166,24 +196,6 @@ router.get('/:c_alias/:id/:title', async function(req, res) {
         helpers: {
             format_DOB: function(date) {
                 return moment(date, 'YYYY/MM/DD').format('h:mm:ss | DD-MM-YYYY');
-            },
-            splitTitle: function(tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[0];
-                }
-            },
-            splitTitle1: function(tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[1];
-                }
-            },
-            splitTitle2: function(tag) {
-                for (var i = 0; i < tag.length; i++) {
-                    var t = tag.split(';');
-                    return t[2];
-                }
             }
         }
     });
