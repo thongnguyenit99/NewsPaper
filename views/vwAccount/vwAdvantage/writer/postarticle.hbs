@@ -40,8 +40,27 @@
                   <textarea name="content" id="content" class="form-control" cols="30" rows="10">{{row.content}}</textarea>
             </div>
             <div class="form-group">
-                <label style="font-weight: bold; font-size: 18px">Gắn nhãn bài viết:</label>
-                <input value="{{row.tag}}" type="text" name="tag" id="tag" class="form-control" placeholder="vd: abc;bcd;cde;">
+                {{#if status }}
+                {{else}}
+                    <label style="font-weight: bold; font-size: 18px">Nhãn bài viết:</label>
+                    <input readonly value="{{alltag}}" type="text" class="form-control" placeholder="vd: abc;bcd;cde;">
+                {{/if}} 
+            </div>
+            <div class="form-group">
+                {{#if status }}
+                    <label style="font-weight: bold; font-size: 18px; ">Gắn nhãn bài viết: </label>
+                {{else}}
+                    <label {{#if isedit}} {{else}} hidden {{/if}} style="font-weight: bold; font-size: 18px; ">Thay đổi bộ nhãn mới: </label>
+                {{/if}} 
+                <a {{#if isedit}} {{else}} hidden {{/if}} class="btn btn-primary" style="width:25px; height:25px;padding:0" title="thêm thẻ tab" data-toggle="modal" data-target="#exampleModal" >
+                    <i class="fa fa-plus" style="color: white;" aria-hidden="true"></i>
+                </a>
+                <br>
+                <select {{#if isedit}} {{else}} hidden {{/if}} name="tags" id="tags" class="whatever" style="height: 220px;" multiple>
+                    {{#each tags}}
+                        <option value="{{ID}}">{{Name}}</option>
+                    {{/each}}
+                </select>
             </div>
                 {{#if id}}
                     <a href="/account/advantage/2/newspaper/tablenewspaper?type={{row.sts_id}}" class="btn btn-success">
@@ -67,6 +86,31 @@
             </div>     
         </form>
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thêm thẻ tag</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" id="addtag">
+            <label>Tên thẻ tag:</label> <br>
+                <input type="text" id="tagname" class="w-100" placeholder="tên thẻ tab" /><br>
+            <label>Tên chuẩn hóa:</label><br>
+                <input type="text" id="tagalias" class="w-100" placeholder="the-tab" />
+             <button type="submit" class="btn btn-primary mt-2">Lưu lại</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 {{#section 'js'}}
 
 <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
@@ -135,17 +179,28 @@
         });
     </script>
     <script>
+        var sel = $('#tags');
+        var selected = sel.val(); // cache selected value, before reordering
+        var opts_list = sel.find('option');
+        opts_list.sort(function(a, b) { return $(a).text() > $(b).text() ? 1 : -1; });
+        sel.html('').append(opts_list);
+        sel.val(selected); // set cached selected value
+
         $('#frmpostwriter').on('submit', function (e) {
             e.preventDefault();
             validate();
+        })
+
+        $('#addtag').on('submit', function (e) {
+            e.preventDefault();
+            validate_addtag();
         })
         function validate(){
             const title = $('#title').val();
             const abstract = $('#abstract').val();
             const images = $('#images').val();
             const content = $('#content').val();
-    
-            const tag = $('#tag').val();
+            var selected_tags = $('#tags').val();
             if(title == ""){
                 alert("Tiêu đễ không được rỗng.");
                 return false;
@@ -174,6 +229,9 @@
                 alert("Ảnh bìa không được rỗng.");
                 return false;
             }
+            if(selected_tags == "" && "{{{row.id}}}" == ""){
+                alert("Vui lòng gắn nhãn bài viết.");
+            }
             if(content == ""){
                 alert("Nội dung bài viết không được rỗng.");
                  return false;
@@ -186,21 +244,39 @@
                 alert("Nội dung bài tối đa của bài viết là 100000 ký tự.");
                  return false;
             }
-            if(tag == ""){
-                alert("Nhãn bài viết không được rỗng.");
-                return false;
-            }
-            if(tag.length  < 30){
-                alert("Nhãn bài viết phải từ 30 ký tự.");
-                return false;
-            }
-            if(tag.length  > 400){
-                alert("Nhãn bài viết tối đa 400 ký tự.");
-                return false;
-            }
             $('#frmpostwriter').off('submit').submit();
          }
 
+        function validate_addtag(){
+            const tagname = $('#tagname').val();
+            const tagalias = $('#tagalias').val();
+
+            if(tagname == ""){
+                alert("Tên thẻ tag không được rỗng.");
+                return false;
+            }
+            if(tagalias == ""){
+                alert("Tên chuản hóa thẻ tag không được rỗng.");
+                return false;
+            }
+            $.getJSON(`/account/advantage/2/write/is_valueable?Name=${tagname}&tg_alias=${tagalias}`, function (data) {
+                    if(data > 0){
+                        alert("Thêm thành công");
+                        var x = document.getElementById("tags");
+                        var option = document.createElement("option");
+                        option.text = tagname;
+                        option.value = data;
+                        x.add(option);
+                    }
+                    else{
+                        alert("Thẻ tag đã tồn tại");
+                    }
+                    return false;
+            })
+            return false;
+
+            $('#addtab').off('submit').submit();
+         }
     </script>
 {{/section}}
 

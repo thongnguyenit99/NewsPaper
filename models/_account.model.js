@@ -11,11 +11,23 @@ module.exports = {
     singleByEmail: function (email) {
         return db.load(`select * from ${TABLE_account} where email='${email}'`);
     },
+    singleByTag: function (Name) {
+        return db.load(`select * from tag where Name like N'${Name}'`);
+    },
+    CheckTabExists: function (Name) {
+        return db.load(`select * from tag where Name like N'${Name}'`);
+    },
     singleByEmailID: function (email, id) {
         return db.load(`select * from ${TABLE_account} where email='${email}' and ID != ${id}`);
     },
     addNewAccount: function (entity) {
         return db.insert(TABLE_account, entity);
+    },
+    addNewTab: function (entity) {
+        return db.insert('tag', entity);
+    },
+    addNewTagArticle: function (entity) {
+        return db.insert('tag_article', entity);
     },
     patch_account: function (entity, condition) {
         return db.update(TABLE_account, entity, condition);
@@ -25,6 +37,12 @@ module.exports = {
     },
     getCategorybytcID: function(id){
         return db.load(`SELECT * FROM categories WHERE tc_ID = ${id}`);
+    },
+    getAllTag: function(){
+        return db.load(`SELECT * FROM tag`);
+    },
+    getTagArticlebyID: function(id){
+        return db.load(`SELECT t.Name FROM tag_article ta, tag t where ta.id_article = ${id} and ta.id_tag = t.ID`);
     },
     getCategory: function(){
         return db.load(`SELECT * FROM categories`);
@@ -41,6 +59,9 @@ module.exports = {
     getArticle:function (id) {
         return db.load(`SELECT * FROM article WHERE id =${id}`);
     },
+    getArticlebyAll:function (title, content) {
+        return db.load(`SELECT id FROM article WHERE title like N'${title}' and content like N'${content}'`);
+    },
     getWrite:function(){
         return db.load(`SELECT * FROM account where r_ID=2`);
     },
@@ -49,6 +70,9 @@ module.exports = {
     },
     getalltypecategory:function(){
         return db.load(`SELECT * FROM type_catelgories`);
+    },
+    delTagArticlebyID: function (id) {
+        return db.del(`delete from tag_article where ?`, id);
     }
 
 }

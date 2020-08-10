@@ -43,36 +43,69 @@ module.exports = function (router) {
     router.get('/advantage/2/write', restrict, async function(req, res){
         var id = req.query.type;
         var category = await accountModles.getCategorybytcID(id);
+        var tags = await accountModles.getAllTag();
         if(category.length > 0){
-            res.render('vwAccount/vwAdvantage/writer/postarticle', { layout: 'mainWriter.hbs', category, title:'Đăng Bài: '+ category[0].c_Large});
+            res.render('vwAccount/vwAdvantage/writer/postarticle', { layout: 'mainWriter.hbs', category, title:'Đăng Bài: '+ category[0].c_Large, tags, status: true, isedit: true});
         }
         else{
             res.render('500', {layout: 'mainWriter.hbs'});
         }
     });
+
+    router.get('/advantage/2/write/is_valueable', restrict, async function(req, res){
+        var check = await accountModles.CheckTabExists(req.query.Name);
+        if(check.length < 1){
+            await accountModles.addNewTab({Name: req.query.Name, tg_alias: req.query.tg_alias});
+            tag = await accountModles.singleByTag(req.query.Name);
+            return res.json(`${tag[0].ID}`);
+        }else{
+            res.json("0");
+        }
+    })
+
     router.post('/advantage/2/write', restrict, upload, async function(req, res){
         //add update dùng chung 1 form
         var id_article = req.body.id_article;
         req.body.isActive = 1;
         delete req.body.url_img;
         delete req.body.id_article;
-        req.body.sts_id=4;
+        req.body.sts_id = 4;
         req.body.WriterID = req.session.authUser.ID; 
         var arr_path_img_category = await accountModles.getCategorybyID(req.body.c_ID);
+
+        // delelte tag_aricle
+        var tags = req.body.tags;
+        if(typeof tags != "undefined" && tags != null && id_article != ""){
+            await accountModles.delTagArticlebyID({id_article: id_article});
+            // thêm tag
+            var i = 0;
+            while(i < tags.length){
+                await accountModles.addNewTagArticle({id_article: id_article, id_tag: tags[i]});
+                i++;
+            }
+        }
+        delete req.body.tags;
         // nó đổi ảnh        
         if(req.file){
             const data = {...req.body, images: arr_path_img_category[0].path + req.file.filename};
-            if(id_article == ""){//add chỗ này để phân biệt add với update
+            if(id_article == ""){//add 
                 await accountModles.addNewArticle(data);
+                var id = await accountModles.getArticlebyAll(req.body.title, req.body.content);
+                var i = 0;
+                while(i < tags.length){
+                    await accountModles.addNewTagArticle({id_article: id[0].id, id_tag: tags[i]});
+                    i++;
+                }
                 res.redirect(req.headers.referer);
             }
             else{//update // xử lý đổi ảnh , đôi chuyên mục đổi ảnh
+                delete req.body.sts_id;
                 var tam = await accountModles.getArticle(id_article);
                 await accountModles.patch_article(data, {id:id_article});
                 fs.unlinkSync(`public/article/${tam[0].images}`);// xóa ảnh cũ 
                 res.redirect(req.headers.referer);
             }
-        }else{
+        }else{//ko đổi ảnh chắc ảnh chắc ăn là update
             if(id_article != ""){
                 var tam = await accountModles.getArticle(id_article);
                 var nameimgold = tam[0].images.split('/');
@@ -82,6 +115,7 @@ module.exports = function (router) {
                     await moveFile(`public/article/${tam[0].images}`, `public/article/${arr_path_img_category[0].path}${nameimgold}`);
                     req.body.images = arr_path_img_category[0].path + nameimgold;
                 }
+                delete req.body.sts_id;
                 await accountModles.patch_article(req.body, {id:id_article});
                 res.redirect(req.headers.referer);
             }
@@ -95,6 +129,7 @@ module.exports = function (router) {
     router.get('/advantage/2/newspaper/tablenewspaper', restrict, async function(req, res){
         var statusid = req.query.type;
         var rows = await accountModles.GetDataArticleByWriteridAndStatus(statusid, req.session.authUser.ID);
+
         /*var today = new Date();
         var publicday = new Date(`${rows[0].public_date}`);
         var active_time = moment.utc(publicday, 'YYYY-MM-DD[T]HH:mm[Z]');
@@ -139,6 +174,12 @@ module.exports = function (router) {
         var id = req.query.id;
         var isedit = req.query.isedit;
         var articles = await accountModles.getArticle(id);
+        var tag = await accountModles.getTagArticlebyID(id);
+        var alltag = "";
+        tag.forEach(function(value){
+            alltag += value.Name + "; ";
+        })
+        var tags = await accountModles.getAllTag();
         var category = await accountModles.getCategory();
         category.forEach(function(value){
             if(value.ID == articles[0].c_ID){
@@ -150,11 +191,11 @@ module.exports = function (router) {
         });
         if(isedit == 'true'){
             res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: 'mainWriter.hbs', id, isedit,
-                row: articles[0], category, title: articles[0].title
+                row: articles[0], category, title: articles[0].title, alltag, tags
             });
         }else{
             res.render('vwAccount/vwAdvantage/writer/postarticle', {layout: 'mainWriter.hbs', id, 
-                row: articles[0], category, title: articles[0].title
+                row: articles[0], category, title: articles[0].title, alltag, tags
             });
         }
     })

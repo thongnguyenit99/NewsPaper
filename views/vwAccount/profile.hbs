@@ -243,11 +243,11 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="lname">Bút Danh</span></label>
                             {{#if writer}}
+                                <label for="lname">Bút Danh</span></label>
                                 <input type="text" class="form-control" name="pseudonym" id="pseudonym" value="{{pseudonym}}" required>
                             {{else}}    
-                                <input readonly type="text" class="form-control" name="pseudonym" id="pseudonym" value="{{pseudonym}}">
+                                <input hidden type="text" class="form-control" name="pseudonym" id="pseudonym" value="{{pseudonym}}">
                             {{/if}}
                         </div>
                     </div>
