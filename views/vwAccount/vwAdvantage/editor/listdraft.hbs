@@ -34,7 +34,7 @@
                             </h6>
                             <h6 class="article-tags d-none d-sm-block">
                                 <p hidden>{{tags}}</p>
-                                <span id="thetab">
+                                <span id="thetab{{id}}">
 
                                 </span>
                                 <script type="text/javascript">
@@ -48,7 +48,7 @@
                                         a.style=" margin-right:5px";
                                         a.href = "#";
                                         a.innerText = str[i] + " x ";
-                                        var span = document.getElementById("thetab");
+                                        var span = document.getElementById("thetab{{{id}}}");
                                         //gắn p vào div
                                         span.appendChild(a)
                                     }

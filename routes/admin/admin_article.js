@@ -63,19 +63,40 @@ router.get('/', restrict, restrictadmin, async(req, res) => {
 });
 // load view thêm bài
 router.get('/add', restrict, restrictadmin, async function(req, res) {
+    var tags = await accountModles.getAllTag();
     var category = await accountModles.getCategory();
     var witer = await accountModles.getWrite();
-    res.render('vwAccount/vwAdvantage/admin/article/add', { category, witer, layout: 'mainAdmin.hbs', title: 'Thêm Bài Viết' })
+    res.render('vwAccount/vwAdvantage/admin/article/add', { category, witer, tags, layout: 'mainAdmin.hbs', title: 'Thêm Bài Viết' })
 
 });
+
+router.get('/add/is_valueable', restrict, restrictadmin, async function(req, res){
+    var check = await accountModles.CheckTabExists(req.query.Name);
+    if(check.length < 1){
+        await accountModles.addNewTab({Name: req.query.Name, tg_alias: req.query.tg_alias});
+        tag = await accountModles.singleByTag(req.query.Name);
+        return res.json(`${tag[0].ID}`);
+    }else{
+        res.json("0");
+    }
+})
 
 // thêm bài viết
 router.post('/add', restrict, restrictadmin, upload, async function(req, res) {
     var arr_path_img_category = await accountModles.getCategorybyID(req.body.c_ID);
+    var tags = req.body.tags;
+    var i = 0;
+    delete req.body.tags;
     req.body.WriterID = req.session.authUser.ID;
     if (req.file) {
         const data = {...req.body, images: arr_path_img_category[0].path + req.file.filename };
         await accountModles.addNewArticle(data);
+        var id = await accountModles.getArticlebyAll(req.body.title, req.body.content);
+        //thêm tab
+        while(i < tags.length){
+            await accountModles.addNewTagArticle({id_article: id[0].id, id_tag: tags[i]});
+            i++;
+        }
         res.redirect(req.headers.referer);
     } else {
         res.render('500', { layout: 'mainAdmin.hbs' });
@@ -126,11 +147,27 @@ router.get('/details/:id', restrict, restrictadmin, async function(req, res) {
 
 });
 
+router.get('/edit/is_valueable', restrict, restrictadmin, async function(req, res){
+    var check = await accountModles.CheckTabExists(req.query.Name);
+    if(check.length < 1){
+        await accountModles.addNewTab({Name: req.query.Name, tg_alias: req.query.tg_alias});
+        tag = await accountModles.singleByTag(req.query.Name);
+        return res.json(`${tag[0].ID}`);
+    }else{
+        res.json("0");
+    }
+})
+
 // chỉnh sửa bài viết
 router.get('/edit/:id', restrict, restrictadmin, async function(req, res) {
     var category = await accountModles.getCategory();
     var articles = await accountModles.getArticle(req.params.id);
-
+    var tag = await accountModles.getTagArticlebyID(req.params.id);
+    var alltag = "";
+    tag.forEach(function(value){
+        alltag += value.Name + "; ";
+    })
+    var tags = await accountModles.getAllTag();
     category.forEach(function(value) {
         if (value.ID == articles[0].c_ID) {
             value.selected = true;
@@ -142,6 +179,8 @@ router.get('/edit/:id', restrict, restrictadmin, async function(req, res) {
         title: 'Chỉnh Sửa: ' + articles[0].title,
         layout: 'mainAdmin.hbs',
         category,
+        tags,
+        alltag,
         row: articles[0]
     })
 
@@ -154,6 +193,20 @@ router.post('/edit/:id', upload, restrict, restrictadmin, async function(req, re
     delete req.body.id_article;
     req.body.sts_id = 4;
     req.body.WriterID = req.session.authUser.ID;
+    
+    var tags = req.body.tags;
+    //nếu đổi tag
+    if(typeof tags != "undefined" && tags != null && id_article != ""){
+        await accountModles.delTagArticlebyID({id_article: id_article});
+        // thêm tag
+        var i = 0;
+        while(i < tags.length){
+            await accountModles.addNewTagArticle({id_article: id_article, id_tag: tags[i]});
+            i++;
+        }
+     }
+    delete req.body.tags;
+
     var arr_path_img_category = await accountModles.getCategorybyID(req.body.c_ID);
     if (req.file) {
         const data = {...req.body, images: arr_path_img_category[0].path + req.file.filename };

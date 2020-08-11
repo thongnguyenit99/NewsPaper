@@ -286,11 +286,11 @@ CREATE TABLE `tag` (
 --
 
 INSERT INTO `tag` (`ID`, `Name`, `tg_alias`) VALUES
-(1, 'Cổ phiếu', 'co-phieu'),
+(1, 'Cổ Phiếu', 'co-phieu'),
 (2, 'Vĩnh Hoàn', 'vinh-hoan'),
 (3, 'Chứng khoán', 'chung-khoan'),
-(4, '	\r\nHòa Bình', 'hoa-binh'),
-(5, ' Xây dựng Hòa Bình', 'xay-dung-hoa-binh'),
+(4, 'Hòa Bình', 'hoa-binh'),
+(5, 'Xây dựng Hòa Bình', 'xay-dung-hoa-binh'),
 (6, 'VN-Index', 'vn-index'),
 (7, 'CTD HBC', 'ctd-hbc'),
 (8, 'Dự báo thị trường', 'du-bao-thi-truong'),
