@@ -191,9 +191,7 @@ router.post('/edit/:id', upload, restrict, restrictadmin, async function(req, re
     var id_article = req.body.id;
     delete req.body.url_img;
     delete req.body.id_article;
-    req.body.sts_id = 4;
     req.body.WriterID = req.session.authUser.ID;
-    
     var tags = req.body.tags;
     //nếu đổi tag
     if(typeof tags != "undefined" && tags != null && id_article != ""){
@@ -205,6 +203,22 @@ router.post('/edit/:id', upload, restrict, restrictadmin, async function(req, re
             i++;
         }
      }
+     /*
+    // có thay đổi chuyên mục thì phải di chuyển ảnh cập nhật lại đường dẫn
+    var images = req.body.images;
+    var temp = images;
+    images = images.split('/');
+    var c_id =  req.body.categoryold;
+    if(c_id != req.body.c_ID){
+        // lây ra nơi lưu ảnh mới
+        var position = await accountModles.getCategorybyID(req.body.c_ID);
+        // di chuyển ảnh
+        await moveFile(`public/article/${temp}`, `public/article/${position[0].path}${images[images.length - 1]}`);
+        req.body.images = position[0].path + images[images.length - 1];
+    }else{
+        delete  req.body.images;
+    }*/
+    delete req.body.categoryold
     delete req.body.tags;
 
     var arr_path_img_category = await accountModles.getCategorybyID(req.body.c_ID);

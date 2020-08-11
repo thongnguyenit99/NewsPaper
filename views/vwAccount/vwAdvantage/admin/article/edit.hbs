@@ -168,7 +168,9 @@
 <div class="container">
     <form id="frmpostwriter" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <input type="text" name="url_img" value="{{row.images}}" hidden />
+            <input type="text" name="images" value="{{row.images}}" hidden />
+            <input type="text" name="categoryold" value="{{row.c_ID}}" hidden />
+            <input type="text" name="sts_id" value="{{row.sts_id}}" hidden />
             <input type="number" name="id" value="{{row.id}}" hidden />
             <label for="ChuyenMuc">Chuyên Mục :</label>
             <select class="form-control" name="c_ID" id="c_ID">
