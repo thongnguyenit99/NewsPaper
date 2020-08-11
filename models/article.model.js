@@ -105,7 +105,7 @@ module.exports = {
          WHERE  a.sts_id=2 AND MATCH(title,abstract,content) AGAINST('${key}')`);
     },
     alldraft: function(c_id, limit, offset) {
-        return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and sts_id = 4 and isActive=1 limit ${limit} offset ${offset}`);
+        return db.load(`SELECT * FROM ${TBL_article} WHERE c_ID=${c_id} and (sts_id = 4 OR sts_id = 3) and isActive=1 limit ${limit} offset ${offset}`);
     },
     demListDraft: async function(c_id) {
         const row = await db.load(`SELECT COUNT(*) as dem FROM ${TBL_article} WHERE sts_id=4 and isActive=1 and c_ID=${c_id}`);

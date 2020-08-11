@@ -6,6 +6,8 @@ const config = require('../../../config/config.json');
 const moment = require('moment');
 const { response } = require('express');
 const accountModles = require('../../../models/_account.model');
+const { draft } = require('../../../models/article.model');
+const moveFile = require('move-file');
 module.exports = function(router) {
 
     router.get('/advantage/3', restrict, function(req, res) {
@@ -29,7 +31,6 @@ module.exports = function(router) {
 
     // load danh sách bài viết nháp
     router.get('/advantage/3/category/:c_id', restrict, async function(req, res) {
-
         const page = +req.query.page || 1;
         if (page < 0) page = 1;
         const offset = (page - 1) * config.pagination.limit;
@@ -49,8 +50,16 @@ module.exports = function(router) {
             }
             page_items.push(item);
         }
-
-        //const listdraft = await articleModel.alldraft(req.params.c_id);
+        listdraft.forEach(async function(value){
+           var tag = await accountModles.getTagArticlebyID(value.id);
+           i = 0;
+           var arr = [];
+           while(i < tag.length){
+                arr.push(tag[i].Name);
+                i++;
+           }
+           value.tags = arr.join(";");
+        });
         res.render('vwAccount/vwAdvantage/editor/listdraft', {
             title: 'Danh Sách Bài Chưa Duyệt',
             listdraft,
@@ -62,24 +71,6 @@ module.exports = function(router) {
             helpers: {
                 format_DOB: function(date) {
                     return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
-                },
-                splitTitle: function(tag) {
-                    for (var i = 0; i < tag.length; i++) {
-                        var t = tag.split(';');
-                        return t[0];
-                    }
-                },
-                splitTitle1: function(tag) {
-                    for (var i = 0; i < tag.length; i++) {
-                        var t = tag.split(';');
-                        return t[1];
-                    }
-                },
-                splitTitle2: function(tag) {
-                    for (var i = 0; i < tag.length; i++) {
-                        var t = tag.split(';');
-                        return t[2];
-                    }
                 },
                 check_pemission: function(value) {
                     if (value == req.session.authUser.tc_ID) {
@@ -101,13 +92,35 @@ module.exports = function(router) {
         })
     });
 
+    //thêm tab
+    router.get('/advantage/3/category/:c_ID/:id/is_valueable', restrict, async function(req, res){
+        var check = await accountModles.CheckTabExists(req.query.Name);
+        if(check.length < 1){
+            await accountModles.addNewTab({Name: req.query.Name, tg_alias: req.query.tg_alias});
+            tag = await accountModles.singleByTag(req.query.Name);
+            return res.json(`${tag[0].ID}`);
+        }else{
+            res.json("0");
+        }
+    })
+
     // load bài nháp để xét duyệt
     router.get('/advantage/3/category/:c_ID/:id', restrict, async function(req, res) {
         const _draft = await articleModel.draft(req.params.id);
         var category = await accountModles.getCategory();
+        var tags = await accountModles.getTagArticlebyID(req.params.id);
+        var alltag = await accountModles.getAllTag();
+        var tag = "";
+        var i = 0;
+        while(i < tags.length){
+            tag += tags[i].Name + ",";
+            i++;
+            tag+="";
+        }
         const c_ID = req.params.c_ID || "";
         const rows = await articleModel.single(req.params.id);
         const articledraft = rows[0];
+        _draft[0].tags = tag;
         articledraft.public_date = moment(articledraft.public_date, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY HH:mm:ss');
         category.forEach(function(value) {
             if (value.ID == articledraft.c_ID) {
@@ -119,29 +132,12 @@ module.exports = function(router) {
         res.render('vwAccount/vwAdvantage/editor/draft', {
             title: _draft[0].title ,
             _draft,
+            alltag,
             category,
             articledraft,
             helpers: {
                 format_DOB: function(date) {
                     return moment(date, 'YYYY/MM/DD').format('DD-MM-YYYY');
-                },
-                splitTitle: function(tag) {
-                    for (var i = 0; i < tag.length; i++) {
-                        var t = tag.split(';');
-                        return t[0];
-                    }
-                },
-                splitTitle1: function(tag) {
-                    for (var i = 0; i < tag.length; i++) {
-                        var t = tag.split(';');
-                        return t[1];
-                    }
-                },
-                splitTitle2: function(tag) {
-                    for (var i = 0; i < tag.length; i++) {
-                        var t = tag.split(';');
-                        return t[2];
-                    }
                 },
                 check_pemission: function(value) {
                     if (value == req.session.authUser.tc_ID) {
@@ -154,15 +150,42 @@ module.exports = function(router) {
         })
     });
     router.post('/advantage/3/category/:c_ID/:id', async function(req, res) {
-        id = req.body.id;
+        var id = req.body.id;
+        var tags = req.body.tags;
         delete req.body.id;
+        delete req.body.tags;
         req.body.e_id = req.session.authUser.ID;
-        if (req.body.tag) {
-            req.body.note = null;
+        // xóa bộ tag cũ nếu thay đổi
+        if(typeof tags != "undefined" && tags != null){
+            await accountModles.delTagArticlebyID({id_article: id});
+            // thêm bộ tag mới
+            var i = 0;
+            while(i < tags.length){
+                await accountModles.addNewTagArticle({id_article: id, id_tag: tags[i]});
+                i++;
+            }
+        }
+        if (req.body.note == "" || typeof req.body.note == "undefined") {
+            req.body.note = "";
             req.body.public_date = moment(req.body.public_date, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
         } else {
-            delete req.body.public_date
+            delete req.body.public_date;
         }
+        // có thay đổi chuyên mục thì phải di chuyển ảnh cập nhật lại đường dẫn
+        var images = req.body.images;
+        var temp = images;
+        images = images.split('/');
+        var c_id =  req.body.categoryold;
+        if(c_id != req.body.c_ID){
+            // lây ra nơi lưu ảnh mới
+            var position = await accountModles.getCategorybyID(req.body.c_ID);
+            // di chuyển ảnh
+            await moveFile(`public/article/${temp}`, `public/article/${position[0].path}${images[images.length - 1]}`);
+            req.body.images = position[0].path + images[images.length - 1];
+        }else{
+            delete req.body.images;
+        }
+        delete req.body.categoryold;
         await articleModel.update(req.body, { id: id });
         res.redirect(`/account/advantage/3/category/${req.body.c_ID}`);
     });

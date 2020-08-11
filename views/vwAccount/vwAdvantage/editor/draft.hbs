@@ -24,9 +24,13 @@
             e.preventDefault();
             validateagree();
         })
-         $('#frmrefuse').on('submit', function (e) {
+        $('#frmrefuse').on('submit', function (e) {
             e.preventDefault();
             validaterefuse();
+        })
+        $('#addtag').on('submit', function (e) {
+            e.preventDefault();
+            validate_addtag();
         })
         function validaterefuse(){
             const note = $('#note').val();
@@ -38,16 +42,47 @@
         }
         function validateagree(){
             const txtDOB = $('#txtDOB').val();
-            const tag = $('#tag').val();
+            const note = $('#note').val();
             if(txtDOB == "__/__/____ h:__:__" || txtDOB == ""){
                 alert("Ngày bài viết được đăng không được rỗng.");
                 return false;
             }
-            if(tag == ""){
-                alert("Nhãn bài viết không được rỗng.");
+            if(note != ""){
+                alert("Đã duyệt bài vui lòng xóa dữ liệu ở trường ly do từ chối.");
                 return false;
             }
             $('#frmagree').off('submit').submit();
+         }
+        
+        function validate_addtag(){
+            const tagname = $('#tagname').val();
+            const tagalias = $('#tagalias').val();
+
+            if(tagname == ""){
+                alert("Tên thẻ tag không được rỗng.");
+                return false;
+            }
+            if(tagalias == ""){
+                alert("Tên chuản hóa thẻ tag không được rỗng.");
+                return false;
+            }
+            $.getJSON(`/account/advantage/3/category/1/1/is_valueable?Name=${tagname}&tg_alias=${tagalias}`, function (data) {
+                    if(data > 0){
+                        alert("Thêm thành công");
+                        var x = document.getElementById("tags");
+                        var option = document.createElement("option");
+                        option.text = tagname;
+                        option.value = data;
+                        x.add(option);
+                    }
+                    else{
+                        alert("Thẻ tag đã tồn tại");
+                    }
+                    return false;
+            })
+            return false;
+
+            $('#addtab').off('submit').submit();
          }
     </script>
 
@@ -66,9 +101,25 @@
                 </div>
             </div>
             <h6 class="article-tags d-none d-sm-block">
-                <a  class="badge badge-secondary">{{splitTitle tag }}&nbsp; x</a>
-                <a class="badge badge-secondary">{{splitTitle1 tag }} &nbsp;x</a>
-                <a class="badge badge-secondary">{{splitTitle2 tag }} &nbsp;x</a>
+                <span id="thetab">
+               <i class="fa fa-tags"></i>
+                </span>
+                <script type="text/javascript">
+                    var str = "{{{tags}}}";
+                    str = str.split(',');
+                    var temp="";
+                    for(i = 0; i < str.length -1 ; i++){   
+                        //tạo phần tử p    
+                        var a = document.createElement("a");
+                        a.className = "badge badge-secondary";
+                        a.style=" margin-right:5px";
+                        a.href = "#";
+                        a.innerText = str[i] + " x ";
+                        var span = document.getElementById("thetab");
+                        //gắn p vào div
+                        span.appendChild(a)
+                    }
+                </script>
             </h6>
         </div>
     </div>
@@ -79,6 +130,8 @@
             <form id="frmagree" method="POST">
                 <div class="form-group">
                     <input type="number" class="form-control" name="id" value="{{this.articledraft.id}}" id="id" placeholder="id" hidden>
+                    <input type="text" class="form-control" name="images" value="{{this.articledraft.images}}" hidden>
+                    <input type="number" class="form-control" name="categoryold" value="{{this.articledraft.c_ID}}" hidden>
                     <input type="number" class="form-control" name="sts_id" value="1" id="sts_id" placeholder="id" hidden>
         
                 </div>
@@ -101,8 +154,16 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="tag">Tag :</label>
-                        <textarea class="form-control" name="tag" id="tag" placeholder="Điền vô đây......" rows="3" >{{this.articledraft.tag}}</textarea>
+                    <label for="tag"> Thay đổi bộ tag khác:</label> 
+                    <a class="btn btn-primary" style="width:25px; height:25px;padding:0" title="thêm thẻ tab" data-toggle="modal" data-target="#exampleModal" >
+                        <i class="fa fa-plus" style="color: white;" aria-hidden="true"></i>
+                    </a>
+                    <br>
+                        <select name="tags" id="tags" class="whatever" style="height: 220px;" multiple>
+                            {{#each alltag}}
+                                <option value="{{ID}}">{{Name}}</option>
+                            {{/each}}
+                        </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Duyệt Bài</button>
             </form>
@@ -124,4 +185,27 @@
         </div>
     </div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thêm thẻ tag</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" id="addtag">
+            <label>Tên thẻ tag:</label> <br>
+                <input type="text" id="tagname" class="w-100" placeholder="tên thẻ tab" /><br>
+            <label>Tên chuẩn hóa:</label><br>
+                <input type="text" id="tagalias" class="w-100" placeholder="the-tab" />
+             <button type="submit" class="btn btn-primary mt-2">Lưu lại</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
