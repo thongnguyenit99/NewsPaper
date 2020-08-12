@@ -103,7 +103,7 @@ passport.use(new GitHubStrategy({
 },
 async function(accessToken, refreshToken, profile, cb, done) {
   // tai khoản đang nhập được nhưng không có email
-  if(typeof cb.emails[0].value == 'undefined' ||  cb.emails[0].value =="" || cb.emails[0].value == null){
+  if(typeof cb.emails == 'undefined' ||  cb.emails[0].value =="" || cb.emails[0].value == null){
     isfalse = true;
   }else{// có email
     // kiểm tra xem đã tồn tại trong db
