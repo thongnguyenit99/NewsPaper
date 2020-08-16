@@ -196,7 +196,7 @@ module.exports = function(router) {
         var temp = req.query.value || 1;
         if(temp == 1){
             var rows = await articleModel.getArticletrue(req.session.authUser.ID);
-        }else if(temp ==2){
+        }else if(temp == 2){
             var rows = await articleModel.getArticleByStatusC_IDandPulic_date_Flase(req.session.authUser.ID);
         }else{
             var rows = await articleModel.getArticleByStatusC_IDandPulic_date(req.session.authUser.ID);
@@ -251,6 +251,48 @@ module.exports = function(router) {
         await articleModel.addNewTagArticle({ id_tag: 1, id_article: id });
         res.redirect(req.headers.referer);
     });
+    //đã xuất bản
+    router.get('/advantage/3/published', restrict, async function(req, res) {
+        var rows = await accountModles.getAllArticleByEditorAndPublished(req.session.authUser.ID);  
+        res.render('vwAccount/vwAdvantage/editor/published', {layout: 'mainEditor.hbs', rows,
+            helpers: {
+                check_pemission: function(value) {
+                    if (value == req.session.authUser.tc_ID) {
+                        return true;
+                    }
+                    return false;
+                },
+                format_date: function(date){
+                    return moment(date, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm:ss');
+                }
+            }
+        });
+    })
+    router.get('/advantage/3/published/detail', restrict, async function(req, res) {
+        var rows = await accountModles.singleArticleByID(req.query.id);
+        var tags = await accountModles.getTagArticlebyID(req.query.id);
+        var tag = "";
+        var i = 0;
+        while(i < tags.length){
+            tag += tags[i].Name + ",";
+            i++;
+            tag+="";
+        }
+        rows[0].tags = tag;
+        res.render('vwAccount/vwAdvantage/editor/detail', {layout: 'mainEditor.hbs', rows,
+            helpers: {
+                check_pemission: function(value) {
+                    if (value == req.session.authUser.tc_ID) {
+                        return true;
+                    }
+                    return false;
+                },
+                format_date: function(date){
+                    return moment(date, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm:ss');
+                }
+            }
+        });
+    })
     // tu chối 
     router.get('/advantage/3/refuse', restrict, async function(req, res) {
         var rows = await articleModel.getallaricledefusebyeditor(req.session.authUser.ID);

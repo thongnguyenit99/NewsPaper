@@ -14,6 +14,9 @@ module.exports = {
     singleByTag: function (Name) {
         return db.load(`select * from tag where Name like N'${Name}'`);
     },
+    singleArticleByID: function (id) {
+        return db.load(`select * from article where id = '${id}'`);
+    },
     CheckTabExists: function (Name) {
         return db.load(`select * from tag where Name like N'${Name}'`);
     },
@@ -37,6 +40,9 @@ module.exports = {
     },
     getCategorybytcID: function(id){
         return db.load(`SELECT * FROM categories WHERE tc_ID = ${id}`);
+    },
+    getAllArticleByEditorAndPublished: function(e_id){
+        return db.load(`SELECT * FROM article WHERE e_id = ${e_id} and sts_id = 2`);
     },
     getAllTag: function(){
         return db.load(`SELECT * FROM tag`);
